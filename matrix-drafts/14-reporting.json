@@ -1,0 +1,128 @@
+{
+  "module": "Reporting",
+  "moduleSummary": "The Reporting module gives internal DOE staff a set of dashboards and reports that summarize attendance, enrollment, seat capacity, budget, and invoice data drawn from the other ECMS modules, and lets authorized staff build and share their own custom dashboards and reports.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Getting reporting access set up for a staff account",
+      "description": "Before a staff member can see the reporting dashboards and reports, someone needs to make sure their account has been given the correct internal-staff access. The staff member can check this themselves by opening their account settings and looking at what access has been assigned to them, and can request the missing access if it isn't there yet.",
+      "who": "Internal Administrator / Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Viewing the attendance dashboard for the current month",
+      "description": "A staff member opens the dashboards area of ECMS and views a dashboard showing how much attendance has been recorded for the current month, broken out by seat type and by classroom, so they can see attendance activity at a glance without pulling a full report.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Viewing enrollment dashboards (active enrollments, by district, awaiting approval)",
+      "description": "A staff member opens the dashboards area and reviews several enrollment-related views: one showing the total number of active enrollments grouped by type of provider, one showing enrollment counts broken down by NYC district and status, and one showing how many submitted enrollments are still waiting for approval. They can scroll into any of these to see the underlying student, site, and start-date details, and can export, save, or subscribe to the data for further use.",
+      "who": "Internal Administrator / Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Viewing the seat capacity planning dashboard",
+      "description": "A staff member opens a dashboard that shows how many seats are available versus how many are filled, broken down by seat type, school/network, program type, and classroom. As enrollments are approved elsewhere in the system, the 'seats filled' numbers on this dashboard update automatically, and they reset to zero at the end of the school year.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Looking up Head Start reports",
+      "description": "A staff member searches the reports list for anything related to Head Start and opens a report listing all Head Start enrollments that need to be (or have already been) sent to the citywide child care information system, along with related attendance and monitoring reports for that program.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Looking up Extended Day/Year (EDY) reports",
+      "description": "A staff member searches the reports list for anything related to Extended Day/Year programming and opens reports listing active EDY enrollments (with student detail and broken out by school type), as well as a report on certified EDY attendance.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Viewing budget reports",
+      "description": "A staff member opens the reports list and selects a budget-related report to review the underlying budget data for vendors, contracts, and fiscal periods.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Viewing invoice reports",
+      "description": "A staff member opens the reports list and selects an invoice-related report to review vendor invoice data such as due-date compliance, invoice status, and invoice spend, filterable by vendor, contract, site, seat type, budget category, and fiscal period.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Refreshing a dashboard to see the latest data",
+      "description": "While viewing a dashboard, a staff member clicks a refresh option so the charts and numbers update to reflect the most current data in the system, rather than a cached snapshot.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Downloading or saving a dashboard for offline use or sharing",
+      "description": "A staff member downloads a picture/snapshot of a dashboard they are viewing so it can be shared outside the system, or saves a copy of the dashboard under a new name and folder so they have their own version to keep working with.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Building a new custom dashboard with charts, text, and images",
+      "description": "A staff member creates a brand-new dashboard from scratch: they name it, choose a folder to save it in, and then add pieces to it such as bar charts, donut charts, and tables built from an existing report, plus free-text notes and uploaded images. They can rearrange and resize these pieces so the finished dashboard shows exactly the mix of information they want.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Subscribing to a dashboard for scheduled email alerts",
+      "description": "A staff member subscribes to a dashboard so it automatically refreshes on a schedule (daily, weekly, or monthly) at a chosen day and time, and opts in to receive an email each time new results come in, sent to their account's email address.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Creating and saving a new custom report",
+      "description": "A staff member starts a new report, picks the type of data it should be based on, adds and rearranges the groupings and columns they want to see, removes ones they don't need, previews the results, and then saves the finished report with a name, description, and folder location so others can find and reuse it.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide. Note: one requirement states regular users should not be able to create their own reports, so this capability appears limited to internal administrators.",
+      "sourceRefs": ["Phase 1 Training Deck", "Phase 1 UAT Guide"]
+    },
+    {
+      "title": "Role-based access to reports feeding a dashboard",
+      "description": "Certain staff roles can see dashboard summaries (for example, enrollment counts by school type, district, or status) but were initially blocked from opening the full report behind that dashboard, seeing an error saying the data was unavailable and to contact an administrator. This was resolved by granting that role access to the reports folder so their dashboard access and report access are now consistent.",
+      "who": "Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; documented as a resolved defect (DOEECMS-2774) rather than a scripted UAT scenario.",
+      "sourceRefs": ["Jira DOEECMS-2774"]
+    },
+    {
+      "title": "Cross-reference: specialized enrollment reports owned by other modules",
+      "description": "Two report types that surface enrollment activity — a Summer School enrollment report shown on the existing dashboard (used to confirm summer enrollments are properly deactivated after the summer session ends) and FCCN-specific attendance/enrollment reporting — are generated through the Reporting module's dashboards and reports but are primarily scoped and tested as part of the Enrollment and Attendance modules, so they are only noted here for completeness and not fully detailed in this module.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Cross-referenced only; primary coverage belongs to the Enrollment/Attendance modules",
+      "sourceRefs": ["Jira DOEECMS-2168", "Jira DOEECMS-1683", "Jira DOEECMS-2391"]
+    }
+  ]
+}

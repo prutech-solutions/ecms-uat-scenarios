@@ -1,0 +1,144 @@
+{
+  "module": "Invoice Creation & Payment",
+  "moduleSummary": "This module covers how a CBO's Invoice Manager submits a monthly invoice against an approved budget and that month's certified attendance, how the invoice moves through the Operations Analyst and Operations Director review chain (plus, for certain seat types, a third Central Approval step), and how ECMS hands the invoice to the city's FAMIS financial system so the vendor actually gets paid.",
+  "existingGuide": "guide-09-invoice-creation-payment.html (steps 1-11)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Create a new monthly invoice from an approved budget with certified attendance",
+      "description": "A vendor's Invoice Manager starts a new invoice directly from an already-approved budget, choosing the correct service month. The system will not let them create the invoice unless the budget is approved and that month's attendance has already been fully entered and certified.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Covered",
+      "statusNote": "Core happy-path flow matches guide Steps 1-4 and Phase 1 vendor deck 7.V.1 (budget-approved and attendance-certified requirements).",
+      "sourceRefs": ["guide-09 steps 1-4", "7.V Invoicing_Vendor Adm_UAT Guide (7.V.1)"]
+    },
+    {
+      "title": "System blocks or mishandles invoice creation for edge-case timing situations",
+      "description": "A vendor tries to create an invoice while the previous month's invoice is still awaiting approval, for an unusual month (like the very first month of a budget period or a late prior-year submission), or when that month's attendance wasn't fully certified yet. The system is supposed to show a clear explanation and block the action until the blocking condition is resolved.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Partially Covered",
+      "statusNote": "Phase 1 vendor deck documents the intended blocking messages (Step 5B; FNC-X-001-005/010-GAP), and the guide's overview states attendance certification is a hard requirement, but several related items suggest the current behavior is inconsistent: DOEECMS-1806 (incorrect error message after submitting previous month's invoice), DOEECMS-2809/2810 (could not create a September invoice; month-confirmation screen missing), DOEECMS-2583 (logic changed to allow next invoice after previous submission, not full approval), and DOEECMS-1851/2272/2766 (invoices created without certified attendance, or attendance warnings shown incorrectly despite attendance being certified).",
+      "sourceRefs": ["7.V Invoicing_Vendor Adm_UAT Guide (Step 5B, FNC-X-001-005, FNC-X-001-010-GAP)", "DOEECMS-1806", "DOEECMS-2809", "DOEECMS-2810", "DOEECMS-2583", "DOEECMS-1851", "DOEECMS-2272", "DOEECMS-2766"]
+    },
+    {
+      "title": "Vendor completes a required roster/fire-drill-log attestation while creating an invoice",
+      "description": "Before finishing the creation of a new invoice, the vendor must click through a screen confirming that required program compliance items (the student roster and monthly fire drill logs) are complete for that month.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented in Phase 1 vendor deck (7.V.1, Step 6, 'PETS and Fire Drill Logs Attestations') but this attestation step does not appear anywhere in the current 11-step user guide, so it's unclear whether it still exists in the current build.",
+      "sourceRefs": ["7.V Invoicing_Vendor Adm_UAT Guide (7.V.1 Step 6)"]
+    },
+    {
+      "title": "Vendor completes invoice line items using system-calculated available funds, enrollment tiers, and rollover balances",
+      "description": "While filling in the invoice, the vendor sees how much they're allowed to bill for each seat type (based on enrollment and a tiered percentage of the monthly amount), any leftover balance carried over from a prior month, and can attach supporting documents to individual line items. If they try to bill more than the contract allows for the month, the system blocks it; if they bill less, the extra rolls forward for a future invoice.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Not Yet Covered",
+      "statusNote": "Extensively documented in Phase 1 vendor deck (7.V.2 — available funds by seat type, 100%/92-99%/75% enrollment tiers, monthly-maximum error, rollover 'forward credit', line-item document attachments) but none of this line-item math or these controls are walked through in the current user guide's happy path; also related to open bug DOEECMS-2813 (enrollment count showing 0 on invoice record).",
+      "sourceRefs": ["7.V Invoicing_Vendor Adm_UAT Guide (7.V.2)", "DOEECMS-2813"]
+    },
+    {
+      "title": "Submit a completed invoice to DOE with a self-attestation and blocked if certificates are expired",
+      "description": "Once the invoice details are filled in, the vendor confirms (self-attests) that the information is accurate, then submits. The invoice can no longer be edited by the vendor after this point, and its status changes to reflect it's awaiting DOE review. If the vendor's required certificates (like insurance) have expired, submission is blocked entirely.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Partially Covered",
+      "statusNote": "The basic submit action and resulting 'Pending Approval' status match guide Step 5 and Phase 1 vendor deck 7.V.3, but the self-attestation checkbox (FNC-X-002-009) and expired-certificate submission block (FNC-X-002-010) are not shown in the current guide. There's also an open bug (DOEECMS-2193, 'Unable to update the line items in Invoice') and a Phase 1 requirement that submitted invoices should not be editable (FNC-X-008-001) — the two appear to be in tension and current line-item edit behavior is unverified.",
+      "sourceRefs": ["guide-09 step 5", "7.V Invoicing_Vendor Adm_UAT Guide (7.V.3)", "DOEECMS-2193"]
+    },
+    {
+      "title": "Operations Analyst then Operations Director review and approve a submitted invoice",
+      "description": "A DOE Operations Analyst reviews the submitted invoice and approves (or rejects) it; once approved, it moves to the Operations Director for the second and final internal sign-off. The full approval history shows every reviewer, decision, and timestamp along the way.",
+      "who": "Operations Analyst / Operations Director (DOE Internal)",
+      "status": "Covered",
+      "statusNote": "Matches guide Steps 6-8 with concrete example invoices showing pending OA review, full OD approval, and a complete three-row approval history.",
+      "sourceRefs": ["guide-09 steps 6-8"]
+    },
+    {
+      "title": "Third-level Central Approval required for invoices with EDY or Head Start (HS-CTL) seats",
+      "description": "For invoices that include certain special seat types (EDY or Head Start/Head Start-CTL), a third approval step kicks in after the usual two internal reviewers sign off — the invoice waits in a special Central Approvers queue and only proceeds to payment once a Central Approver also signs off, including handling a Central Approver rejection. Regular invoices without those seat types skip this step entirely and go straight to FAMIS once OA and OD approve.",
+      "who": "Central Approvers / Budget Office (DOE Internal)",
+      "status": "Covered",
+      "statusNote": "Matches guide Step 11 with a concrete example invoice showing the extra approval stage (including a rejection followed by approval), and explicitly documents the no-extra-approval contrast case for ordinary invoices.",
+      "sourceRefs": ["guide-09 step 11", "BRD D08 3.3.12", "DOEECMS-2473"]
+    },
+    {
+      "title": "System automatically hands off a fully-approved invoice to FAMIS and shows the resulting payment status",
+      "description": "Once an invoice clears all required internal reviews, ECMS automatically sends it to the city's FAMIS financial system, and afterward the invoice record itself shows a FAMIS reference number and whether the payment was sent, paid, or rejected.",
+      "who": "System (automatic) / DOE Internal Admin viewing the result",
+      "status": "Covered",
+      "statusNote": "Matches guide Step 9 with a concrete example showing a FAMIS document number and 'Paid' status.",
+      "sourceRefs": ["guide-09 step 9"]
+    },
+    {
+      "title": "DOE staff manually or in batch re-check FAMIS for updated payment status, with confirmation messaging",
+      "description": "Instead of waiting for the regular overnight check, a DOE staff member can click a button on one invoice, or select a whole batch of unpaid invoices from a dedicated list view, to immediately ask FAMIS whether payment has gone out yet — and see a clear confirmation or error message about whether that request reached FAMIS successfully.",
+      "who": "Operations Analyst / Operations Director / DOE Internal Admin",
+      "status": "Partially Covered",
+      "statusNote": "The vendor-side equivalent button is mentioned in a guide note (Step 3), but the internal single-invoice refresh, the batch 'Request Payment Status Updates' button with an Open/Non-Paid invoices list view, and the FAMIS success/failure confirmation message are draft-BRD-only (D08 3.3.7, 3.3.9, 3.3.11) with no screenshot in the guide. Related open item DOEECMS-2457 ('Trigger batch request to FAMIS for invoice payment status') is still Open, and DOEECMS-2764/2767 show related list-view and status-sync defects (missing Invoice Amount column; invoices not moving to Paid list after FAMIS confirms payment).",
+      "sourceRefs": ["guide-09 step 3 note", "BRD D08 3.3.7", "BRD D08 3.3.9", "BRD D08 3.3.11", "DOEECMS-2457", "DOEECMS-2422", "DOEECMS-2451", "DOEECMS-2764", "DOEECMS-2767"]
+    },
+    {
+      "title": "DOE staff view a dedicated list of already-paid invoices and manage payment status update permissions",
+      "description": "DOE staff can pull up a simple list showing only invoices that FAMIS has confirmed as fully paid, with key details like document number, site, vendor, and amount all in one place — and only specific authorized internal roles are allowed to manually force-update an invoice's payment status.",
+      "who": "Operations Analyst / Operations Director / DOE Internal Admin",
+      "status": "Partially Covered",
+      "statusNote": "The access-restriction half is Covered/verified via closed bug DOEECMS-2782 ('Restrict Request Payment Status Update to authorized users'). The 'Paid' invoices list view itself is a draft BRD requirement (D08 3.3.8, DOEECMS-2423, Closed in Jira) with no screenshot or walkthrough in the current guide.",
+      "sourceRefs": ["BRD D08 3.3.8", "DOEECMS-2423", "DOEECMS-2782"]
+    },
+    {
+      "title": "DOE staff view and adjust the specific funding sources (and check available balance) used to pay an invoice",
+      "description": "Internal DOE staff (not vendors) see a special section at the bottom of the invoice showing which specific funding sources will be used to pay it, along with the available balance for each, and can enter or adjust the dollar amount assigned to each funding source, or click a button to check with FAMIS on demand how much funding is still available.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "Draft BRD requirements (D08 3.3.6 'Display Section on Invoices for FAMIS Attributes', DOEECMS-2452; and D08 3.3.10 'Retrieve Available Balance on Demand', DOEECMS-2425 — both Closed in Jira, meaning built) describe an internal-only funding-allocation section and on-demand balance check; neither is shown or walked through in the current user guide.",
+      "sourceRefs": ["BRD D08 3.3.6", "DOEECMS-2452", "BRD D08 3.3.10", "DOEECMS-2425"]
+    },
+    {
+      "title": "Create and submit an Advance Payment Invoice against a budget that isn't fully approved yet",
+      "description": "For special cases, a DOE staff member can create an early 'advance' invoice against a budget that has only been submitted (not yet fully approved), tied to a valid contract. This special invoice type is clearly labeled so it stands out from a regular invoice, skips the usual first-level reviewer, and goes straight to the second-level approver; for older ('legacy') budgets, the first such invoice defaults to a set percentage of the total budget.",
+      "who": "Operations Analyst",
+      "status": "Not Yet Covered",
+      "statusNote": "Fully described in guide Step 10 as draft-BRD-only content with no live example found in the sandbox at the time of writing (BRD D08 3.2.4, DOEECMS-2419). A related bug, DOEECMS-2807 ('OA User Unable to Create Advance Payment Invoice', Ready for UAT), and the Closed status of DOEECMS-2419 suggest this feature may now be built and testable, but the guide has not yet been updated with a real screenshot.",
+      "sourceRefs": ["guide-09 step 10", "BRD D08 3.2.4", "DOEECMS-2419", "DOEECMS-2807"]
+    },
+    {
+      "title": "System flags and allows manual resubmission of a payment request that failed to reach FAMIS",
+      "description": "If a payment request to FAMIS fails or comes back with an error, the invoice clearly shows an error message and a 'needs resubmission' flag, and an authorized DOE staff member can click a button to resend that same request.",
+      "who": "Operations Analyst / DOE Internal Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Draft BRD requirement (D08 3.2.4 AC 5-6) describing failure messaging and a manual resubmit button; not present anywhere in the current user guide.",
+      "sourceRefs": ["BRD D08 3.2.4 AC5", "BRD D08 3.2.4 AC6"]
+    },
+    {
+      "title": "DOE staff review and edit a draft invoice's cost-category detail and create expenditures before submission",
+      "description": "DOE staff can open any invoice, including ones still being drafted by the vendor, see a detailed breakdown of requested amounts by cost category and line item (enrollment, gross expenses, parent fees, adjustments, net payment due, advance recoupment), and — while the invoice is still in draft — directly edit those cost category amounts, limited to funding sources that were actually included on the original budget.",
+      "who": "DOE Internal Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Fully described in Phase 1 internal admin deck (7.A.1 review capability, 7.A.3 draft-invoice expenditure editing) as distinct capabilities separate from the OA/OD approval action itself; the current user guide's Step 4 briefly reviews the saved invoice but does not walk through this level of detail or the internal editing capability at all.",
+      "sourceRefs": ["7.A Invoicing_Internal Adm_UAT Guide (7.A.1, 7.A.3)"]
+    },
+    {
+      "title": "DOE staff leave comments on an invoice that vendors can see, but vendors cannot write their own",
+      "description": "A DOE staff member can write a note directly on an invoice record, and that comment is instantly visible to the vendor when they open the same invoice in their own portal. Vendors, however, are not supposed to have the ability to write comments themselves.",
+      "who": "Operations Analyst / Operations Director / DOE Internal Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "The DOE-to-vendor comment flow is demonstrated in Phase 1 internal admin deck (7.A.2), but a related, more recent Jira item (DOEECMS-1823, 'Invoices- Disable write comments feature for Vendors', Ready for UAT) indicates the vendor side of this needs to be restricted, contradicting or refining the older Phase 1 documentation. Neither behavior appears in the current user guide.",
+      "sourceRefs": ["7.A Invoicing_Internal Adm_UAT Guide (7.A.2)", "DOEECMS-1823"]
+    },
+    {
+      "title": "System Administrator configures system-wide advance payment and recoupment settings",
+      "description": "A system administrator can go into a settings area and change, for all vendors at once, the flat percentage of a vendor's total budget paid out as an upfront advance at the start of the year, plus how many upcoming monthly invoices that advance gets gradually deducted ('recouped') from and which month those deductions start.",
+      "who": "System Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Fully described in Phase 1 internal admin deck (7.A.4, 'Set Advancement Parameters' and 'Set Recoupment Parameters') as system-wide configuration screens; not referenced anywhere in the current user guide, and it's unclear whether this older configuration model still applies given the BRD's newer, invoice-level Advance Payment Invoice concept (DOEECMS-2419).",
+      "sourceRefs": ["7.A Invoicing_Internal Adm_UAT Guide (7.A.4)", "DOEECMS-2419"]
+    },
+    {
+      "title": "Vendor views advance payment recoupment amounts and reviews their previous invoices across fiscal years",
+      "description": "On each monthly invoice, a vendor can see how much of their original advance payment is being deducted that month, broken out by seat type or funding source, and can pull up a filterable list of every invoice their site has submitted across past and current fiscal years.",
+      "who": "CBO Invoice Manager (Vendor)",
+      "status": "Partially Covered",
+      "statusNote": "A basic Invoices list scoped to the current vendor is shown in guide Step 3, but the recoupment column and full cross-fiscal-year filter/sort capability documented in Phase 1 vendor deck (7.V.4, 7.V.5) are not separately demonstrated in the current guide.",
+      "sourceRefs": ["guide-09 step 3", "7.V Invoicing_Vendor Adm_UAT Guide (7.V.4, 7.V.5)"]
+    }
+  ]
+}

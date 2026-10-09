@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ECMS UAT Test Scenarios — Seat Planning</title>
+<style>
+:root{--ink:#16325c;--head:#0B2545;--muted:#5c6b82;--link:#1657CE;--line:#e5e9f0;--line2:#eef2f7;--code:#f4f6f9;--navy:#0B2545;--accent:#1657CE;--do:#1657CE;--res:#1a7f4b;--soft:#f3f7fc;--pass:#1a7f4b;--passbg:#e6f5ec;--fail:#b3261e;--failbg:#fde8e6;--block:#b7791f;--blockbg:#fff4de;--warn:#e0a127;}
+*{box-sizing:border-box;} html{scroll-behavior:smooth;}
+body{margin:0;color:var(--ink);background:#fff;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.6;font-size:15.5px;}
+a{color:var(--link);text-decoration:none;} a:hover{text-decoration:underline;} button{font-family:inherit;}
+.topbar{position:sticky;top:0;z-index:10;box-shadow:0 1px 0 var(--line);}
+.tb-top{background:#fff;border-bottom:1px solid var(--line);} .tb-top .in{max-width:1520px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:12px;}
+.doe-logo{display:flex;align-items:baseline;gap:1px;font-weight:800;font-size:20px;letter-spacing:.2px;}
+.doe-logo b:nth-child(1){color:#0072CE;} .doe-logo b:nth-child(2){color:#F5A623;} .doe-logo b:nth-child(3){color:#00A65A;}
+.doe-sub{color:var(--muted);font-size:12.5px;padding-left:10px;border-left:1px solid var(--line);}
+.tb-bottom{background:var(--navy);} .tb-bottom .in{max-width:1520px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;gap:22px;}
+.ecms-brand{color:#fff;font-weight:700;font-size:15px;letter-spacing:.3px;}
+.topnav{display:flex;gap:24px;} .topnav a{color:#cfe0fb;font-weight:600;font-size:13.5px;} .topnav a.cur{color:#fff;}
+.tb-user{margin-left:auto;display:flex;align-items:center;gap:14px;color:#fff;}
+.bell{color:#fff;display:inline-flex;align-items:center;} .bell svg{width:20px;height:20px;}
+.avatar{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex:none;}
+.uinfo{display:flex;flex-direction:column;line-height:1.2;} .uinfo b{font-size:13.5px;} .uinfo small{font-size:11.5px;color:rgba(255,255,255,.78);}
+.crumbs{max-width:1520px;margin:0 auto;padding:16px 32px 0;font-size:13px;color:var(--muted);} .crumbs a{color:var(--muted);} .crumbs span{margin:0 7px;}
+footer.site-footer{background:var(--navy);color:#fff;margin-top:48px;width:100%;}
+.ft-in{max-width:1520px;margin:0 auto;padding:24px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}
+.ft-left{display:flex;flex-direction:column;align-items:flex-start;gap:4px;} .ft-left b{font-size:14px;} .ft-left div{color:#B9C7E3;font-size:12.5px;}
+.ft-nav{display:flex;gap:22px;flex-wrap:wrap;} .ft-nav a{color:#fff;font-size:13.5px;}
+.ft-sub{margin:0;padding:14px 32px 40px;max-width:1520px;margin-left:auto;margin-right:auto;color:#8FA3C6;font-size:12px;}
+.wrap{max-width:1520px;margin:0 auto;padding:8px 32px 60px;display:grid;grid-template-columns:288px minmax(0,1fr);gap:44px;} .wrap.single{display:block;max-width:1180px;}
+main{min-width:0;}
+h1{font-size:32px;line-height:1.2;color:var(--head);margin:14px 0 6px;font-weight:700;}
+h2{font-size:22px;color:var(--head);font-weight:700;margin:40px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--line);scroll-margin-top:120px;}
+h3{font-size:18px;color:var(--head);font-weight:700;margin:0;} p{margin:10px 0;} .lead{font-size:16.5px;}
+.hero{background:linear-gradient(135deg,#0B2545,#1657CE);color:#fff;border-radius:14px;padding:28px 32px;margin:8px 0 6px;}
+.hero h1{color:#fff;margin:0 0 8px;} .hero p{color:#e3edfb;margin:0;font-size:15.5px;max-width:820px;} .hero a{color:#fff;text-decoration:underline;font-weight:700;}
+.callout{background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:12px 18px;margin:14px 0;}
+.note{background:#fff8ec;border:1px solid #f3e2bd;border-left:4px solid var(--warn);border-radius:6px;padding:8px 18px;margin:14px 0;}
+.callout b,.note b{color:var(--head);}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;} th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top;} th{background:var(--soft);color:var(--head);font-weight:700;}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:6px;padding:8px 16px;font-size:14px;cursor:pointer;font-weight:600;}
+.btn:hover{border-color:var(--accent);color:var(--accent);} .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);} .btn.primary:hover{background:#1149ab;color:#fff;} .btn.danger:hover{border-color:var(--fail);color:var(--fail);}
+.tchip{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:2px 10px 2px 4px;font-size:12.5px;font-weight:600;background:var(--soft);border:1px solid var(--line);color:var(--head);white-space:nowrap;}
+.tchip i{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;color:#fff;font-style:normal;font-weight:700;}
+.tchip.me{border-color:var(--accent);background:#e6f0fb;}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--head);color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:50;} .toast.on{opacity:1;}
+@media (max-width:1000px){.wrap{grid-template-columns:1fr;}.topnav,.uinfo{display:none;}}
+.sidenav{position:sticky;top:108px;align-self:start;font-size:14px;max-height:calc(100vh - 124px);overflow:auto;padding-right:6px;}
+.nav-cat{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;padding:0 0 10px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+ul.nav{list-style:none;margin:0;padding:0;} ul.nav li{margin:2px 0;}
+a.lvl1{display:block;padding:8px 10px;border-radius:6px;color:var(--head);font-weight:700;cursor:pointer;} a.lvl1:hover{background:var(--soft);text-decoration:none;}
+.lvl1row{display:flex;align-items:center;} .lvl1row a.lvl1{flex:1;} .navtog{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:6px;width:28px;height:26px;cursor:pointer;font-size:11px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;} .navtog:hover{border-color:var(--accent);color:var(--accent);} .navtog span{display:inline-block;transition:.15s;} .navtog.col span{transform:rotate(-90deg);} #navScen.col li.navpart{display:none;}
+ul.nav li.navpart{margin:4px 0;} a.navpart{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;color:var(--ink);font-weight:600;font-size:13.6px;cursor:pointer;}
+a.navpart:hover{background:var(--soft);text-decoration:none;} a.navpart .nchev{margin-left:auto;font-size:11px;color:var(--muted);transition:.15s;}
+li.navpart.collapsed a.navpart .nchev{transform:rotate(-90deg);} li.navpart.collapsed ul.sub{display:none;} li.navpart.hidden{display:none;}
+ul.sub{list-style:none;margin:2px 0 8px;padding:0 0 0 12px;border-left:1px solid var(--line2);}
+ul.sub a{display:flex;align-items:center;gap:8px;padding:4px 10px;border-radius:5px;color:var(--ink);font-size:13px;} ul.sub a:hover{background:var(--soft);text-decoration:none;}
+ul.sub a .dot{width:9px;height:9px;border-radius:50%;background:#cfd6e0;flex:none;} .dot.Pass{background:var(--pass)!important;} .dot.Fail{background:var(--fail)!important;} .dot.Blocked{background:var(--block)!important;}
+ul.sub li.hidden{display:none;}
+.panel{border:1px solid var(--line);border-radius:12px;padding:18px 22px;background:#fff;margin:18px 0;box-shadow:0 4px 14px rgba(11,37,69,.05);}
+.panel h2{margin:0 0 12px;border:none;padding:0;font-size:18px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+label.f input,label.f select{font:inherit;font-size:15px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink);border:1px solid #c9d3e0;border-radius:6px;padding:9px 11px;background:#fff;}
+label.f input:focus,label.f select:focus,textarea:focus{outline:2px solid #9cc7f2;border-color:var(--accent);}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center;}
+.chip{border:1px solid var(--line);border-radius:20px;padding:5px 13px;font-size:13px;cursor:pointer;background:#fff;color:var(--ink);font-weight:600;} .chip.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:14px 0 6px;}
+.stat{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff;} .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;} .stat .v{font-size:26px;font-weight:700;color:var(--head);line-height:1.2;}
+.stat.pass .v{color:var(--pass);} .stat.fail .v{color:var(--fail);} .stat.block .v{color:var(--block);}
+.bar{height:10px;border-radius:6px;background:var(--line2);overflow:hidden;display:flex;margin:8px 0 2px;} .bar i{display:block;height:100%;} .bar .p{background:var(--pass);} .bar .f{background:var(--fail);} .bar .b{background:var(--block);}
+.part{scroll-margin-top:120px;} .part.hidden{display:none;}
+.part-head{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+.part-head h2{margin:0;border:none;padding:0;flex:1;} .part-head:hover h2{color:var(--accent);}
+.part-head .pchev{color:var(--muted);font-size:14px;transition:.15s;} .part.collapsed .part-head .pchev{transform:rotate(-90deg);}
+.part-head .pcount{font-size:12.5px;color:var(--muted);font-weight:600;background:var(--soft);border:1px solid var(--line);border-radius:20px;padding:2px 10px;}
+.part-body{display:block;} .part.collapsed .part-body{display:none;}
+.part-head .pbtn{font-size:12.5px;color:var(--accent);font-weight:600;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:#fff;cursor:pointer;} .part-head .pbtn:hover{border-color:var(--accent);}
+.part-intro{color:var(--muted);font-style:italic;margin:6px 0 14px;}
+h2.scen-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;} h2.scen-h [data-scenh]:hover{color:var(--accent);} .scen-tools{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted);} .scen-tools select{font:inherit;font-size:13.5px;border:1px solid #c9d3e0;border-radius:6px;padding:5px 9px;margin-left:6px;color:var(--ink);background:#fff;} .scen-tools .btn{padding:5px 12px;font-size:13px;} #allChev{font-size:14px;color:var(--muted);transition:.15s;display:inline-block;} h2.scen-h.allcol #allChev{transform:rotate(-90deg);}
+.sc{border:1px solid var(--line);border-radius:12px;background:#fff;margin:18px 0;scroll-margin-top:120px;box-shadow:0 3px 12px rgba(11,37,69,.05);overflow:hidden;} .sc.hidden{display:none;}
+.sc.Pass{border-left:6px solid var(--pass);} .sc.Fail{border-left:6px solid var(--fail);} .sc.Blocked{border-left:6px solid var(--block);}
+.sc-head{display:flex;align-items:flex-start;gap:14px;padding:16px 22px;cursor:pointer;background:#fff;user-select:none;} .sc-head:hover{background:#fafcff;} .sc-head:focus{outline:2px solid #9cc7f2;outline-offset:-2px;}
+.sc-id{flex:none;background:var(--navy);color:#fff;font-weight:700;font-size:13px;border-radius:6px;padding:4px 10px;margin-top:2px;letter-spacing:.3px;}
+.sc-title{flex:1;min-width:0;} .sc-title .meta{font-size:13px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;} .sc-title .meta b{color:var(--ink);font-weight:600;}
+.status-pill{flex:none;font-size:12px;font-weight:700;border-radius:20px;padding:4px 12px;background:var(--line2);color:var(--muted);margin-top:4px;}
+.status-pill.Pass{background:var(--passbg);color:var(--pass);} .status-pill.Fail{background:var(--failbg);color:var(--fail);} .status-pill.Blocked{background:var(--blockbg);color:var(--block);}
+.chev{flex:none;color:var(--muted);margin-top:6px;transition:.15s;} .sc.open .chev{transform:rotate(90deg);}
+.sc-body{display:none;padding:0 22px 20px;border-top:1px solid var(--line);} .sc.open .sc-body{display:block;}
+.sec{margin-top:18px;} .sec .h{display:flex;align-items:center;gap:4px;font-weight:700;color:var(--head);font-size:15px;margin-bottom:6px;}
+.lbl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 9px;border-radius:4px;margin-right:8px;vertical-align:middle;}
+.lbl-pre{background:#eef1f6;color:#3b4a63;} .lbl-do{background:#E6EFFC;color:var(--do);} .lbl-res{background:#e6f5ec;color:var(--res);} .lbl-nav{background:#f1e9fb;color:#5d3a9b;} .lbl-rec{background:#e9f7ef;color:#1a7f4b;}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:14.5px;} .kv .k{color:var(--muted);font-weight:600;}
+.nav-path{font-weight:600;color:var(--do);}
+.recs .r{margin:4px 0;font-size:14px;} .recs .r b{margin-right:6px;} .recs .r .sep{color:#9aa7b8;margin:0 8px;}
+.steps th:first-child,.steps td:first-child{width:52px;text-align:center;font-weight:700;} .steps th:nth-child(2){width:44%;}
+.steps tr.done td{background:#f6fbf7;} .steps td.chk{width:60px;text-align:center;} .steps input[type=checkbox]{width:17px;height:17px;cursor:pointer;}
+.passif{background:var(--passbg);border:1px solid #cfe9d8;border-radius:8px;padding:10px 14px;font-size:14.5px;} .passif b{color:var(--pass);}
+.result{margin-top:18px;border:1px solid var(--line);border-radius:10px;padding:14px 18px;background:var(--soft);} .result .h{font-weight:700;color:var(--head);margin-bottom:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.result .h small{font-weight:400;color:var(--muted);}
+.rbtns{display:flex;gap:8px;flex-wrap:wrap;}
+.rb{border:2px solid var(--line);background:#fff;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:14px;color:var(--muted);}
+.rb.Pass.on{border-color:var(--pass);background:var(--passbg);color:var(--pass);} .rb.Fail.on{border-color:var(--fail);background:var(--failbg);color:var(--fail);} .rb.Blocked.on{border-color:var(--block);background:var(--blockbg);color:var(--block);} .rb:hover{border-color:var(--accent);}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.rgrid textarea,.rgrid input{width:100%;font:inherit;font-size:14px;border:1px solid #c9d3e0;border-radius:6px;padding:8px 10px;background:#fff;color:var(--ink);} .rgrid textarea{min-height:64px;resize:vertical;}
+.sign{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px;}
+.signed{font-size:14px;color:var(--pass);font-weight:600;} .signed .sig{font-family:'Brush Script MT','Segoe Script',cursive;font-size:20px;color:var(--head);margin-right:8px;} .unsigned{font-size:13px;color:var(--muted);}
+.sum td.Pass{color:var(--pass);font-weight:700;} .sum td.Fail{color:var(--fail);font-weight:700;} .sum td.Blocked{color:var(--block);font-weight:700;}
+.empty{border:1px dashed #c9d3e0;border-radius:10px;padding:22px;text-align:center;color:var(--muted);background:#fafcff;}
+.sigbox{border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-top:16px;}
+.sigline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px;} .sigline div{border-bottom:1px solid #9aa7b8;padding:22px 4px 4px;font-size:13px;color:var(--muted);}
+.sigline div .sig{font-family:'Brush Script MT','Segoe Script',cursive;font-size:20px;color:var(--head);display:block;margin-bottom:-6px;}
+.tprog td:nth-child(n+2){text-align:center;}
+.idchips a{display:inline-block;font-size:12px;font-weight:700;background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 7px;margin:2px 3px 2px 0;color:var(--head);} .idchips a.Pass{background:var(--passbg);border-color:#cfe9d8;color:var(--pass);} .idchips a.Fail{background:var(--failbg);color:var(--fail);} .idchips a.Blocked{background:var(--blockbg);color:var(--block);}
+@media (max-width:1000px){.sidenav{position:static;max-height:none;}.rgrid{grid-template-columns:1fr;}}
+@media print{.topbar,.sidenav,.toolbar,.chips,.crumbs,footer,.ft-sub,.btn,.chev,.pbtn,.pchev,.rbtns{display:none!important;}.part-body{display:block!important;}.wrap{display:block;padding:0;}.sc{break-inside:avoid;}.sc-body{display:block!important;}.sc.hidden,.part.hidden{display:none!important;}body{font-size:12.5px;}.hero{background:#0B2545!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="topbar">
+  <div class="tb-top"><div class="in">
+    <span class="doe-logo"><b>N</b><b>Y</b><b>C</b></span>
+    <span class="doe-sub">Department of Education &middot; Division of Early Childhood Education</span>
+  </div></div>
+  <div class="tb-bottom"><div class="in">
+    <a class="ecms-brand" href="index.html">ECMS UAT</a>
+    <nav class="topnav" style="align-items:center"><a href="https://prutech-solutions.github.io/ecms-user-guide/">User Guide</a><select id="modJump" style="background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:5px 10px;font-size:13.5px;font-weight:600;cursor:pointer;"><option value="vendor-site-setup-uat-scenarios.html">Vendor &amp; Site Setup (CBO)</option><option value="fccn-network-setup-uat-scenarios.html">FCCN Network &amp; Provider Setup</option><option value="fccn-calendar-management-uat-scenarios.html">FCCN Calendar Management</option><option value="contracts-seats-uat-scenarios.html">Contracts &amp; Seats</option><option value="seat-planning-uat-scenarios.html" selected>Seat Planning</option><option value="enrollments-uat-scenarios.html">Enrollments (CBO, FCCN &amp; Summer)</option><option value="attendance-uat-scenarios.html">Attendance (CBO & FCCN, SDY)</option><option value="budget-approval-uat-scenarios.html">Budget Creation &amp; Approval</option><option value="invoice-payment-uat-scenarios.html">Invoice Creation &amp; Payment</option><option value="discharges-uat-scenarios.html">Enrollment Discharge Process</option><option value="user-provisioning-uat-scenarios.html">User Provisioning &amp; Setup</option><option value="reporting-uat-scenarios.html">Reporting</option></select></nav>
+    <div class="tb-user"><span class="bell" title="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><span class="avatar" id="avInit">?</span><span class="uinfo"><b id="hdrName">Tester not set</b><small id="hdrRole">Choose your name below</small></span></div>
+  </div></div>
+</div>
+<nav class="crumbs"><a href="https://prutech-solutions.github.io/ecms-user-guide/">ECMS User Guide</a><span>&rsaquo;</span>Seat Planning — UAT Test Scenarios</nav>
+<div class="wrap" id="top">
+<aside><nav class="sidenav">
+  <div class="nav-cat">Seat Planning UAT</div>
+  <ul class="nav">
+    <li><a class="lvl1" href="#tester">Tester &amp; filters</a></li>
+    <li><a class="lvl1" href="#howto-login">How to log in</a></li>
+    <li><a class="lvl1" href="#records">Test records by persona</a></li>
+    <li><div class="lvl1row"><a class="lvl1" href="#scenarios" data-navscen="1" title="Go to test scenarios and collapse all parts">Test scenarios</a><button class="navtog" id="navTog" data-navtog="1" title="Collapse / expand the part list" aria-label="Collapse part list"><span>&#9660;</span></button></div><ul class="nav" id="navScen" style="padding-left:6px"></ul></li>
+    <li><a class="lvl1" href="#summary">Results &amp; sign-off</a></li>
+  </ul>
+</nav></aside>
+<main>
+  <div class="hero"><h1>Seat Planning &mdash; UAT Test Scenarios</h1>
+  <p>Verification walkthrough of the Seat Planning app in ECMS: 5 scenarios in 1 part, covering the annual draft/edit/publish lifecycle for the FY Seat Planning app - grounded in a real FY2026 Draft and the FY2027 plan that has already gone Published in this UAT org. Choose your role below to see the scenarios that apply to you, work through each one, and record Pass / Fail / Blocked with your sign-off.</p>
+  <p style="margin-top:10px">ECMS internal login (Operations Analyst, Operations Director, Portfolio Team Member, Enrollment Specialist): <a href="https://doeecms--uat.sandbox.lightning.force.com/" target="_blank" rel="noopener">https://doeecms--uat.sandbox.lightning.force.com/</a></p></div>
+
+  <section class="panel" id="tester">
+    <h2>Who are you testing as?</h2>
+    <div class="grid">
+      <label class="f">I am testing as a<select id="tRole"><option value="">&mdash; choose your role &mdash;</option></select></label>
+      <label class="f">Your name (for sign-off)<input id="tName" placeholder="e.g. Jane Smith"/></label>
+    </div>
+    <div class="chips" id="statusChips">
+      <span class="chip on" data-st="">All statuses</span><span class="chip" data-st="Not Run">Not Run</span><span class="chip" data-st="Pass">Pass</span><span class="chip" data-st="Fail">Fail</span><span class="chip" data-st="Blocked">Blocked</span>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="bar" id="bar"></div>
+    <div class="toolbar">
+      <button class="btn primary" id="btnExport">Export results (CSV)</button>
+      <button class="btn" onclick="window.print()">Print / PDF</button>
+      <button class="btn danger" id="btnReset" style="margin-left:auto">Reset my results</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Results are saved automatically in this browser on this computer. Choose your role above and the checklist below will show only the scenarios that apply to you. <b>Export results (CSV)</b> sends everything you've recorded to the test lead.</p>
+  </section>
+
+  <div class="callout"><b>Two things to know before you start.</b>
+    <p style="margin:6px 0"><b>1. This is an annual, org-wide process, not a per-vendor one.</b> The Seat Planning app is worked entirely in the <b>internal ECMS Lightning app</b> by a Portfolio Team Member, with Operations Analysts, Operations Directors, and Enrollment Specialists also needing visibility. A single Draft or Published plan covers every CBO/FCCN vendor's seats at once, not just one vendor.</p>
+    <p style="margin:6px 0 0"><b>2. Never actually click Finalize or Publish, and never save a change.</b> Every step in this tracker is a dry run against real, already-set-up examples (the FY2026 Draft and the FY2027 plan already Published in this org) &mdash; open the record, confirm what you see, then Cancel out. Clicking Finalize/Publish on the shared FY2026 draft would affect every other tester using this org.</p>
+    <p style="margin:6px 0 0;color:var(--muted)">Scope: the FY Seat Planning app's full Draft &rarr; Published lifecycle, access, and notifications are covered. Contract/period/seat creation itself, and day-to-day cost-per-child/seat-quantity/capacity maintenance, are covered in the Contracts &amp; Seats tracker. The DOE's one-time Vendor Site Mapping data migration is tracked separately and is not yet in a testable state.</p></div>
+
+  <h2 id="howto-login">How to log in</h2>
+  <p>Every scenario below uses the same internal ECMS login &mdash; there's no Vendor Portal side to Seat Planning.</p>
+  <div class="callout">
+    <p style="margin:6px 0"><b>Internal ECMS (Operations Analyst, Operations Director, Portfolio Team Member, Enrollment Specialist).</b> Go to <a href="https://doeecms--uat.sandbox.lightning.force.com/" target="_blank" rel="noopener">https://doeecms--uat.sandbox.lightning.force.com/</a> and sign in with the internal credentials you were given.</p>
+  </div>
+
+  <h2 id="records">Test records by persona</h2>
+  <p>Unlike a simple retest pack, these records are <b>not</b> interchangeable duplicates &mdash; each one represents a genuinely different real state (a Draft plan still open for editing vs. a Published plan locked from edits) already present in the UAT org, so different scenarios deliberately point at different records. Click any name to open it in ECMS. <span style="color:var(--muted)" id="recCap"></span></p>
+  <table id="recTable"><thead><tr><th style="width:24%">Persona</th><th style="width:12%">Scenarios</th><th>Records</th></tr></thead><tbody></tbody></table>
+
+  <h2 class="scen-h" id="scenarios"><span data-scenh="1" title="Click to collapse or expand all parts" style="display:flex;align-items:center;gap:10px;cursor:pointer"><span class="pchev" id="allChev">&#9660;</span>Test scenarios</span>
+    <span class="scen-tools"><label>Show<select id="tPart"><option value="">All parts</option><option value="A">Part A</option></select></label><button class="btn" id="btnParts" data-scenh="1">Collapse all parts</button></span></h2>
+  <p class="lead" id="scenCount"></p>
+  <p style="color:var(--muted);font-size:14px;margin-top:-4px">Click a scenario title to open or close it. Click a Part heading to collapse the whole part, or use <b>Open all</b> / <b>Close all</b> on the Part heading.</p>
+  <div id="scen"></div>
+
+  <h2 id="summary">Results &amp; sign-off</h2>
+  <p>Everything you've recorded on this computer, in this browser, as you complete scenarios. Print this page to PDF for your sign-off record.</p>
+  <h3 style="margin-top:18px">Completed scenarios</h3>
+  <div id="sumWrap"></div>
+  <div class="sigbox"><b>Tester declaration.</b> I confirm that I executed the scenarios recorded above under my name and role, on the records shown, and that the results are what I observed in ECMS.
+    <div class="sigline" id="sigline"><div>Tester signature</div><div>UAT Test Lead</div><div>Business Process Owner (Seat Planning)</div></div></div>
+  <p class="note" style="margin-top:22px"><b>Scope.</b> The FY Seat Planning app's full annual lifecycle &mdash; drafting, collaborative Draft-status editing, Published-record locking, Operations Analyst/Director/Portfolio Team access, and the publish-and-notify flow &mdash; is covered, grounded in real ECMS UAT seat plan records (the FY2026 Draft and the FY2027 plan that has already gone Published). Screens already verified in the ECMS User Guide's Annual Seat Planning guide.</p>
+</main></div>
+<footer class="site-footer"><div class="ft-in"><div class="ft-left"><b>NYC DOE &middot; Division of Early Childhood Education</b><div>Early Childhood Management System (ECMS)</div></div><nav class="ft-nav"><a href="https://prutech-solutions.github.io/ecms-user-guide/">User Guide Home</a><a href="#top">Back to top</a></nav></div></div>
+<p class="ft-sub">ECMS Phase 2 UAT test scenarios &middot; ECMS UAT sandbox</p>
+<div class="toast" id="toast"></div>
+<script>
+const DATA=[{"id":"SP-S01","part":"A","title":"Start next year's FY Seat Planning draft and copy forward seat/cost data","persona":"Portfolio Team Member — FY2026 Seat Plan","role":"Portfolio Team Member","where":"Internal ECMS > Seat Planning app","pre":"Open the existing FY2026 seat plan (Status = Draft) rather than starting a brand-new fiscal year draft, so no duplicate plan gets created in this shared UAT org. Starting a new fiscal year draft copies forward the prior fiscal year's Contract Seat records for Active sites, setting each seat's cost-per-child to whichever is higher of the original contracted rate or the current updated rate.","nav":"Log in to ECMS (internal) > Seat Planning (app nav bar) > Draft Seat Plans list > FY2026","steps":[{"n":"1","action":"From the internal ECMS nav bar, click Seat Planning, and review the Initiate Seat Plan action alongside the Draft/Finalized/Published list panels.","expected":"The Seat Planning tab opens as its own app page, separate from ECMS Contracts and Budgets, with an Initiate Seat Plan action and Draft Seat Plans / Finalized Seat Plans / Published Seat Plans list panels underneath."},{"n":"2","action":"Open the FY2026 entry from the Draft Seat Plans list and check its Status, Fiscal Year, and page-header actions.","expected":"FY2026 opens showing Status = Draft, Fiscal Year = 2026, with page-header actions for Edit, Manage Seat Mapping, and Finalize Seat Plan."},{"n":"3","action":"Confirm the draft copies the current year's seat quantities exactly and sets each seat's cost-per-child to whichever is higher of the original contracted rate or the current updated rate, for sites that were Active in the prior fiscal year.","expected":"FY2026 shows rows copied forward from FY2025's contract seats, with seat counts matching and cost-per-child set to the higher of the two rates."}],"outcome":"The Seat Planning app's Initiate Seat Plan action and Draft/Finalized/Published lifecycle panels exist, and the FY2026 draft is populated by copying forward FY2025's contract seat data with the correct cost-per-child logic.","records":{"row":5,"persona":"Portfolio Team Member / Operations Analyst / Operations Director (FY2026 Seat Planning app draft)","records":[{"project":{"name":"FY2026 Seat Plan (Draft)","url":"https://doeecms--uat.sandbox.lightning.force.com/lightning/r/ECMS_Seat_Plan__c/a1QSK000001PAq12AG/view"},"module":null,"milestone":null}]}},{"id":"SP-S02","part":"A","title":"Edit seat counts and costs while a plan is still in Draft status","persona":"Portfolio Team Member / Operations Analyst / Operations Director — FY2026 Seat Plan","role":"Portfolio Team Member; Operations Analyst; Operations Director","where":"Internal ECMS > Seat Plan > Manage Seat Mapping","pre":"Use the FY2026 draft seat plan. Seat and contract rows for a draft plan are editable through a dedicated Manage Seat Mapping table, separate from the read-only Details tab.","nav":"Log in to ECMS (internal) > Seat Planning > Draft Seat Plans > FY2026 > Manage Seat Mapping","steps":[{"n":"1","action":"Open the FY2026 draft seat plan and click Manage Seat Mapping.","expected":"A dedicated editable table for the plan's seat and contract rows opens, distinct from the read-only Details tab."},{"n":"2","action":"Review what seat/contract rows the table currently offers for editing, without saving any change.","expected":"Rows are editable only while the related Seat Plan is in Draft or New status."},{"n":"3","action":"Confirm that any value shown or edited in the FY2026 draft is isolated from a live current-year contract seat, e.g. Cedar Point's CS-00000034.","expected":"Draft-plan changes stay separate from live current-FY contract/seat records until the plan is published; opening CS-00000034 directly should still show its live, unaffected values."}],"outcome":"Draft-status editing is available via Manage Seat Mapping without touching live current-FY contract/seat records.","records":{"row":5,"persona":"Portfolio Team Member / Operations Analyst / Operations Director (FY2026 Seat Planning app draft)","records":[{"project":{"name":"FY2026 Seat Plan (Draft)","url":"https://doeecms--uat.sandbox.lightning.force.com/lightning/r/ECMS_Seat_Plan__c/a1QSK000001PAq12AG/view"},"module":null,"milestone":null}]}},{"id":"SP-S03","part":"A","title":"Prevent editing a Published plan's name, fiscal year, or status","persona":"Portfolio Team Member — FY2027 Seat Plan","role":"Portfolio Team Member","where":"Internal ECMS > Seat Plan > field-level Edit (pencil) icons","pre":"FY2027 has gone live and reached Status = Published, giving a genuine Published record to test against. Field-level pencil-icon editing is locked on a Published record.","nav":"Log in to ECMS (internal) > Seat Planning > Published Seat Plans > FY2027","steps":[{"n":"1","action":"Open the FY2027 seat plan and confirm its current Status value.","expected":"Status shows Published."},{"n":"2","action":"On FY2027, hover the field-level pencil (inline edit) icons next to Name, Fiscal Year, and Status.","expected":"The pencil icons are disabled/unavailable for a Published record — Name, Fiscal Year, and Status cannot be inline-edited."},{"n":"3","action":"Compare this against the FY2026 Draft plan's own pencil icons (see SP-S02), where editing is expected to work normally.","expected":"The lock applies specifically to Published records; the same fields remain editable on a Draft record like FY2026."}],"outcome":"A Published seat plan's Name, Fiscal Year, and Status fields are locked from inline editing, confirmed against the real FY2027 Published record.","records":{"row":5,"persona":"Portfolio Team Member / Operations Analyst / Operations Director (FY2027 Published Seat Plan)","records":[{"project":{"name":"FY2027 Seat Plan (Published)","url":"https://doeecms--uat.sandbox.lightning.force.com/lightning/r/ECMS_Seat_Plan__c/a1QSK000000iylF2AQ/view"},"module":null,"milestone":null}]}},{"id":"SP-S04","part":"A","title":"Grant Operations Analyst / Director and Portfolio Team access to the Seat Planning app","persona":"Operations Analyst / Operations Director / Portfolio Team Member — Seat Planning app access","role":"Operations Analyst; Operations Director; Portfolio Team Member","where":"Internal ECMS > Seat Planning app","pre":"Operations Analyst, Operations Director, and Portfolio Team Member access groups can all see and open the Seat Planning tab and its underlying field-level data.","nav":"Log in to ECMS (internal) > Seat Planning (app nav bar)","steps":[{"n":"1","action":"Log in to internal ECMS as a user who has only the Operations Analyst or Operations Director access group (not System Administrator), and open the Seat Planning tab.","expected":"The Seat Planning tab and its underlying data are visible for this persona, the same way they are for a System Administrator."},{"n":"2","action":"Repeat the same check logged in as a user who has the Portfolio Team Member access group.","expected":"The Seat Planning tab is likewise visible and openable for this persona."},{"n":"3","action":"If either persona cannot open the app or see its data, record exactly what is shown in your comments.","expected":"Both personas should be able to open the app and see its data without an access error."}],"outcome":"OA/OD and Portfolio Team access to the Seat Planning app, including field-level data visibility, works as expected.","records":{"row":5,"persona":"Portfolio Team Member / Operations Analyst / Operations Director (FY2026 Seat Planning app draft)","records":[{"project":{"name":"FY2026 Seat Plan (Draft)","url":"https://doeecms--uat.sandbox.lightning.force.com/lightning/r/ECMS_Seat_Plan__c/a1QSK000001PAq12AG/view"},"module":null,"milestone":null}]}},{"id":"SP-S05","part":"A","title":"Publish the draft plan and notify all roles when it goes live","persona":"Portfolio Team Member / Enrollment Specialist / Operations Analyst / Operations Director — Seat Plan publish flow","role":"Portfolio Team Member; Enrollment Specialist; Operations Analyst; Operations Director","where":"Internal ECMS > Seat Plan > Finalize Seat Plan / Publish Seat Plan","pre":"Publishing a seat plan notifies Operations Analysts, Operations Directors, and Portfolio Team Members. There is no separate archival step by design — prior Published seat plans simply remain listed under Published Seat Plans alongside newer ones. FY2027 is a real example that has already gone through this flow and is now Published.","nav":"Log in to ECMS (internal) > Seat Planning > Draft Seat Plans > FY2026","steps":[{"n":"1","action":"Open the FY2026 draft seat plan and locate the Finalize Seat Plan page-header action, without clicking it.","expected":"Finalize Seat Plan is the first step toward moving a Draft plan to Published; the action is present on the page."},{"n":"2","action":"Check the Published Seat Plans list panel on the Seat Planning app page.","expected":"FY2027 already appears here with Status Published, confirming the publish step has been successfully exercised at least once in this org."},{"n":"3","action":"Confirm with the test lead who received notifications the last time a plan was published.","expected":"Notifications on publish go to Operations Analysts, Operations Directors, and Portfolio Team Members — do not trigger Finalize/Publish yourself on the shared FY2026 draft to test this; confirm against the FY2027 publish history instead."}],"outcome":"Publishing a seat plan notifies Operations Analysts, Operations Directors, and Portfolio Team Members, and prior Published plans (like FY2027) remain listed rather than archived, by design.","records":{"row":5,"persona":"Portfolio Team Member / Operations Analyst / Operations Director (FY2027 Published Seat Plan)","records":[{"project":{"name":"FY2027 Seat Plan (Published)","url":"https://doeecms--uat.sandbox.lightning.force.com/lightning/r/ECMS_Seat_Plan__c/a1QSK000000iylF2AQ/view"},"module":null,"milestone":null}]}}], PARTS={"A": {"title": "Part A — Annual Seat Planning Lifecycle", "intro": "Once a year, the Portfolio team runs an org-wide process in the dedicated Seat Planning app: drafting the entire upcoming fiscal year's seat and contract dataset, editing it collaboratively while it's a Draft, publishing it so it becomes the live data for the new FY, and locking it from further inline edits once Published. These scenarios walk through that app's full lifecycle, grounded in a real FY2026 Draft and the FY2027 plan that has already gone live."}}, LOGIN_INTERNAL="https://doeecms--uat.sandbox.lightning.force.com/", LOGIN_PORTAL="https://doeecms--uat.sandbox.my.site.com/portal", KEY='ecms_uat_seat-planning_v1';
+const ROLES=[...new Set(DATA.flatMap(d=>d.role.split("; ")))];
+let S=load(); function load(){ let j=null; try{ j=JSON.parse(localStorage.getItem(KEY)); }catch(e){} if(!j||!j.res) j={role:'',name:'',res:{}}; return j; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),2000); }
+function today(){ return new Date().toISOString().slice(0,10); }
+function blank(){ return {status:'Not Run',steps:{},comment:'',defect:'',date:'',signed:'',signedName:''}; }
+function res(id){ return S.res[id]||(S.res[id]=blank()); }
+function navHtml(nav){ const kInt='Log in to ECMS (internal)', kPortal='Log in to the ECMS Vendor Portal';
+  if(nav.startsWith(kInt)) return '<a href="'+LOGIN_INTERNAL+'" target="_blank" rel="noopener">'+kInt+'</a>'+esc(nav.slice(kInt.length));
+  if(nav.startsWith(kPortal)) return '<a href="'+LOGIN_PORTAL+'" target="_blank" rel="noopener">'+kPortal+'</a>'+esc(nav.slice(kPortal.length));
+  return esc(nav); }
+function recHtml(row){ return row.records.map((r,i)=>{ const p=[[null,r.project],['Site',r.module],['Vendor',r.milestone]].filter(x=>x[1]).map(([l,o])=>(l?'<span style="color:var(--muted)">'+l+':</span> ':'')+'<a href="'+o.url+'" target="_blank" rel="noopener">'+esc(o.name)+'</a>').join('<span class="sep">&middot;</span>'); return '<div class="r"><b>Record '+(i+1)+':</b>'+p+'</div>'; }).join(''); }
+
+const scenEl=document.getElementById('scen'), navEl=document.getElementById('navScen');
+let lastPart=null, partBody=null, navSub=null;
+DATA.forEach(d=>{
+  if(d.part!==lastPart){
+    const ph=document.createElement('section'); ph.className='part'; ph.id='part-'+d.part; ph.dataset.part=d.part;
+    const n=DATA.filter(x=>x.part===d.part).length;
+    ph.innerHTML='<div class="part-head" data-part="'+d.part+'" title="Click to collapse or expand this part"><span class="pchev">&#9660;</span><h2>'+esc(PARTS[d.part].title)+'</h2><span class="pcount" id="pcount-'+d.part+'">'+n+' scenarios</span><button class="pbtn" data-open="'+d.part+'">Open all</button><button class="pbtn" data-close="'+d.part+'">Close all</button></div><div class="part-body"><p class="part-intro">'+esc(PARTS[d.part].intro)+'</p></div>';
+    scenEl.appendChild(ph); partBody=ph.querySelector('.part-body'); lastPart=d.part;
+    const nl=document.createElement('li'); nl.className='navpart'; nl.dataset.part=d.part;
+    nl.innerHTML='<a class="navpart" data-navpart="'+d.part+'">'+esc(PARTS[d.part].title.replace(/ — .*$/,''))+'<span class="nchev">&#9660;</span></a><ul class="sub"></ul>';
+    navEl.appendChild(nl); navSub=nl.querySelector('ul.sub');
+  }
+  const el=document.createElement('article'); el.className='sc'; el.id=d.id; el.dataset.id=d.id; el.dataset.role=d.role; el.dataset.part=d.part;
+  el.innerHTML=
+   '<div class="sc-head" data-toggle="'+d.id+'" tabindex="0" role="button" aria-expanded="false"><span class="sc-id">'+d.id+'</span><div class="sc-title"><h3>'+esc(d.title)+'</h3>'+
+   '<div class="meta"><span><b>Who:</b> '+esc(d.role)+'</span><span><b>Where in ECMS:</b> '+esc(d.where)+'</span></div></div>'+
+   '<span class="status-pill" id="pill-'+d.id+'">Not Run</span><span class="chev">&#9654;</span></div>'+
+   '<div class="sc-body">'+
+   '<div class="sec"><div class="h"><span class="lbl lbl-pre">What is done before</span></div><div class="kv"><div class="k">Who tests this</div><div>'+esc(d.persona)+'</div><div class="k">Before you start</div><div>'+esc(d.pre)+'</div></div></div>'+
+   '<div class="sec"><div class="h"><span class="lbl lbl-nav">Where to go</span></div><div class="nav-path">'+navHtml(d.nav)+'</div></div>'+
+   '<div class="sec recs"><div class="h"><span class="lbl lbl-rec">Test records</span><span style="font-weight:400;color:var(--muted);font-size:13px">prepared for '+esc(d.records.persona)+' &mdash; click a name to open it in ECMS</span></div>'+recHtml(d.records)+'</div>'+
+   '<div class="sec"><div class="h"><span class="lbl lbl-do">What I need to do</span><span class="lbl lbl-res">What is expected</span></div>'+
+   '<table class="steps"><thead><tr><th>Step</th><th>What you do</th><th>What you should see (expected result)</th><th class="chk">Done</th></tr></thead><tbody>'+
+   d.steps.map(st=>'<tr id="'+d.id+'-st'+st.n+'"><td>'+st.n+'</td><td>'+esc(st.action)+'</td><td>'+esc(st.expected)+'</td><td class="chk"><input type="checkbox" data-step="'+d.id+'|'+st.n+'"/></td></tr>').join('')+
+   '</tbody></table></div>'+
+   '<div class="passif"><b>Scenario passes if:</b> '+esc(d.outcome)+'</div>'+
+   '<div class="result"><div class="h">Record your result <small id="rwho-'+d.id+'"></small></div>'+
+   '<div class="rbtns"><button class="rb Pass" data-status="'+d.id+'|Pass">&#10003; Pass</button><button class="rb Fail" data-status="'+d.id+'|Fail">&#10005; Fail</button><button class="rb Blocked" data-status="'+d.id+'|Blocked">&#9632; Blocked</button><button class="rb" data-status="'+d.id+'|Not Run">Clear</button></div>'+
+   '<div class="rgrid"><label class="f">Actual result / comments<textarea data-field="'+d.id+'|comment" placeholder="If anything differed from the expected result, describe it here. Include the exact error text."></textarea></label>'+
+   '<div><label class="f">Defect ID<input data-field="'+d.id+'|defect" placeholder="e.g. DOEECMS-XXXX"/></label>'+
+   '<div class="sign"><button class="btn primary" data-sign="'+d.id+'">Sign off</button><span id="sig-'+d.id+'" class="unsigned">Not signed</span></div></div></div>'+
+   '</div></div>';
+  partBody.appendChild(el);
+  const li=document.createElement('li'); li.dataset.id=d.id; li.innerHTML='<a href="#'+d.id+'" data-navto="'+d.id+'"><span class="dot" id="dot-'+d.id+'"></span>'+d.id.replace(/^[A-Z]+-/,'')+' &middot; '+esc(d.title)+'</a>'; navSub.appendChild(li);
+});
+document.addEventListener('click', e=>{
+  const t=e.target.closest('[data-toggle],.part-head[data-part],[data-open],[data-close],[data-status],[data-sign],[data-navpart],[data-navto],[data-scenh],[data-navscen],[data-navtog]');
+  if(!t) return;
+  if(t.dataset.open){ e.stopPropagation(); document.querySelectorAll('.sc[data-part="'+t.dataset.open+'"]:not(.hidden)').forEach(x=>setOpen(x,true)); document.getElementById('part-'+t.dataset.open).classList.remove('collapsed'); return; }
+  if(t.dataset.close){ e.stopPropagation(); document.querySelectorAll('.sc[data-part="'+t.dataset.close+'"]').forEach(x=>setOpen(x,false)); return; }
+  if(t.dataset.toggle){ const el=document.getElementById(t.dataset.toggle); setOpen(el, !el.classList.contains('open')); return; }
+  if(t.dataset.part){ document.getElementById('part-'+t.dataset.part).classList.toggle('collapsed'); hint(); return; }
+  if(t.dataset.scenh){ allParts(!allCollapsed()); return; }
+  if(t.dataset.navscen){ allParts(true); return; }
+  if(t.dataset.navtog){ e.preventDefault(); const c=!navEl.classList.contains('col'); navEl.classList.toggle('col',c); t.classList.toggle('col',c); t.setAttribute('aria-label', c?'Expand part list':'Collapse part list'); return; }
+  if(t.dataset.status){ const [id,st]=t.dataset.status.split('|'); setStatus(id,st); return; }
+  if(t.dataset.sign){ sign(t.dataset.sign); return; }
+  if(t.dataset.navpart){ e.preventDefault(); t.closest('li.navpart').classList.toggle('collapsed'); return; }
+  if(t.dataset.navto){ const el=document.getElementById(t.dataset.navto); document.getElementById('part-'+el.dataset.part).classList.remove('collapsed'); setOpen(el,true); hint(); }
+});
+document.addEventListener('keydown', e=>{ if((e.key==='Enter'||e.key===' ') && e.target.dataset && e.target.dataset.toggle){ e.preventDefault(); const el=document.getElementById(e.target.dataset.toggle); setOpen(el, !el.classList.contains('open')); } });
+document.addEventListener('change', e=>{ if(e.target.dataset && e.target.dataset.step){ const [id,n]=e.target.dataset.step.split('|'); stepDone(id,n,e.target.checked); } });
+document.addEventListener('input', e=>{ if(e.target.dataset && e.target.dataset.field){ const [id,f]=e.target.dataset.field.split('|'); setField(id,f,e.target.value); } });
+function setOpen(el,open){ el.classList.toggle('open',open); const h=el.querySelector('.sc-head'); if(h) h.setAttribute('aria-expanded', open?'true':'false'); }
+function allCollapsed(){ return [...document.querySelectorAll('.part:not(.hidden)')].every(p=>p.classList.contains('collapsed')); }
+function allParts(collapse){ document.querySelectorAll('.part').forEach(p=>p.classList.toggle('collapsed',collapse)); hint(); }
+function hint(){ const c=allCollapsed(); document.getElementById('scenarios').classList.toggle('allcol',c); document.getElementById('btnParts').textContent = c? 'Expand all parts' : 'Collapse all parts'; }
+function needRole(){ if(!S.role){ toast('Choose your role in the Tester section first'); document.getElementById('tRole').focus(); return true; } return false; }
+function stepDone(id,n,v){ if(needRole()){ paint(id); return; } res(id).steps[n]=v; save(); const tr=document.getElementById(id+'-st'+n); if(tr) tr.classList.toggle('done',v); }
+function setStatus(id,st){ if(needRole()) return; const r=res(id); r.status=st; if(st!=='Not Run'){ r.date=r.date||today(); } else { r.signed=''; r.date=''; } save(); paint(id); stats(); summary(); }
+function setField(id,f,v){ if(needRole()){ paint(id); return; } res(id)[f]=v; save(); summary(); }
+function sign(id){ if(needRole()) return; const r=res(id); if(r.status==='Not Run'){ toast('Choose Pass, Fail or Blocked before signing'); return; } r.date=r.date||today(); r.signed=new Date().toLocaleString(); r.signedName=S.name||''; save(); paint(id); summary(); toast(id+' signed off'+(S.name?' by '+S.name:'')); }
+function paint(id){ const d=DATA.find(x=>x.id===id), r=res(id), el=document.getElementById(id);
+  el.classList.remove('Pass','Fail','Blocked'); if(r.status!=='Not Run') el.classList.add(r.status);
+  const pill=document.getElementById('pill-'+id); pill.textContent=r.status; pill.className='status-pill '+(r.status!=='Not Run'?r.status:'');
+  el.querySelectorAll('.rb').forEach(b=>b.classList.toggle('on', b.classList.contains(r.status)));
+  el.querySelector('textarea').value=r.comment||''; el.querySelector('.rgrid input').value=r.defect||'';
+  el.querySelectorAll('.steps tr').forEach(tr=>{ const cb=tr.querySelector('input'); if(!cb) return; const n=cb.dataset.step.split('|')[1]; const v=!!(r.steps&&r.steps[n]); cb.checked=v; tr.classList.toggle('done',v); });
+  const sg=document.getElementById('sig-'+id); if(r.signed){ sg.className='signed'; sg.innerHTML=(r.signedName?'<span class="sig">'+esc(r.signedName)+'</span>':'')+r.status+' &middot; signed '+esc(r.signed); } else { sg.className='unsigned'; sg.textContent='Not signed'; }
+  document.getElementById('dot-'+id).className='dot '+(r.status!=='Not Run'?r.status:'');
+  document.getElementById('rwho-'+id).textContent = S.role ? 'recording as '+(S.name?S.name+' &middot; ':'')+S.role : '\u2014 choose your role in the Tester section to record'; }
+const tRole=document.getElementById('tRole'), tName=document.getElementById('tName'), tPart=document.getElementById('tPart');
+tRole.innerHTML='<option value="">&mdash; choose your role &mdash;</option>'+ROLES.map(r=>'<option'+(r===S.role?' selected':'')+'>'+esc(r)+'</option>').join('');
+tRole.value=S.role||''; tName.value=S.name||''; tPart.value=S.part||'';
+tPart.addEventListener('change',()=>{ S.part=tPart.value; save(); filter(); });
+tRole.addEventListener('change',()=>{ S.role=tRole.value; save(); header(); filter(); });
+tName.addEventListener('input',()=>{ S.name=tName.value; save(); });
+function header(){ const r=S.role; document.getElementById('hdrName').textContent=r||'Role not set'; const mine=r?DATA.filter(d=>d.role===r).length:0; document.getElementById('hdrRole').textContent=r?(mine+' scenarios for this role'):'Choose your role below'; document.getElementById('avInit').textContent=r?r.slice(0,2).toUpperCase():'?'; }
+let stFilter=''; document.querySelectorAll('#statusChips .chip').forEach(c=>c.onclick=()=>{ document.querySelectorAll('#statusChips .chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); stFilter=c.dataset.st; filter(); });
+function passes(d){ const part=S.part; return (!part || d.part===part) && (!stFilter || res(d.id).status===stFilter); }
+function visible(d){ return (!S.role || d.role.split("; ").includes(S.role)) && passes(d); }
+function filter(){ let n=0; const seen={};
+  DATA.forEach(d=>{ const show=visible(d); document.getElementById(d.id).classList.toggle('hidden',!show); if(show){ n++; seen[d.part]=1; } const li=navEl.querySelector('li[data-id="'+d.id+'"]'); if(li) li.classList.toggle('hidden',!show); });
+  document.querySelectorAll('.part').forEach(p=>{ p.classList.toggle('hidden',!seen[p.dataset.part]); const c=document.querySelectorAll('.sc[data-part="'+p.dataset.part+'"]:not(.hidden)').length; document.getElementById('pcount-'+p.dataset.part).textContent=c+' scenario'+(c===1?'':'s'); });
+  document.querySelectorAll('li.navpart').forEach(p=>p.classList.toggle('hidden',!seen[p.dataset.part]));
+  document.getElementById('scenCount').textContent = !S.role ? 'Choose your role above to see the scenarios that apply to you \u2014 or browse all '+DATA.length+' below.' : (n===DATA.length ? DATA.length+' scenarios, in the order they are run.' : 'Showing '+n+' of '+DATA.length+' scenarios for '+S.role+(S.part?' in Part '+S.part:'')+(stFilter?' with status '+stFilter:'')+'.');
+  records(); stats(); hint(); }
+function records(){ const tb=document.querySelector('#recTable tbody'); tb.innerHTML=''; const rows={};
+  DATA.forEach(d=>{ if(!visible(d)) return; const k=d.records.row; (rows[k]=rows[k]||{row:d.records,ids:[]}).ids.push(d.id.replace(/^[A-Z]+-/,'')); });
+  Object.values(rows).forEach(({row,ids})=>{ const tr=document.createElement('tr'); tr.innerHTML='<td><b>'+esc(row.persona)+'</b></td><td>'+ids.join(', ')+'</td><td class="recs">'+recHtml(row)+'</td>'; tb.appendChild(tr); });
+  document.getElementById('recCap').textContent = S.role ? ('Showing records for '+S.role+'.') : 'Showing all roles and records \u2014 choose your role above to narrow this down.';
+  if(!Object.keys(rows).length){ tb.innerHTML='<tr><td colspan="3" style="color:var(--muted)">No scenarios match the current filters.</td></tr>'; } }
+function stats(){ const set=DATA.filter(d=>!S.role||d.role.split("; ").includes(S.role)); const c={Pass:0,Fail:0,Blocked:0,'Not Run':0}; set.forEach(d=>c[res(d.id).status]++); const t=set.length;
+  document.getElementById('stats').innerHTML='<div class="stat"><div class="k">Scenarios'+(S.role?' &middot; '+esc(S.role):'')+'</div><div class="v">'+t+'</div></div><div class="stat pass"><div class="k">Pass</div><div class="v">'+c.Pass+'</div></div><div class="stat fail"><div class="k">Fail</div><div class="v">'+c.Fail+'</div></div><div class="stat block"><div class="k">Blocked</div><div class="v">'+c.Blocked+'</div></div><div class="stat"><div class="k">Not run</div><div class="v">'+c['Not Run']+'</div></div><div class="stat"><div class="k">Complete</div><div class="v">'+(t?Math.round((t-c['Not Run'])/t*100):0)+'%</div></div>';
+  document.getElementById('bar').innerHTML=t?'<i class="p" style="width:'+(c.Pass/t*100)+'%"></i><i class="f" style="width:'+(c.Fail/t*100)+'%"></i><i class="b" style="width:'+(c.Blocked/t*100)+'%"></i>':''; }
+function summary(){
+  const rows=[]; DATA.forEach(d=>{ const r=res(d.id); if(r.status!=='Not Run') rows.push({d,r}); });
+  const w=document.getElementById('sumWrap');
+  if(!rows.length){ w.innerHTML='<div class="empty">No scenarios have been tested yet in this browser. Results appear here as you record Pass, Fail or Blocked.</div>'; }
+  else { w.innerHTML='<table class="sum"><thead><tr><th>ID</th><th>Scenario</th><th>Role</th><th>Result</th><th>Date</th><th>Signed off</th><th>Defect</th><th>Comments</th></tr></thead><tbody>'+rows.map(({d,r})=>'<tr><td><a href="#'+d.id+'" data-navto="'+d.id+'">'+d.id+'</a></td><td>'+esc(d.title)+'</td><td>'+esc(d.role)+'</td><td class="'+r.status+'">'+r.status+'</td><td>'+esc(r.date)+'</td><td>'+(r.signed?'<span class="signed">'+(r.signedName?'<span class="sig" style="font-size:17px">'+esc(r.signedName)+'</span>':'\u2713')+'</span><div style="font-size:11.5px;color:var(--muted)">'+esc(r.signed)+'</div>':'<span class="unsigned">\u2014</span>')+'</td><td>'+esc(r.defect)+'</td><td>'+esc(r.comment)+'</td></tr>').join('')+'</tbody></table>'; }
+  const signedNames=[...new Set(rows.filter(x=>x.r.signed && x.r.signedName).map(x=>x.r.signedName))];
+  document.getElementById('sigline').children[0].innerHTML=(signedNames.length?'<span class="sig">'+signedNames.map(esc).join(', ')+'</span>':'')+'Tester signature'; }
+document.getElementById('btnReset').onclick=()=>{ if(confirm('Clear every result, comment and sign-off recorded in this browser?')){ S.res={}; save(); DATA.forEach(d=>paint(d.id)); stats(); summary(); toast('Results cleared'); } };
+document.getElementById('btnExport').onclick=()=>{ const rows=[['Process','Scenario ID','Title','Part','Role','Status','Date','Signed By','Signed At','Defect ID','Comments']]; DATA.forEach(d=>{ const r=res(d.id); if(r.status!=='Not Run') rows.push(["Seat Planning",d.id,d.title,d.part,d.role,r.status,r.date,r.signedName,r.signed,r.defect,r.comment]); }); if(rows.length===1){ toast('Nothing recorded yet'); return; } const csv=rows.map(r=>r.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(',')).join('\r\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='seat-planning_UAT_Results_'+today()+'.csv'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500); };
+if(location.hash){ const el=document.getElementById(location.hash.slice(1)); if(el && el.classList.contains('sc')) setOpen(el,true); }
+header(); DATA.forEach(d=>paint(d.id)); filter(); summary();
+</script>
+<script>document.getElementById("modJump").addEventListener("change", function(){ if(this.value) location.href = this.value; });</script>
+</body></html>

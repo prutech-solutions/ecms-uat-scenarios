@@ -1,0 +1,184 @@
+{
+  "module": "Provider Procurement",
+  "moduleSummary": "This module covers the earlier, upstream side of bringing new childcare providers into the DOE system: DOE staff issuing formal solicitations (RFPs/RFIs) to recruit vendors, tracking who responds, and then vetting and approving a new Family Child Care Network (FCCN) provider's application before it is affiliated with a network. This is distinct from the existing 'FCCN Network Provider Setup' guide, which only covers connecting an ALREADY-approved FCC Provider to a network — that guide picks up after the vetting and approval process described here has already finished.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Setting up an internal staff member with Provider Procurement access",
+      "description": "Before a DOE internal administrator can approve provider applications or manage RFPs/RFIs, someone must give them the right permissions in their user settings (the 'Provider Management Team' and 'FCCN Internal Affiliation Management' access groups). Without this setup step, the relevant menu options and application links simply won't appear for them.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Setting up a vendor user with FCCN Provider Management access",
+      "description": "A DOE staff member finds a vendor organization's contact record, provisions them as a system user, and grants them the 'FCCN Provider Management' function so that person can log in and act on behalf of their organization (e.g., a network director submitting a new provider application) from that point forward.",
+      "who": "Internal Administrator (DOE staff) setting up a Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.V Provider Procurement_Vendor Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Issuing a new RFP/RFI to recruit vendors",
+      "description": "DOE staff record the basic details of a formal solicitation (a Request for Proposal or Request for Information) that is being put out to recruit new childcare provider organizations, so the effort is tracked in the system from the very beginning rather than only on paper or in email.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1971", "docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Reviewing the list of open and past RFPs/RFIs",
+      "description": "DOE staff pull up the full list of solicitations that have been entered into the system, switch between different saved views, and open any individual solicitation to see its full details in one place.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Recording a vendor's response to an RFP/RFI",
+      "description": "When a vendor organization responds to a solicitation, DOE staff add them as a 'responder' on that RFP/RFI record, capturing who the point of contact is, which vendor they represent, and their proposed budget. If the vendor isn't already known to the system, staff can create a new lead record for them on the spot.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Correcting or updating a vendor's response details",
+      "description": "DOE staff go back into a previously-recorded vendor response and update information such as the point-of-contact name, vendor name, or proposed budget figure as the solicitation process moves forward and details are clarified.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Known issue: cannot add a contact person while responding to an RFP/RFI",
+      "description": "Testers found that staff were unable to add a point-of-contact ('lead') while recording a vendor's response to a solicitation, which would block the responder-tracking workflow described above.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2101"]
+    },
+    {
+      "title": "Known issue: solicitation end date can be entered incorrectly without warning",
+      "description": "Testers found that the system did not properly validate the closing/end date entered for a solicitation, allowing dates that don't make sense (e.g., an end date before the start date) to be saved without any warning to staff.",
+      "who": "Internal Administrator / RFP-RFI Team",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2100"]
+    },
+    {
+      "title": "Sending a new provider a link to apply for network affiliation",
+      "description": "A network's administrator (vendor side) starts the process of bringing on a new Family Child Care provider by generating and emailing that provider a personalized application link. Once the prospective provider fills out and submits the linked application, it is automatically routed to DOE staff for review.",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.V Provider Procurement_Vendor Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Checking on the status of a submitted provider application",
+      "description": "A network administrator opens their list of Family Child Care applications tied to their network and checks each one's current status (for example, whether it is still 'Submitted' and awaiting DOE review, or has moved further along in the vetting process).",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.V Provider Procurement_Vendor Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Completing a Preschool Screening Instrument (PSI) entry as part of vetting",
+      "description": "As part of vetting a prospective provider, the network administrator fills out a detailed screening form covering topics like curriculum planning, how children are engaged and supervised, indoor/outdoor safety, and general family child care information, then submits it for the provider's file.",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.V Provider Procurement_Vendor Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Known issue: PSI screening form can be submitted blank or misaligned",
+      "description": "Testers found two related problems with the PSI screening form used during provider vetting: the system allowed the form to be submitted completely empty with no required fields enforced, and some form fields displayed out of alignment when a user tried to proceed without checking a required box first.",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2126", "DOEECMS-2166"]
+    },
+    {
+      "title": "Known issue: cannot attach supporting documents to a PSI interview",
+      "description": "Testers found that users were unable to upload supporting documents (such as photos or paperwork gathered during a site visit) to the PSI interview form, which would otherwise be part of documenting the vetting visit.",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2122"]
+    },
+    {
+      "title": "Reviewing and approving a submitted provider application",
+      "description": "DOE staff open a submitted Family Child Care provider application, review its details, and move it through the approval stages using an on-screen status tracker, finally marking it complete — at which point the provider officially becomes affiliated with the network.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Requesting more information or corrections from a vendor during review",
+      "description": "While reviewing an application, DOE staff can send it back to the vendor to ask for missing information or corrections, rather than approving or rejecting it outright, keeping the back-and-forth tracked within the same record.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Known issue: cannot submit the provider application form",
+      "description": "Testers found that the Family Child Care Network provider application form could not be submitted at all, which would block a prospective provider from starting the vetting process in the first place.",
+      "who": "Vendor Administrator / prospective Provider",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2167"]
+    },
+    {
+      "title": "Known issue: application form shows duplicate fields and missing questions",
+      "description": "Testers found that the provider application form displayed duplicate fields, and separately that expected questions on the application sometimes failed to load at all, both of which would confuse an applicant filling out the form.",
+      "who": "Vendor Administrator / prospective Provider",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2118", "DOEECMS-2098"]
+    },
+    {
+      "title": "Known issue: internal staff lack access to Family Child Care Application links and quick-links panel",
+      "description": "Testers found that some internal FCCN-related staff accounts did not have access to the Family Child Care Application links they needed, and that shortcut ('quick link') buttons expected on the application record were missing entirely — both would prevent staff from reaching the application in the first place.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2115", "DOEECMS-2121"]
+    },
+    {
+      "title": "Known issue: error when sending an application invitation, and locked-out visibility rules",
+      "description": "Testers found that the flow for inviting a prospective provider to fill out an application could throw an unhandled system error, and separately flagged work to ensure FCCN users can only see records tied to their own active network affiliation (rather than being over- or under-restricted).",
+      "who": "Internal Administrator (DOE staff) / Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Bug identified during Phase 1 regression testing; underlying feature not covered by any existing client-facing guide",
+      "sourceRefs": ["DOEECMS-2097", "DOEECMS-2144"]
+    },
+    {
+      "title": "Viewing all networks affiliated with a vendor's account",
+      "description": "A network administrator looks at their own organization's account record to see the full list of DOE networks their organization is affiliated with, and can drill into any one of those affiliations for more detail.",
+      "who": "Vendor Administrator (Network Director)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.V Provider Procurement_Vendor Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Adding a new contact person to a vendor's account",
+      "description": "DOE staff open a vendor organization's account and add a new contact person (such as a newly hired staff member at that organization) so that person's information is on file and available for future communication.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    },
+    {
+      "title": "Reviewing the full history of interactions with a vendor",
+      "description": "DOE staff open a vendor's account and check its activity history tab to see a running log of meetings, emails, and other interactions that have taken place with that organization over time.",
+      "who": "Internal Administrator (DOE staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["docs/reference/Phase 1 UAT Visual Scripts/12.A Provider Procurement_Internal Adm_UAT Guide.pptx.txt"]
+    }
+  ]
+}

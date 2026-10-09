@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ECMS UAT Test Scenarios &mdash; All Modules</title>
+<style>
+:root{--ink:#16325c;--head:#0B2545;--muted:#5c6b82;--link:#1657CE;--line:#e5e9f0;--navy:#0B2545;--accent:#1657CE;--soft:#f3f7fc;}
+*{box-sizing:border-box;}
+body{margin:0;color:var(--ink);background:#fff;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.6;font-size:15.5px;}
+a{color:var(--link);text-decoration:none;}
+.topbar{position:sticky;top:0;z-index:10;box-shadow:0 1px 0 var(--line);}
+.tb-top{background:#fff;border-bottom:1px solid var(--line);} .tb-top .in{max-width:1180px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:12px;}
+.doe-logo{display:flex;align-items:baseline;gap:1px;font-weight:800;font-size:20px;}
+.doe-logo b:nth-child(1){color:#0072CE;} .doe-logo b:nth-child(2){color:#F5A623;} .doe-logo b:nth-child(3){color:#00A65A;}
+.doe-sub{color:var(--muted);font-size:12.5px;padding-left:10px;border-left:1px solid var(--line);}
+.tb-bottom{background:var(--navy);} .tb-bottom .in{max-width:1180px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;gap:22px;}
+.ecms-brand{color:#fff;font-weight:700;font-size:15px;}
+.topnav{display:flex;gap:24px;} .topnav a{color:#cfe0fb;font-weight:600;font-size:13.5px;}
+.wrap{max-width:1180px;margin:0 auto;padding:8px 32px 60px;}
+.hero{background:linear-gradient(135deg,#0B2545,#1657CE);color:#fff;border-radius:14px;padding:32px 36px;margin:22px 0 6px;}
+.hero h1{color:#fff;margin:0 0 8px;font-size:30px;} .hero p{color:#e3edfb;margin:0;font-size:15.5px;max-width:820px;}
+.statbar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 6px;}
+.stat{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fff;}
+.stat .n{font-size:24px;font-weight:800;color:var(--head);line-height:1;} .stat .t{font-size:12.5px;color:var(--muted);margin-top:6px;}
+h2{font-size:22px;color:var(--head);font-weight:700;margin:36px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0;}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff;color:var(--ink);transition:.15s;}
+.card:hover{box-shadow:0 8px 22px rgba(11,37,69,.10);border-color:#c9dcf7;transform:translateY(-2px);text-decoration:none;}
+.card .k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;}
+.card h3{margin:6px 0 8px;font-size:17px;color:var(--head);}
+.card p{margin:0 0 14px;color:var(--muted);font-size:13.5px;flex:1;}
+.chip{font-size:11.5px;font-weight:600;color:var(--navy);background:var(--soft);border:1px solid var(--line);border-radius:20px;padding:3px 10px;}
+.card .open{margin-top:6px;font-weight:700;color:var(--accent);font-size:13.5px;}
+.callout{background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:14px 18px;margin:18px 0;}
+.site-footer{background:var(--navy);color:#fff;margin-top:48px;}
+.ft-in{max-width:1180px;margin:0 auto;padding:22px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;}
+.ft-left b{font-size:14px;} .ft-left div{color:#B9C7E3;font-size:12.5px;margin-top:4px;}
+.ft-nav a{color:#fff;font-size:13px;}
+@media (max-width:900px){.cards,.statbar{grid-template-columns:1fr;}}
+</style></head>
+<body>
+<div class="topbar">
+  <div class="tb-top"><div class="in">
+    <span class="doe-logo"><b>N</b><b>Y</b><b>C</b></span>
+    <span class="doe-sub">Department of Education &middot; Division of Early Childhood Education</span>
+  </div></div>
+  <div class="tb-bottom"><div class="in">
+    <a class="ecms-brand" href="index.html">ECMS UAT</a>
+    <nav class="topnav"><a href="https://prutech-solutions.github.io/ecms-user-guide/">User Guide</a></nav>
+  </div></div>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>ECMS UAT Test Scenarios</h1>
+    <p>Choose a module below to open its interactive test tracker. Each tracker lets you pick your role, work
+    through real test scenarios step by step, and record Pass / Fail / Blocked with your sign-off. You can jump
+    to any other module at any time from the dropdown at the top of every tracker page.</p>
+  </div>
+  <div class="statbar">
+    <div class="stat"><div class="n">13</div><div class="t">Modules</div></div>
+    <div class="stat"><div class="n">224</div><div class="t">Total test scenarios</div></div>
+    <div class="stat"><div class="n">UAT</div><div class="t">Grounded in the ECMS UAT sandbox</div></div>
+  </div>
+
+  <h2>Test Trackers</h2>
+  <div class="cards">
+      <a class="card" href="vendor-site-setup-uat-scenarios.html">
+        <div class="k">Module 1</div>
+        <h3>Vendor &amp; Site Setup (CBO)</h3>
+        <p>Create a CBO account/site/contact, provision vendor portal access, confirm site closure/reopen and staff-tracking behavior, and report/manage incidents.</p>
+        <div class="meta"><span class="chip">21 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="fccn-network-setup-uat-scenarios.html">
+        <div class="k">Module 2</div>
+        <h3>FCCN Network &amp; Provider Setup</h3>
+        <p>Create an FCCN account, affiliate a Family Child Care Provider, confirm FCCN staff portal access, and coach/assign Education Specialists.</p>
+        <div class="meta"><span class="chip">9 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="fccn-calendar-management-uat-scenarios.html">
+        <div class="k">Module 3</div>
+        <h3>FCCN Calendar Management</h3>
+        <p>A network's shared default calendar, a Provider site requesting its own alternative calendar, and the DOE approval process.</p>
+        <div class="meta"><span class="chip">5 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="contracts-seats-uat-scenarios.html">
+        <div class="k">Module 4</div>
+        <h3>Contracts &amp; Seats</h3>
+        <p>Create a contract, contract period, and seats, and keep cost-per-child and seat capacity accurate over time.</p>
+        <div class="meta"><span class="chip">16 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="seat-planning-uat-scenarios.html">
+        <div class="k">Module 5</div>
+        <h3>Seat Planning</h3>
+        <p>The annual FY Seat Planning app's draft, edit, and publish lifecycle.</p>
+        <div class="meta"><span class="chip">5 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="enrollments-uat-scenarios.html">
+        <div class="k">Module 6</div>
+        <h3>Enrollments (CBO, FCCN &amp; Summer)</h3>
+        <p>The full enrollment lifecycle — CBO and FCCN submission/approval, Summer automation, Admit Codes, ACCIS eligibility, and change requests.</p>
+        <div class="meta"><span class="chip">44 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="attendance-uat-scenarios.html">
+        <div class="k">Module 7</div>
+        <h3>Attendance (CBO &amp; FCCN, SDY)</h3>
+        <p>Daily/weekly attendance, monthly certification, and the SDY+ enrollment indicator and reporting.</p>
+        <div class="meta"><span class="chip">18 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="budget-approval-uat-scenarios.html">
+        <div class="k">Module 8</div>
+        <h3>Budget Creation &amp; Approval</h3>
+        <p>Vendor budget creation, the OA → OD approval chain, and the Pre-Approval path for budgets without a contract yet.</p>
+        <div class="meta"><span class="chip">18 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="invoice-payment-uat-scenarios.html">
+        <div class="k">Module 9</div>
+        <h3>Invoice Creation &amp; Payment</h3>
+        <p>Monthly invoice creation, OA/OD approval and reassignment, FAMIS payment status, advance payments, and third-level Central Approval.</p>
+        <div class="meta"><span class="chip">14 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="discharges-uat-scenarios.html">
+        <div class="k">Module 10</div>
+        <h3>Enrollment Discharge Process</h3>
+        <p>Submitting and reviewing a discharge request, and its downstream effects on attendance and enrollment.</p>
+        <div class="meta"><span class="chip">13 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="user-provisioning-uat-scenarios.html">
+        <div class="k">Module 11</div>
+        <h3>User Provisioning &amp; Setup</h3>
+        <p>Vendor portal user setup and internal DOE staff account setup.</p>
+        <div class="meta"><span class="chip">9 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+      <a class="card" href="reporting-uat-scenarios.html">
+        <div class="k">Module 12</div>
+        <h3>Reporting</h3>
+        <p>Viewing, refreshing, exporting, and building ECMS dashboards and reports.</p>
+        <div class="meta"><span class="chip">16 scenarios</span></div>
+        <span class="open">Open tracker &rarr;</span>
+      </a>
+  </div>
+
+  <div class="callout">
+    <b>How these work.</b> Every tracker is self-contained and interactive: pick your role from the dropdown,
+    work through only the scenarios that apply to you, mark each one Pass / Fail / Blocked, and sign off with
+    your name. Results are saved automatically in your browser as you go, and can be exported to CSV at any
+    time to send to the test lead.
+  </div>
+</div>
+<div class="site-footer"><div class="ft-in"><div class="ft-left"><b>NYC DOE &middot; Division of Early Childhood Education</b><div>Early Childhood Management System (ECMS)</div></div><nav class="ft-nav"><a href="https://prutech-solutions.github.io/ecms-user-guide/">User Guide Home</a></nav></div></div>
+<p style="margin:0;padding:14px 32px 40px;max-width:1180px;margin-left:auto;margin-right:auto;color:#8FA3C6;font-size:12px;">ECMS Phase 2 UAT test scenarios &middot; ECMS UAT sandbox</p>
+</body></html>

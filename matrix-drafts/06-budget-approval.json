@@ -1,0 +1,232 @@
+{
+  "module": "Budget Creation & Approval",
+  "moduleSummary": "Community-based organizations (CBOs/vendors) build a yearly spending plan (a \"budget\") for each site, submit it to DOE, and DOE staff review, approve, reject, or send it back for more information before the vendor can invoice against it.",
+  "existingGuide": "guide-08-budget-creation-approval.html (steps 1-10)",
+  "existingUatTracker": "budget-approval-uat-scenarios.html (15 scenarios, BUD-S01 to BUD-S15)",
+  "scenarios": [
+    {
+      "title": "Vendor sees the option to create a budget",
+      "description": "A vendor administrator logs into the portal and sees a clear way to start creating a new budget for a site.",
+      "who": "CBO Budget Creator",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S01. Also shown in the User Guide (step 1).",
+      "sourceRefs": ["BUD-S01", "Guide-08 step 1"]
+    },
+    {
+      "title": "Start a new budget and choose the site, contract type, and year",
+      "description": "A vendor starts a new budget and picks which site, contract type, and school year it is for. The system will not let them start a draft for a site that is no longer active.",
+      "who": "CBO Budget Creator",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S02. Also shown in the User Guide (steps 2-3). Related Jira: DOEECMS-2064 (New Budget screen should show active sites, contract type, and fiscal year).",
+      "sourceRefs": ["BUD-S02", "DOEECMS-2064", "Guide-08 steps 2-3"]
+    },
+    {
+      "title": "Enter the spending plan and save as a draft",
+      "description": "A vendor fills in planned costs (staff, supplies, etc.) and saves the budget without sending it to DOE yet.",
+      "who": "CBO Budget Creator",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S03. Also shown in the User Guide.",
+      "sourceRefs": ["BUD-S03", "Guide-08"]
+    },
+    {
+      "title": "Submit the budget for DOE approval",
+      "description": "A vendor sends their completed budget to DOE for review.",
+      "who": "CBO Budget Creator",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S04.",
+      "sourceRefs": ["BUD-S04"]
+    },
+    {
+      "title": "A submitted budget reaches the first DOE reviewer (Operations Analyst)",
+      "description": "Once a vendor submits a budget, it shows up in the DOE reviewer's list of items awaiting a decision.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S05.",
+      "sourceRefs": ["BUD-S05"]
+    },
+    {
+      "title": "DOE first-level reviewer approves a budget",
+      "description": "The first DOE reviewer approves a submitted budget and it moves forward for a second, higher-level review.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S06.",
+      "sourceRefs": ["BUD-S06"]
+    },
+    {
+      "title": "DOE first-level reviewer rejects a budget",
+      "description": "The first DOE reviewer turns down a budget, and it clearly shows as rejected with the reviewer who rejected it on record.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S07.",
+      "sourceRefs": ["BUD-S07"]
+    },
+    {
+      "title": "DOE reviewer asks the vendor for more information instead of rejecting",
+      "description": "Instead of rejecting a budget outright, the DOE reviewer sends it back asking the vendor to add or fix something, and the vendor can still act on it directly.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S08.",
+      "sourceRefs": ["BUD-S08"]
+    },
+    {
+      "title": "Vendor resubmits after DOE requested more information",
+      "description": "After DOE asks for more information, the vendor makes the fix and resubmits the same budget without needing DOE or an admin to reset anything.",
+      "who": "CBO Budget Creator",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S09. Related bugs on this path: DOEECMS-2238 (Submit button not visible after uploading documents in Information Requested status) and DOEECMS-2830 (regression of the same issue) should be re-verified as part of this scenario.",
+      "sourceRefs": ["BUD-S09", "DOEECMS-2238", "DOEECMS-2830"]
+    },
+    {
+      "title": "The full history of a budget's approvals is preserved after it is sent back and resubmitted",
+      "description": "After a back-and-forth between the vendor and DOE, the record still shows every step that happened, in the correct order.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S10. A related edge case is flagged below as a gap (history entries shown in reverse chronological order, and missing dates on certain auto-approvals).",
+      "sourceRefs": ["BUD-S10"]
+    },
+    {
+      "title": "An approved-by-first-reviewer budget reaches the second, higher-level DOE reviewer",
+      "description": "Once the first DOE reviewer signs off, the budget moves to a second, more senior DOE reviewer for final sign-off.",
+      "who": "Operations Director",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S11.",
+      "sourceRefs": ["BUD-S11"]
+    },
+    {
+      "title": "Senior DOE reviewer gives final approval and the budget becomes fully approved",
+      "description": "The senior reviewer's approval is the final gate — only after this does the budget become \"Approved by DOE,\" which unlocks invoicing.",
+      "who": "Operations Director",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S12.",
+      "sourceRefs": ["BUD-S12"]
+    },
+    {
+      "title": "Senior DOE reviewer rejects a budget",
+      "description": "The senior reviewer turns down a budget after the first reviewer had already approved it.",
+      "who": "Operations Director",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S13 (documented there as exploratory, since no example was on hand when the tracker was written).",
+      "sourceRefs": ["BUD-S13"]
+    },
+    {
+      "title": "DOE Admin can see every budget no matter its status",
+      "description": "An ECMS administrator can look up and view any budget, whatever stage it is in.",
+      "who": "ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S14.",
+      "sourceRefs": ["BUD-S14"]
+    },
+    {
+      "title": "Full approval history sanity check end-to-end",
+      "description": "A final check that walks a budget through the whole journey and confirms every step was logged correctly.",
+      "who": "ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Already covered by the dedicated Budget UAT test tracker, scenario BUD-S15.",
+      "sourceRefs": ["BUD-S15"]
+    },
+    {
+      "title": "A budget's rejected/needs-more-info status clearly shows WHICH level rejected or requested it",
+      "description": "When a budget is turned down or sent back, the vendor should be able to tell at a glance whether it was the first-level reviewer or the senior reviewer who did it, not just that it was rejected somewhere along the way.",
+      "who": "CBO Budget Creator / Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "The existing tracker's reject scenarios (BUD-S07, BUD-S13) confirm a rejection happened and record the rejecting reviewer, but do not specifically test that the vendor-facing sub-status distinguishes a first-level rejection from a senior-level rejection. This is a known gap reported in Jira (vendor cannot tell which level rejected the budget) and should be added as its own scenario.",
+      "sourceRefs": ["DOEECMS-2752", "DOEECMS-2753", "DOEECMS-2500"]
+    },
+    {
+      "title": "DOE reviewer reassigns a budget to a different reviewer",
+      "description": "Instead of approving, rejecting, or asking for more information, a DOE reviewer can hand a submitted budget off to a different DOE reviewer to make the final call.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "Reassignment is a documented feature (see the Phase 1 internal-admin training deck, \"Finalize Budget Reassignment\") and there is an open bug about the senior reviewer's approve/reject/reassign actions not working. None of the 15 existing scenarios test reassignment.",
+      "sourceRefs": ["Phase 1 Budgets Internal Adm UAT Guide (2.A.2, Step 3C)", "DOEECMS-1724"]
+    },
+    {
+      "title": "The system prevents duplicate budgets for the same site, contract, and year",
+      "description": "A vendor cannot end up with two separate budgets in progress for the same site and school year — if one already exists (draft, submitted, or approved), the system should guide them to the existing one instead of letting a second copy be created.",
+      "who": "CBO Budget Creator",
+      "status": "Not Yet Covered",
+      "statusNote": "The existing tracker only carries an advisory note reminding testers not to accidentally create a duplicate while testing BUD-S02; it does not test the duplicate-prevention behavior itself. Multiple related bugs have been logged and some rejected as by-design, so the actual current behavior needs to be confirmed and turned into a real pass/fail scenario.",
+      "sourceRefs": ["DOEECMS-2801", "DOEECMS-2765", "DOEECMS-2764"]
+    },
+    {
+      "title": "Vendor amends an already-approved budget",
+      "description": "After a budget has been approved, the vendor can make a formal revision (an \"amendment\") to it rather than starting over, and the system keeps track of the original budget and the amended version as linked records.",
+      "who": "CBO Budget Creator",
+      "status": "Not Yet Covered",
+      "statusNote": "Amending an approved budget is a distinct, documented workflow (Phase 1 vendor training deck, topic \"2.V.6 How to Amend a Submitted Budget\") that is not exercised anywhere in the 15 existing scenarios, which stop once the budget reaches \"Approved by DOE.\" There is also an open bug about being unable to make changes on an amended budget, and another about the \"New Contact\" step of amending an approved budget with a saved invoice not proceeding.",
+      "sourceRefs": ["Phase 1 Budgets_Vendor Adm UAT Guide (2.V.6)", "DOEECMS-1914", "DOEECMS-1880"]
+    },
+    {
+      "title": "Admin restores a deleted budget",
+      "description": "If a budget was deleted, an ECMS administrator can bring it back and restore the vendor's visibility into it (it comes back as a draft, not automatically re-submitted).",
+      "who": "ECMS Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented as its own workflow in the Phase 1 internal-admin training deck (\"2.A.3 How to Restore a Deleted Budget\") but not present in the 15-scenario tracker, which does not test deletion or restoration at all.",
+      "sourceRefs": ["Phase 1 Budgets_Internal Adm UAT Guide (2.A.3)"]
+    },
+    {
+      "title": "Adding and editing classes/rooms on a budget",
+      "description": "A vendor adds the classrooms/classes covered by a budget and edits their details (time, day type, capacity, etc.) without creating duplicate entries or losing changes.",
+      "who": "CBO Budget Creator",
+      "status": "Not Yet Covered",
+      "statusNote": "The existing tracker covers entering an overall spending plan (BUD-S03) but does not separately test the \"Manage Budget Classes\" screen. Several open/closed bugs point to real risk here: duplicate classes being created on double-save, classes saved with inconsistent times, fields accepting out-of-range values, and a budget being creatable without any classes added at all.",
+      "sourceRefs": ["DOEECMS-2798", "DOEECMS-2110", "DOEECMS-2065", "DOEECMS-1926", "DOEECMS-1933"]
+    },
+    {
+      "title": "Adding, editing, and saving budget line items (staff, supplies, equipment, etc.)",
+      "description": "A vendor enters detailed cost line items (staff wages, classroom equipment, supplies) within a budget, corrects any validation errors shown, and confirms the entries actually save.",
+      "who": "CBO Budget Creator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not directly tested by the 15 existing scenarios, which check the overall spending-plan total (BUD-S03) rather than individual line-item entry/edit mechanics. This is a real risk area: multiple bugs describe line items failing to save, error messages needing correction, equipment showing as saved with a $0 cost but not appearing in the list, and a \"no staff available\" message appearing even when staff should be selectable.",
+      "sourceRefs": ["DOEECMS-2170", "DOEECMS-2075", "DOEECMS-2093", "DOEECMS-2109", "DOEECMS-2076", "DOEECMS-1895", "DOEECMS-1858"]
+    },
+    {
+      "title": "Uploading and reviewing supporting documents on a budget",
+      "description": "A vendor uploads supporting paperwork for a budget (and can see what they uploaded), and DOE reviewers can open and view those same documents.",
+      "who": "CBO Budget Creator / Operations Analyst",
+      "status": "Not Yet Covered",
+      "statusNote": "Document upload/visibility is not tested anywhere in the 15 existing scenarios. This is a notable gap given the volume of related bugs: uploading a second document can hide the first one, a \"document uploaded successfully\" message can appear even when no file was actually uploaded, DOE reviewers have reported being unable to view an uploaded budget document, and vendor-uploaded documents have been reported invisible in the portal's Documents tab.",
+      "sourceRefs": ["DOEECMS-2587", "DOEECMS-1928", "DOEECMS-1927", "DOEECMS-1871", "DOEECMS-1882", "DOEECMS-1857", "DOEECMS-2063"]
+    },
+    {
+      "title": "Submitting and tracking a budget that does not yet have a DOE contract number",
+      "description": "A vendor can submit and track a budget for DOE's early (\"pre-approval\") review even before an official contract number has been issued, and once the contract number is later attached, the budget automatically completes its approval.",
+      "who": "CBO Budget Creator / Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "This is a real, delivered feature (three related stories were built and closed) that represents a materially different budget lifecycle path from the one exercised by the existing 15 scenarios, which all assume a contract number is already in place. None of the current scenarios test the pre-approval-without-a-contract-number path or the automatic transition to fully approved once the contract number is attached.",
+      "sourceRefs": ["DOEECMS-2701", "DOEECMS-2702", "DOEECMS-2703", "DOEECMS-2799"]
+    },
+    {
+      "title": "Internal DOE staff see submitted budgets waiting for their action on the ECMS home page",
+      "description": "When a budget is submitted, it should reliably show up in the internal reviewer's \"Items to Approve\" list on their home page, without duplicates and without needing to hunt for it elsewhere.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "BUD-S05 confirms a submitted budget reaches the first reviewer, but does not specifically test the home-page \"Items to Approve\" list experience. Related bugs describe internal users unable to see this list at all, and a duplicate budget record appearing within it.",
+      "sourceRefs": ["DOEECMS-1721", "DOEECMS-1804", "DOEECMS-2177"]
+    },
+    {
+      "title": "Vendor can see DOE's comments explaining an approval decision",
+      "description": "When DOE approves, rejects, or asks for more information on a budget, any explanatory comments the reviewer leaves should be visible to the vendor, not just visible internally.",
+      "who": "CBO Budget Creator",
+      "status": "Not Yet Covered",
+      "statusNote": "The existing information-request scenario (BUD-S08) checks that the specific request is visible/documented somewhere the vendor can act on, but a related bug reports that vendors cannot see comments DOE reviewers post on a budget more generally. Worth a focused scenario confirming comment visibility across all three decision types (approve, reject, request info).",
+      "sourceRefs": ["DOEECMS-1727"]
+    },
+    {
+      "title": "Editing the budget program calendar (program days, training days, holidays)",
+      "description": "A vendor or DOE admin sets up or edits the calendar of program days, training days, and holidays tied to a budget, and expected holidays are pre-filled correctly.",
+      "who": "CBO Budget Creator / ECMS Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented as its own workflow in both Phase 1 training decks (\"How to Edit the Budget Program Calendar\") but not exercised by the 15 existing scenarios. A related bug reports that the program calendar is not pre-filling holidays as expected.",
+      "sourceRefs": ["Phase 1 Budgets_Internal Adm UAT Guide (2.A.4)", "Phase 1 Budgets_Vendor Adm UAT Guide (2.V.4)", "DOEECMS-1729"]
+    },
+    {
+      "title": "Approval history dates and ordering are accurate and consistent",
+      "description": "The audit trail of who approved/rejected a budget and when should always show correct dates and list events in the right chronological order, including for budgets that are auto-approved once a contract number is attached.",
+      "who": "ECMS Admin / Operations Analyst",
+      "status": "Partially Covered",
+      "statusNote": "BUD-S10 and BUD-S15 in the existing tracker already exercise the approval-history audit trail in the standard flow, but do not specifically test two known edge cases: history entries reportedly displaying in reverse chronological order, and submitted/approval dates not populating when a budget auto-transitions to approved after a contract number is attached.",
+      "sourceRefs": ["DOEECMS-2746", "DOEECMS-2787", "DOEECMS-2803"]
+    }
+  ]
+}

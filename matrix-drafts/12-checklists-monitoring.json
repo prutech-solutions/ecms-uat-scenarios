@@ -1,0 +1,152 @@
+{
+  "module": "Checklists & Monitoring",
+  "moduleSummary": "This module lets internal staff build reusable review checklists (for example, health & safety site visits or program reviews), send them out to internal staff or vendor/CBO partners to fill in, and track responses through to completion. It also gives internal administrators read-only access to related site, contract, budget, invoice, enrollment, and coaching-log records, plus dashboards for overall compliance and performance monitoring.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Creating a new checklist for a site visit or program review",
+      "description": "An internal staff member starts a new checklist (for example, for a health and safety review or an instructional review), giving it a name, a description, choosing who is expected to respond to it (an internal staff member or an outside vendor), and setting a start date and an expiration date/time. New checklists must be saved in a 'Draft' status first, since a checklist can't be made active until it has questions on it. Testing found problems where the system displayed an error and would not let the checklist be created even with valid information, where clicking 'Finish' redirected back to the creation screen instead of completing it, where not all of the fields on a checklist were visible on screen, and where the system incorrectly accepted an expiration date that had already passed.",
+      "who": "Internal administrator / staff creating a review checklist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2130", "DOEECMS-2092", "DOEECMS-2079", "DOEECMS-2132", "DOEECMS-1973"]
+    },
+    {
+      "title": "Adding the review questions to a checklist",
+      "description": "After a checklist is created, staff add the individual questions/items that the person filling it out will need to answer — deciding what order each question appears in, what kind of answer is expected (a number, free text, or a date/time), and whether an answer to that question is mandatory. This can be done right after creating a new checklist, or later on a checklist that was previously saved in draft/inactive status. Testing found that a checkbox-type answer was incorrectly being converted and displayed as the words 'True' or 'False' after saving, and that some internal staff could not see the list of questions attached to a checklist at all, even though they needed to review or manage it.",
+      "who": "Internal administrator / staff building out checklist questions",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2090", "DOEECMS-1976"]
+    },
+    {
+      "title": "Reusing a ready-made standard checklist instead of building one from scratch",
+      "description": "Rather than creating a brand-new checklist every time, staff can open a pre-built, standard checklist that already exists in the system — for example, a general 'Health and Safety Review' checklist covering standards that apply based on the type of seat/site — and view its existing questions, description, and expiration details before sending it out.",
+      "who": "Internal administrator / staff conducting a standard compliance review",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Making a checklist active so it is ready to send out",
+      "description": "Once all the questions have been added to a checklist, staff change its status from 'Draft' to 'Active,' which is required before the checklist can be assigned to anyone to fill out.",
+      "who": "Internal administrator / staff",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Sending a checklist to someone to complete",
+      "description": "Staff assign an active checklist to a specific person — either another internal staff member or an outside vendor contact — who is expected to fill it in and submit it by a set deadline. The person assigning the checklist also chooses how often the recipient gets reminded (notification frequency) before it expires. Testing found several problems in this flow: a button was mislabeled ('Add Checklist Items' instead of 'Send Checklist'), the system let a checklist be sent to someone whose role didn't match who the checklist was meant for, the system let staff send a checklist to someone without ever adding any questions to it, clicking the 'Previous' button during the sending steps sometimes lost the selected recipient or created duplicate records, and an unhandled system error occurred when trying to complete the assignment.",
+      "who": "Internal administrator assigning a checklist to a respondent",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2221", "DOEECMS-2152", "DOEECMS-2151", "DOEECMS-2150", "DOEECMS-2127", "DOEECMS-2113"]
+    },
+    {
+      "title": "Getting reminders about checklists that still need to be completed",
+      "description": "Once a checklist has been sent to someone, that person keeps receiving reminder notifications (both by email and by a notification 'bell' icon inside the system) until they complete and submit it or the checklist expires. Testing found that using the 'Mark All as Read' option on the outside vendor/partner portal did not actually clear these pending checklist reminders after logging out and back in.",
+      "who": "Person assigned to complete a checklist (internal staff or outside vendor)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2088"]
+    },
+    {
+      "title": "Filling out and submitting an assigned checklist",
+      "description": "The person a checklist was sent to opens it (from a reminder email or from within the system), reads through the questions, types in their answers, and clicks Submit to complete it. Testing uncovered a long list of problems with this flow: answers typed into the response field sometimes did not actually save; some internal respondents were unable to submit the checklist at all; the checklist's name and ID number didn't display correctly after submitting; required fields weren't being validated, so a checklist could be submitted incomplete; there was no limit on how much text could be typed into an answer; the checklist form kept showing on screen even after a successful submission; and the date/time that a response was received wasn't being recorded properly. Similar problems were also found for outside vendor/CBO staff, who in some cases could not enter answers into the checklist questions at all through the outside partner portal.",
+      "who": "Person completing an assigned checklist (internal staff or outside vendor/CBO staff)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2222", "DOEECMS-2180", "DOEECMS-2154", "DOEECMS-2146", "DOEECMS-2096", "DOEECMS-2086", "DOEECMS-2082", "DOEECMS-2058", "DOEECMS-1977", "DOEECMS-1972"]
+    },
+    {
+      "title": "Checklist status automatically updates to 'Completed' and the owner is notified",
+      "description": "Once a checklist has been fully filled out and submitted, its status is expected to update on its own to 'Completed,' and the staff member who originally sent it out should get a notification letting them know it's done. Testing found that the status sometimes did not update to 'Completed' after an outside vendor submitted it, that an error occurred when trying to manually mark a checklist as Completed, and that internal staff were able to bypass this altogether and mark a checklist Completed even though the person it was sent to never actually filled in their required answers.",
+      "who": "Internal administrator who sent out the checklist (checklist owner)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2087", "DOEECMS-2083", "DOEECMS-1978"]
+    },
+    {
+      "title": "Preventing changes to a checklist's answers after it has been submitted",
+      "description": "Once a checklist has been submitted with responses, those answers are meant to be locked in as the official record. Testing found that a staff member with the 'Internal Checklist Manager' role was still able to go in and edit the answers on a checklist that had already been submitted, which undermines the checklist as a reliable record of what was reported.",
+      "who": "Internal staff member with checklist management access",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2089"]
+    },
+    {
+      "title": "Copying (cloning) an existing checklist to reuse it",
+      "description": "Instead of building a brand-new checklist from scratch each time, staff can clone/copy an existing checklist (with all of its questions already on it) to quickly create a new one for a similar review. Testing found that the 'Clone Checklist' option was entirely missing from checklist records for a time, and once added, a cloned checklist incorrectly copied over the old expiration date/time from the original, which caused the new checklist to automatically flip to an 'Inactive' status right away.",
+      "who": "Internal administrator reusing a previous checklist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1975", "DOEECMS-2081"]
+    },
+    {
+      "title": "Restricting who can view, respond to, or edit checklist information based on their role",
+      "description": "Access to checklists is meant to be limited based on a person's assigned role — for example, a group of staff set up specifically as 'Internal Checklist Viewers,' or outside vendor/CBO staff who should only be able to view and respond to checklist questions, not edit protected checklist details. Testing found that a newly created 'ECMS Internal Checklist Viewers' user could not be found/searched for when trying to assign them checklist access, and that an outside vendor/CBO user with only view-level checklist access was still able to modify checklist fields that should have been restricted to them.",
+      "who": "System administrator managing checklist access / outside vendor or CBO staff",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2131", "DOEECMS-2085"]
+    },
+    {
+      "title": "Seeing all of 'My Checklists' assigned to me in one place",
+      "description": "A person who has been sent one or more checklists can go to a 'My Checklist' list view to see everything currently assigned to them in one screen, rather than needing to find each one individually. Testing found that a checklist that had just been assigned to someone did not actually show up in their 'My Checklist' list view.",
+      "who": "Person assigned one or more checklists",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2091"]
+    },
+    {
+      "title": "Outside vendor/CBO staff receiving and completing checklists through the external partner portal",
+      "description": "Vendor and community-based organization (CBO/FCCN) staff log into a separate outside partner portal to receive and respond to checklists sent to them, similar to internal staff but through a different, external-facing screen. Testing found that the email notification these vendor users received had the wrong subject line and was missing the checklist's expiration information, and separately that the checklist questions themselves were not visible on the submission page when a vendor logged in to complete one.",
+      "who": "Outside vendor / CBO staff completing a checklist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2057", "DOEECMS-2044"]
+    },
+    {
+      "title": "Looking up a site's master record and its enrollment information",
+      "description": "Internal staff can search for any site/classroom in the system and view all details recorded about it, then drill in further to see the enrollments (children) tied to that site, and open an individual child's enrollment record from there.",
+      "who": "Internal administrator reviewing a site during monitoring",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Reviewing a site's contract details",
+      "description": "Internal staff can browse all the different contract types tied to sites — Head Start contracts, Birth-to-Five contracts, and older 'Legacy' contracts — and open an individual contract to see its start and end dates, dollar amount, and the time periods it covers.",
+      "who": "Internal administrator reviewing site/vendor contract information",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Reviewing a site's budget and invoice details",
+      "description": "Internal staff can browse budget records and invoice records tied to sites and vendors, opening an individual budget or invoice to review its full details as part of understanding a site's financial standing during a monitoring review.",
+      "who": "Internal administrator reviewing financial data during monitoring",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Reviewing coaching log entries for a site",
+      "description": "Internal staff can browse the coaching logs recorded for sites/programs and open an individual coaching log entry to review the details that were recorded during a coaching visit.",
+      "who": "Internal administrator reviewing coaching/support history for a site",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Viewing monitoring dashboards for compliance and performance oversight",
+      "description": "Internal staff can open dashboards that pull together multiple reports, charts, and key numbers on a single screen — for example, a dashboard showing how many incidents are open and which sites report the most incidents, a dashboard showing seat capacity across school types and how many seats are filled, and a dashboard showing current attendance for vendor sites. Testing found a case where an expected dashboard was missing entirely.",
+      "who": "Internal administrator / leadership reviewing compliance and performance",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2124"]
+    }
+  ]
+}
