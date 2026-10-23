@@ -1,0 +1,208 @@
+{
+  "module": "Attendance",
+  "moduleSummary": "Covers how CBO (community-based organization) and FCCN (Family Child Care Network) providers record, correct, and formally certify children's daily/weekly attendance, plus the SDY/SDY+/TITO seat-type rules, rate differentials, and reporting that flow from that attendance into invoicing.",
+  "existingGuide": "guide-06-attendance-cbo.html (steps 1-9), guide-07-attendance-fccn-sdy-tito.html (steps 1-14)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "CBO weekly attendance entry and review",
+      "description": "A CBO staff member picks a site, then a class, then a student, and marks each day of the week present, absent, or another status for that child, and can return later to review a week that was already filled in before making changes.",
+      "who": "CBO Vendor Admin",
+      "status": "Covered",
+      "statusNote": "Documented end-to-end in guide-06-attendance-cbo.html steps 1-6 and matches Phase 1 UAT vendor deck steps for weekly TITO attendance.",
+      "sourceRefs": ["guide-06 steps 1-6", "6.V Attendance_Vendor Adm_UAT Guide.pptx (Create and Edit Weekly TITO Attendance)"]
+    },
+    {
+      "title": "Monthly attendance certification (CBO)",
+      "description": "At month's end, a CBO staff member reviews the whole month of attendance for a class and formally signs off that it is accurate. This sign-off is a hard requirement before an invoice for that month can be submitted.",
+      "who": "CBO Vendor Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide-06-attendance-cbo.html steps 7-9, explicitly tying certification to the invoicing precondition.",
+      "sourceRefs": ["guide-06 steps 7-9", "DOEECMS-2128", "DOEECMS-2316"]
+    },
+    {
+      "title": "System blocks certification of an incomplete month",
+      "description": "If any day or any enrolled student in the month is missing an attendance entry, the system will not let staff certify that month until every day and enrollment is filled in.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Covered",
+      "statusNote": "Confirmed current behavior per BRD, extended to FCCN users; guide-07 step 13 references this rule for both CBO and FCCN.",
+      "sourceRefs": ["BRD D07 section 5.2.2 (DOEECMS-2346)", "guide-07 step 13"]
+    },
+    {
+      "title": "TITO (time-in/time-out) attendance entry for EDY seats",
+      "description": "For children in a full-day (EDY) seat, staff enter the exact clock-in and clock-out time for the day, including a second pair of times if the child attended a split morning/afternoon session.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide-07-attendance-fccn-sdy-tito.html steps 1-6, including the split-session second check-in/out pair.",
+      "sourceRefs": ["guide-07 steps 1-6", "DOEECMS-1983 (2nd Check In/out fields)"]
+    },
+    {
+      "title": "TITO not required for SDY or SDY+ seats",
+      "description": "For children in an SDY or SDY+ (school-day-year) seat, the system tells the user that clock-in/clock-out times are not required — only the daily attendance status needs to be recorded, since TITO only applies to full-day seats.",
+      "who": "FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "The rule is documented in the BRD and referenced in guide-07 step 8, but the guide does not show the actual on-screen message an FCCN user sees when opening attendance for an SDY seat.",
+      "sourceRefs": ["BRD D07 section 5.2.1 (DOEECMS-2345)", "guide-07 step 8"]
+    },
+    {
+      "title": "FCCN users logging daily/weekly attendance for SDY seats",
+      "description": "A network staff member enters attendance for children in SDY seats at any of the family child care providers affiliated with their network — something that used to be limited to CBO staff only.",
+      "who": "FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "The underlying feature is built and referenced in guide-07, but a dedicated step-by-step walkthrough of an FCCN user entering SDY (non-TITO) attendance specifically is not shown; guide-07 focuses mainly on the TITO/EDY flow. Related bugs (student roster visibility, save failures) indicate ongoing stabilization.",
+      "sourceRefs": ["BRD D07 section 5.2.1 (DOEECMS-2345)", "DOEECMS-2790 (Regression-Students Are Not Visible to take Attendance in FCCN Account)", "DOEECMS-2739 (FCCN: Daily Attendance save fails with Invalid ID error)"]
+    },
+    {
+      "title": "SDY+ enrollment indicator on a student",
+      "description": "A checkbox on a student's enrollment record marks them as part of the enhanced SDY+ program, and that flag automatically clears itself if the student no longer has any SDY+ enrollment records.",
+      "who": "Internal Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide-07 step 9; supported by closed Jira work clearing/uncheckin g the indicator automatically.",
+      "sourceRefs": ["guide-07 step 9", "DOEECMS-2818 (Clear and Uncheck SDY+ Indicator When No SDY+ Records Exist)", "DOEECMS-2625", "DOEECMS-2667"]
+    },
+    {
+      "title": "SDY+ Active Enrollment Report",
+      "description": "An internal user can run a report that lists every student currently and actively enrolled with the SDY+ flag turned on, grouped by site, then class, then student name.",
+      "who": "Internal Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide-07 step 10 and matches BRD acceptance criteria (approved/active enrollments only, grouped by Site/Class/Student).",
+      "sourceRefs": ["guide-07 step 10", "BRD D07 section 4.2.2 (DOEECMS-2344)"]
+    },
+    {
+      "title": "Infant-to-toddler age validation alert during attendance entry",
+      "description": "When staff take attendance for a child who has passed their first birthday (CBO) or second birthday (FCC) but is still assigned to an infant seat, the system displays a warning telling staff the child should be moved to a toddler seat.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "Guide-07 step 11 documents the alert, but an open regression bug reports the warning banner has stopped appearing on Weekly/Daily Attendance after previously working.",
+      "sourceRefs": ["guide-07 step 11", "BRD D07 section 4.2.3 (DOEECMS-2191)", "DOEECMS-2800 (banner missing regression, Ready for QA)"]
+    },
+    {
+      "title": "176-day SDY attendance limit enforcement",
+      "description": "For a child in an SDY seat, once their attendance days for the year reach 176 (which already accounts for 4 professional learning days), the system stops staff from adding any more attendance days and explains the limit in the error message.",
+      "who": "FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "Guide-07 step 12 documents the intended limit and message, but an open bug shows the block currently happens by disabling the status field rather than by showing the required explanatory error message.",
+      "sourceRefs": ["guide-07 step 12", "BRD D07 section 5.2.3 (DOEECMS-2347)", "DOEECMS-2695 (176-day limit blocks via disabled field, not the specified error message)"]
+    },
+    {
+      "title": "Monthly certification reminder notifications",
+      "description": "Starting the day after a new month begins, any CBO or FCCN staff member who hasn't yet certified the prior month's attendance gets a reminder, and keeps getting one every 7 days until they certify.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "Guide-07 step 13 documents the intended reminder cadence, but bugs show FCCN users were not receiving the prior-month notification and portal notifications generally were not appearing.",
+      "sourceRefs": ["guide-07 step 13", "BRD D07 section 5.2.2 (DOEECMS-2346)", "DOEECMS-2707 (FCCN users not receiving prior-month attendance certification notification)", "DOEECMS-2194 (Attendance reminder notifications are not showing up in the portal)", "DOEECMS-2747 (Make FCCN monthly attendance certification reminders actionable)"]
+    },
+    {
+      "title": "FCCN network calendar creation and default inheritance",
+      "description": "A network administrator sets up one shared yearly calendar (days open, closed, professional learning days) for their whole network, and every family child care provider site affiliated with that network automatically starts out using that same calendar.",
+      "who": "FCCN Network Director / External Admin",
+      "status": "Partially Covered",
+      "statusNote": "Guide-07 step 14 is explicitly a brief note flagging this as out of scope for the guide; the object exists but no full walkthrough is documented, and multiple bugs (calendar created under wrong network, request approval button missing) show the feature is still being stabilized.",
+      "sourceRefs": ["guide-07 step 14", "BRD D07 section 5.2.6 (DOEECMS-2406)", "DOEECMS-2686 (Calendar created under Network instead of selected Site)", "DOEECMS-2699 (\"Submit for Approval\" button is missing on the Calendar record)"]
+    },
+    {
+      "title": "Site calendar customization diverging from network default",
+      "description": "An individual family child care provider can adjust their own copy of the network calendar (for example, different closure days), without changing the shared network calendar or any other provider's calendar.",
+      "who": "FCCN Vendor Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Called out in BRD as its own acceptance criteria (site calendars can diverge and are not overwritten by later network updates), but no guide step or UAT walkthrough documents this behavior.",
+      "sourceRefs": ["BRD D07 section 5.2.6 AC3/AC4 (DOEECMS-2406)"]
+    },
+    {
+      "title": "Alternative calendar submitted for DOE approval",
+      "description": "When a family child care provider wants to use a calendar that's different from the network default, the network submits that request to the DOE, and the provider is told whether it was approved or rejected (with a reason if rejected).",
+      "who": "FCCN Vendor Admin / DOE Internal Reviewer",
+      "status": "Not Yet Covered",
+      "statusNote": "Fully specified in the BRD as a multi-step approval workflow, but not documented in any guide, and several open/rejected bugs (missing approval buttons, missing DOE Support Team persona, rejection not notified to FCCN user) indicate the workflow is still being built out.",
+      "sourceRefs": ["BRD D07 section 5.2.6 AC5 (DOEECMS-2406)", "DOEECMS-2688 (Calendar Approval Request: FCCN Support Team persona is missing)", "DOEECMS-2690 (Alternative calendar Rejection is not notified to the FCCN User)", "DOEECMS-2693 (DOE FCCN Support Team is not notified after calendar request submission)"]
+    },
+    {
+      "title": "Standard Market Rate and Non-Traditional Hours reference tables",
+      "description": "The system stores two reference lists an administrator can view and update: the going market daycare rates by age group and length of day, and the federal holidays (New Year's, Memorial Day, Independence Day, Labor Day, Thanksgiving, Christmas) that count as non-traditional care hours — with past entries preserved even after they're updated.",
+      "who": "System Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Both are new reference data tables specified in the BRD; no user guide step or screenshot exists showing an admin viewing or editing either table. Related bugs show a missing Day Length field on the market rate record and record IDs starting with all zeros on the non-traditional hours record.",
+      "sourceRefs": ["BRD D07 sections 4.2.4-4.2.5 (DOEECMS-2359, DOEECMS-2360)", "DOEECMS-2616 (Day Length field is not displayed in the Standard Market Record)", "DOEECMS-2619 (Retain Historical Reference Table dates for Non-Traditional Hours)", "DOEECMS-2618 (Non-Traditional Hours Number or ID incorrectly starts with all zeros)"]
+    },
+    {
+      "title": "Homelessness and non-traditional-hours invoice differentials",
+      "description": "When a child identified as experiencing homelessness attends care, or attends on one of the designated federal holidays (or both at once), the provider's invoice automatically includes an extra pay bump — 15% for either condition alone, or a combined 25% when both apply — on top of whichever is lower, the contracted rate or the market rate.",
+      "who": "System (automated at invoice generation) / Internal Admin reviewing invoices",
+      "status": "Not Yet Covered",
+      "statusNote": "Fully specified financial calculation in the BRD tied to certified attendance, an ACCIS homelessness data feed, and the Non-Traditional Hours reference table; no user guide documents or screenshots any of these three calculations appearing on an invoice.",
+      "sourceRefs": ["BRD D07 section 4.2.6 Use Cases #1-3 (DOEECMS-2361)"]
+    },
+    {
+      "title": "SDY+ $45 per-day payment differential",
+      "description": "For every day of attendance for a student in an SDY seat whose enrollment has the SDY+ flag turned on, the provider's invoice automatically adds a flat $45 on top of the normal daily cost per child.",
+      "who": "System (automated at invoice generation) / Internal Admin reviewing invoices",
+      "status": "Not Yet Covered",
+      "statusNote": "Specified as Use Case #4 in the BRD; not documented in any guide, and no invoice-facing screenshot exists showing this add-on being applied.",
+      "sourceRefs": ["BRD D07 section 4.2.6 Use Case #4 (DOEECMS-2361)"]
+    },
+    {
+      "title": "Enabling CBO and FCCN users to log attendance for 2K SDY/EDFY seats",
+      "description": "Staff at CBOs and family child care networks can enter attendance for children enrolled in the newer 2K (age-2) SDY and EDFY seat types, the same way they already do for other seat types.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Both stories are closed in Jira, but neither guide walks through attendance entry specifically for a 2K SDY or EDFY seat, so client-facing evidence of the behavior is missing.",
+      "sourceRefs": ["DOEECMS-2736 (Enable CBO Users to Log Attendance for 2K SDY & EDFY Seats)", "DOEECMS-2725 (Enable FCCN Users to Log Attendance for 2K EDFY Seats)"]
+    },
+    {
+      "title": "Importing FCCN EDY attendance status from CAPS Online/ACCIS",
+      "description": "For full-day (EDY) family child care attendance that is tracked in the DOE's separate CAPS Online system, ECMS pulls in just the status of that attendance (Completed, Incomplete, or Submitted) each month so it can appear on FCCN reports.",
+      "who": "System (automated monthly import) / OA/OD Internal Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Specified in the BRD as a status-only import (not full attendance data); the related task is still marked Open in Jira and no guide documents the import or its appearance in reports.",
+      "sourceRefs": ["BRD D07 section 5.2.4 (DOEECMS-2391)", "DOEECMS-2633 (INT- Import EDY attendance statuses for FCC students for Reporting, Open)"]
+    },
+    {
+      "title": "Enhanced FCCN attendance reporting by network, provider, seat type, and child",
+      "description": "An OA/OD or internal admin user can run a report on family child care attendance that can be filtered by date range, network, provider, seat type, or child, and that separately shows certified attendance versus attendance that hasn't been certified yet.",
+      "who": "OA/OD Internal Admin",
+      "status": "Partially Covered",
+      "statusNote": "The current internal-admin dashboard (guide-06 / Phase 1 deck) shows CBO attendance by seat type and class, but the FCCN-specific hierarchy (network/provider/seat type/child, certified vs. non-certified) is not documented in either guide, and open bugs show these FCCN reports are not yet available to OA/OD users or are missing key fields.",
+      "sourceRefs": ["BRD D07 section 5.2.5 (DOEECMS-2393)", "6.A Attendance_Internal Adm_UAT Guide.pptx (Current Month Attendance by Seat Type/Class dashboards)", "DOEECMS-2662 (FCCN Attendance reports are not available for OA/OD Users)", "DOEECMS-2674 (Attendance Status and Certified Date fields are blank for certified attendance records in the FCC SDY Certified vs Non-Certified report)", "DOEECMS-2769 (OA, OD, and Internal Admin cannot access Current Fiscal Year Attendance Report)"]
+    },
+    {
+      "title": "Internal admin dashboard review of vendor attendance",
+      "description": "An internal DOE admin views dashboards showing how much attendance has been recorded this month, broken down by seat type and by class, without needing to open individual student records.",
+      "who": "Internal Admin",
+      "status": "Covered",
+      "statusNote": "Documented step-by-step in the Phase 1 UAT deck (6.A Attendance_Internal Adm_UAT Guide.pptx). Existing HTML guides don't repeat this internal-admin dashboard flow, but it is otherwise fully documented from Phase 1.",
+      "sourceRefs": ["6.A Attendance_Internal Adm_UAT Guide.pptx (steps 1-3)"]
+    },
+    {
+      "title": "System admin configuring attendance status codes",
+      "description": "A system administrator can add a brand-new attendance status option (beyond the built-in Present/Absent/Closure), or edit or remove an existing one, and that change shows up for every staff member entering attendance.",
+      "who": "System Admin",
+      "status": "Covered",
+      "statusNote": "Fully documented step-by-step in the Phase 1 UAT deck (6.S Attendance_System Adm_UAT Guide.pptx), including the difference between deleting vs. deactivating a code.",
+      "sourceRefs": ["6.S Attendance_System Adm_UAT Guide.pptx (steps 1-4)"]
+    },
+    {
+      "title": "Preventing duplicate attendance records from double-clicking Save",
+      "description": "If a staff member clicks the Save button more than once while entering attendance for the same student on the same day, the system should only create one attendance record, not several duplicates.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "Multiple related bugs have been filed and marked Ready for UAT or Closed at different points, suggesting the underlying protection is being iterated on and re-tested rather than fully proven stable.",
+      "sourceRefs": ["DOEECMS-2289 (Duplicate attendance records created when clicking Save multiple times)", "DOEECMS-1889 (Duplicate records getting created in Daily Attendance)"]
+    },
+    {
+      "title": "Preventing attendance before a child's admission or birth date",
+      "description": "Staff cannot enter an attendance record for a student on a date that comes before the day that child was actually admitted into the program, or before the child was even born.",
+      "who": "CBO Vendor Admin / FCCN Vendor Admin",
+      "status": "Partially Covered",
+      "statusNote": "This guardrail has been the subject of several bug reports across different releases (some Ready for UAT, some Closed), indicating it has needed repeated fixes rather than being a one-time completed feature.",
+      "sourceRefs": ["DOEECMS-1896 (Daily Attendance should not allow before Admission Date)", "DOEECMS-1849 (Attendance Allowed Before Admission Date)", "DOEECMS-1982 (Attendance Date Should Not Be Before Student DOB)"]
+    },
+    {
+      "title": "CBO and FCCN attendance records kept visually and functionally separate",
+      "description": "A CBO's own vendor staff should only ever see their CBO's attendance records in their portal, not the attendance records that belong to family child care providers.",
+      "who": "CBO Vendor Admin / Internal Admin",
+      "status": "Partially Covered",
+      "statusNote": "A bug shows FCCN attendance was leaking into the CBO Vendor Portal's Attendance tab, and a separate bug shows internal admins could not access FCC attendance records at all — indicating the access boundaries between the two are still being corrected in both directions.",
+      "sourceRefs": ["DOEECMS-2691 (CBO Vendor Portal displays FCCN Attendance records under the Attendance tab)", "DOEECMS-2706 (Internal admin is unable to access FCC Attendance records)"]
+    }
+  ]
+}
