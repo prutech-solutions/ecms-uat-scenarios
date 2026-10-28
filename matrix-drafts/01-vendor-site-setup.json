@@ -1,0 +1,184 @@
+{
+  "module": "Vendor & Site Setup (CBO)",
+  "moduleSummary": "Covers how a new community-based organization (CBO) and its physical sites are brought into ECMS, how site staff and their qualifications are tracked, and how a site's open/closed status controls what a vendor can do downstream (enrollment, attendance, budgeting, invoicing).",
+  "existingGuide": "guide-01-vendor-site-setup-cbo.html (steps 1-18)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Creating a new CBO organization record",
+      "description": "DOE staff can set up a brand-new community-based organization in the system, recording its legal name, tax ID, and billing address so it can later be paid and tracked.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, steps 1-3.",
+      "sourceRefs": ["guide-01 steps 1-3"]
+    },
+    {
+      "title": "Adding a physical site to a CBO",
+      "description": "A CBO's physical location (a classroom building, center, etc.) is recorded as a site linked back to the organization, including which borough and school district it's in, since those values later drive how enrollments at that site are labeled.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, steps 4-5.",
+      "sourceRefs": ["guide-01 steps 4-5"]
+    },
+    {
+      "title": "Adding a main contact person for a site",
+      "description": "A named person (e.g., a Site Director) is recorded as the site's point of contact, with their title and basic details.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, steps 6-7.",
+      "sourceRefs": ["guide-01 steps 6-7"]
+    },
+    {
+      "title": "Giving a vendor's staff member a portal login",
+      "description": "Once a site contact exists, that person can be given their own login to the separate vendor-facing portal, where they can then do their own day-to-day work (budgets, enrollments, attendance, invoices) without needing DOE staff to do it for them.",
+      "who": "Operations Analyst / ECMS Admin (setup); CBO staff (portal use)",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, steps 8-9.",
+      "sourceRefs": ["guide-01 steps 8-9"]
+    },
+    {
+      "title": "A single portal user needing access to both a CBO and a Family Child Care Network (FCCN)",
+      "description": "Some staff (e.g., a Network Director) oversee multiple boroughs' worth of family child care networks on behalf of one vendor. It's an open question whether one login can see both the CBO's sites and its associated family child care network sites, or whether that person needs a separate login for each, and how that person should appear as a single contact rather than duplicated across networks.",
+      "who": "Network Director / CBO staff with multi-network responsibilities",
+      "status": "Not Yet Covered",
+      "statusNote": "Tracked as an open provisioning question, not yet resolved or tested (task still open as of research).",
+      "sourceRefs": ["DOEECMS-2716"]
+    },
+    {
+      "title": "Marking a site as temporarily closed",
+      "description": "A site can be marked closed for a limited time (e.g., for a renovation or an emergency), with a closure date, a reason, and an expected reopening date on file.",
+      "who": "Operations Analyst / Intake Team",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, step 10.",
+      "sourceRefs": ["guide-01 step 10", "DOEECMS-2032", "BRD D01 3.2.1"]
+    },
+    {
+      "title": "Marking a site as permanently closed",
+      "description": "A site that will never reopen can be marked permanently closed, with a closure date and reason on file, and no reopening date since none is expected.",
+      "who": "Operations Analyst / Intake Team",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, step 11.",
+      "sourceRefs": ["guide-01 step 11", "DOEECMS-2032", "BRD D01 3.2.1"]
+    },
+    {
+      "title": "A temporarily closed site automatically reopening",
+      "description": "When a site's scheduled reopening date arrives, the system automatically updates its status back to open/active without anyone having to manually flip a switch.",
+      "who": "System (automatic); confirmed by Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, step 12; automation confirmed in backend closure-object work.",
+      "sourceRefs": ["guide-01 step 12", "DOEECMS-2324", "DOEECMS-2233"]
+    },
+    {
+      "title": "Keeping a full history of a site's closures and reopenings over time",
+      "description": "A site can be closed and reopened more than once over its lifetime, and the system is expected to keep a running history of every closure and reopening rather than only remembering the most recent one.",
+      "who": "Operations Analyst / Intake Team",
+      "status": "Partially Covered",
+      "statusNote": "A history-keeping closure record was built and is used internally, but the client-facing user guide only shows the current status on the site itself and doesn't demonstrate reviewing the full closure history list.",
+      "sourceRefs": ["DOEECMS-2318", "DOEECMS-2513", "DOEECMS-2603", "BRD D01 3.2.1 AC5"]
+    },
+    {
+      "title": "Preventing conflicting or overlapping closure entries",
+      "description": "Once a site has been marked permanently closed, staff shouldn't be able to add another closure (temporary or permanent) on top of it, and a closure that has already started shouldn't have its start date changed after the fact (only its reopening date can still be adjusted for a temporary closure).",
+      "who": "Operations Analyst / Intake Team",
+      "status": "Partially Covered",
+      "statusNote": "These safeguards were built and tested, but an edge case remained where adding a temporary closure with an already-past reopening date could incorrectly wipe out an existing permanent closure; not demonstrated in the client-facing guide.",
+      "sourceRefs": ["DOEECMS-2557", "DOEECMS-2570", "DOEECMS-2604", "DOEECMS-2513"]
+    },
+    {
+      "title": "A closed site blocking new child enrollments",
+      "description": "Once a site is closed (temporarily or permanently), staff can no longer enroll a new child there for any month on or after the closure, with enrollment automatically allowed again once the site reopens.",
+      "who": "Enrollment Specialist / CBO staff",
+      "status": "Covered",
+      "statusNote": "Called out in the user guide (step 5 callout, step 13) and confirmed by dedicated regression testing.",
+      "sourceRefs": ["guide-01 step 5, step 13", "DOEECMS-2052", "DOEECMS-2287", "DOEECMS-2768", "BRD D01 3.2.5"]
+    },
+    {
+      "title": "A closed site blocking new budget creation",
+      "description": "A vendor cannot start a new budget for a site for any period after that site closed; budget creation opens back up automatically once the site is marked reopened.",
+      "who": "CBO staff (Budget preparer)",
+      "status": "Covered",
+      "statusNote": "Called out in the user guide step 13; matches the signed BRD requirement.",
+      "sourceRefs": ["guide-01 step 13", "DOEECMS-2051", "BRD D01 3.2.4"]
+    },
+    {
+      "title": "A permanently closed site blocking invoices past the closure month",
+      "description": "For a site that has closed for good, a vendor can no longer submit invoices for any period after the closure month.",
+      "who": "CBO staff (Invoicing)",
+      "status": "Covered",
+      "statusNote": "Called out in the user guide step 13; matches the signed BRD requirement.",
+      "sourceRefs": ["guide-01 step 13", "DOEECMS-2053", "BRD D01 3.2.6"]
+    },
+    {
+      "title": "Attendance handling during a temporary closure",
+      "description": "During the month a site closes, staff can still record attendance for the rest of that month, but attendance is blocked for any month after the closure until the site reopens.",
+      "who": "CBO staff (Attendance)",
+      "status": "Partially Covered",
+      "statusNote": "The underlying rule was built and confirmed through regression testing, but it isn't demonstrated in the client-facing user guide (which covers Enrollment/Budget/Invoice impacts of closure but not Attendance).",
+      "sourceRefs": ["DOEECMS-2039", "DOEECMS-2040", "DOEECMS-2288", "DOEECMS-2276", "BRD D01 3.2.2", "BRD D01 3.2.3"]
+    },
+    {
+      "title": "Loading DOE's existing vendor/site records into ECMS before go-live",
+      "description": "Before the system goes live, DOE's existing spreadsheet of which vendors run which sites needs to be loaded into ECMS as a one-time bulk import, after which that spreadsheet is retired and ECMS becomes the single source of truth for vendor/site tracking.",
+      "who": "DOE / ECMS implementation team (one-time technical task)",
+      "status": "Not Yet Covered",
+      "statusNote": "Still in internal review at time of research; not yet demonstrated end-to-end or reflected in the user guide.",
+      "sourceRefs": ["DOEECMS-2073", "BRD D01 3.2.7"]
+    },
+    {
+      "title": "Tracking each staff member's job details at a site",
+      "description": "Every person working at a site (or an unfilled position, tracked as a placeholder) has a staff record showing their role type, job title, teacher type, and their hire date for each specific program (2K, 3K, 4K, or infant/toddler classrooms).",
+      "who": "CBO staff / Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, steps 14 and 16.",
+      "sourceRefs": ["guide-01 steps 14, 16", "DOEECMS-2139", "DOEECMS-2140"]
+    },
+    {
+      "title": "Tracking each staff member's education and credentials",
+      "description": "A staff member's education level, whether they hold a Child Development Associate credential and how many hours toward it they've completed, years of classroom experience, any in-progress certifications, and study plan dates are all recorded and visible on their record.",
+      "who": "CBO staff / Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, step 15; various display/validation bugs (negative numbers, duplicate values, hidden fields for some internal roles) were found and fixed during testing.",
+      "sourceRefs": ["guide-01 step 15", "DOEECMS-2138", "DOEECMS-2139", "DOEECMS-2253", "DOEECMS-2258", "DOEECMS-2259", "DOEECMS-2251", "DOEECMS-2252"]
+    },
+    {
+      "title": "Automatically updating a staff member's licensing/eligibility status from the state PETS system",
+      "description": "A staff member's active/eligible credential status is meant to update automatically based on a feed from the state's PETS system, without anyone at DOE or the CBO manually re-entering it.",
+      "who": "System (automatic)",
+      "status": "Not Yet Covered",
+      "statusNote": "Explicitly could not be tested — the team did not have access to a PETS integration environment to trigger or verify a live status update, so this remains unverified.",
+      "sourceRefs": ["DOEECMS-2138", "DOEECMS-2139"]
+    },
+    {
+      "title": "Uploading supporting documents for a staff member's qualifications",
+      "description": "Supporting paperwork (education certificates, teaching certificates, study plans, certifications, etc.) can be attached directly to a staff member's record, and the system requires proof to be attached before certain qualification claims (like a completed certification) can be saved.",
+      "who": "CBO staff / Operations Analyst",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the user guide, step 17; mandatory-upload enforcement and metadata/visibility bugs were found and fixed during testing.",
+      "sourceRefs": ["guide-01 step 17", "DOEECMS-2135", "DOEECMS-2282", "DOEECMS-2247", "DOEECMS-2248", "DOEECMS-2249"]
+    },
+    {
+      "title": "A vendor editing their own staff member's contact details",
+      "description": "A CBO user should be able to open and update the contact information for one of their own currently-active staff members.",
+      "who": "CBO staff",
+      "status": "Covered",
+      "statusNote": "An earlier defect blocked saving these edits with an error; this was fixed and confirmed working.",
+      "sourceRefs": ["DOEECMS-2410"]
+    },
+    {
+      "title": "Reviewing which budgeted staff positions are vacant across sites",
+      "description": "DOE and CBO staff can pull a point-in-time report showing which budgeted staff positions (including administrative and vacancy placeholder roles) are currently unfilled, grouped by organization and site, without having to check every staff record one by one.",
+      "who": "Operations Analyst / CBO staff with reporting access",
+      "status": "Partially Covered",
+      "statusNote": "The report exists and is referenced in the user guide (step 18) as the destination for staff data, but the report itself isn't screenshotted/walked through in the guide, and testing found (now-fixed) bugs where a vacancy type was missing from a dropdown, a vacant record was missing from the report, and duplicate rows appeared.",
+      "sourceRefs": ["guide-01 step 18", "DOEECMS-2136", "DOEECMS-2279", "DOEECMS-2278", "DOEECMS-2277"]
+    },
+    {
+      "title": "Adding a new class directly from a site record",
+      "description": "A vendor should be able to add a new class for a site directly from that site's record in the vendor portal.",
+      "who": "CBO staff",
+      "status": "Not Yet Covered",
+      "statusNote": "Reported as missing from the vendor portal's Site view; ticket was awaiting UAT confirmation at time of research, not yet confirmed fixed or reflected in the user guide.",
+      "sourceRefs": ["DOEECMS-2675"]
+    }
+  ]
+}

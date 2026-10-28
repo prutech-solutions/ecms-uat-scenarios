@@ -1,0 +1,192 @@
+{
+  "module": "Student Screening",
+  "moduleSummary": "Student Screening tracks the developmental screening (e.g. ASQ-3, ASQ:SE-2) that every enrolled child must receive within 45 days of enrollment. A screening record is meant to be created automatically as soon as a vendor submits a child's enrollment, and vendor staff then complete a dynamic questionnaire whose answers automatically calculate a pass/fail-style result, trigger rescreens when needed, and drive email/portal reminders as the 45-day deadline approaches.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "A screening record is automatically created when a child's enrollment is submitted",
+      "description": "As soon as a vendor submits a child's enrollment application, the system is intended to automatically create a new student screening record for that child, starting in \"Not Started\" status, so staff don't have to remember to create it manually and the 45-day screening clock can begin. In testing, this automatic creation was found to be inconsistent - some submitted enrollments never received a screening record at all.",
+      "who": "Vendor Administrator (automatic, triggered by enrollment submission)",
+      "status": "Partially Covered",
+      "statusNote": "Intended behavior is documented in the UAT guide, but a real bug showed the automation not firing for every submitted enrollment",
+      "sourceRefs": ["DOEECMS-1873", "5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 17-18)"]
+    },
+    {
+      "title": "Duplicate screening records are created when an enrollment is resubmitted or approved",
+      "description": "When a vendor is asked to provide more information on an enrollment and then resubmits it, or when an enrollment specialist later approves and activates that enrollment, the system was found to create a second, duplicate screening record for the same child instead of keeping just the original one. Only one screening record should ever exist per enrollment.",
+      "who": "Vendor Administrator / Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect during Phase 1 regression testing",
+      "sourceRefs": ["DOEECMS-2454", "DOEECMS-2143"]
+    },
+    {
+      "title": "Vendor staff view and open a child's screening record from a list of screenings",
+      "description": "A vendor staff member clicks into the Student Screening area of the portal and sees a list of all the screening records for children at their site(s), including a record number that can be clicked to open and complete the screening.",
+      "who": "Vendor Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 13, 18, 20)"]
+    },
+    {
+      "title": "Vendor staff complete a dynamic screening questionnaire whose questions change based on prior answers",
+      "description": "When completing a screening, the first question asks whether the child was screened, with choices such as Yes, No due to an IEP (special education plan) exemption, No because the family opted out, No due to a language barrier exemption, or No because the student refused. The specific follow-up questions and scoring fields shown next depend on which of these answers is chosen.",
+      "who": "Vendor Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 20-21)", "5.V Student Screening_Vendor Adm_Training and Reference Manual.pptx.txt (lines 222-227)"]
+    },
+    {
+      "title": "The system automatically calculates a screening result/score as answers are entered",
+      "description": "As a vendor enters the numeric scores for each screening question, the system is supposed to check that each entry is a valid number and automatically calculate an overall result (for example, whether the child scored above or below the expected benchmark) without the user having to do the math themselves. Testing found the automatic calculation was not always happening as scores were entered, and in one case a screening with all-zero scores still produced a passing (\"above cutoff\") result instead of flagging it as needing review or rescreen.",
+      "who": "Vendor Administrator",
+      "status": "Partially Covered",
+      "statusNote": "Documented as the intended flow, but defects showed the live calculation and score validation failing in practice",
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slide 22)", "DOEECMS-1861", "DOEECMS-1853"]
+    },
+    {
+      "title": "A vendor saves an in-progress screening as a draft to finish later",
+      "description": "While filling out a screening, a vendor can save their progress at any point by clicking \"Draft\" instead of \"Submit,\" allowing them to return and finish the form later without losing what they already entered.",
+      "who": "Vendor Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slide 23)"]
+    },
+    {
+      "title": "All fields, including which screening tool was used, should remain editable while a screening is still in draft",
+      "description": "While a screening record is still in Draft status (not yet submitted), every field on the form - including the question asking which screening tool was used - should be open for editing. Testing found that one of these fields (\"which screening tool was used?\") was incorrectly locked even though the record was still in draft, behaving as if it had already been finalized.",
+      "who": "Vendor Administrator",
+      "status": "Partially Covered",
+      "statusNote": "Documented intended behavior, but a bug locked a field prematurely",
+      "sourceRefs": ["DOEECMS-1863"]
+    },
+    {
+      "title": "A vendor submits a completed screening and the status updates to Submitted",
+      "description": "After entering all required screening information, a vendor clicks \"Submit\" to finalize the record. The screening's status is supposed to automatically change from Draft/Not Started to Submitted, and the calculated result becomes visible in the list of screenings. Testing found the status sometimes stayed stuck on \"Draft\" even after the vendor successfully submitted the form, with no error message shown to explain why.",
+      "who": "Vendor Administrator",
+      "status": "Partially Covered",
+      "statusNote": "Intended workflow is documented, but a defect showed the status not updating after submission",
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slide 23-24)", "DOEECMS-1856"]
+    },
+    {
+      "title": "A vendor cannot mark a screening as complete without actually entering the child's screening answers",
+      "description": "If a vendor tries to change a screening's status straight to Completed or Rescreen without filling in any of the child's actual screening data, the system should stop them with an error message. Testing found that the system currently allows this status change to go through with no data at all, which would let an incomplete or fake screening record look finished.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "No existing guide describes this validation; found missing during regression testing",
+      "sourceRefs": ["DOEECMS-2046"]
+    },
+    {
+      "title": "Once a screening is submitted, a vendor can no longer edit or change the result, except by rescreening",
+      "description": "After a vendor finalizes (submits) a screening, all of its information should become locked/read-only for vendor users - they should only be able to view what was submitted, not change any answers or the result. The only way a submitted screening becomes editable again is if the child's score triggers the automatic \"Rescreen Required\" status. Testing found vendors were still able to open a submitted record, change answers, alter the result, and even revert the status back to Draft.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; documented as a real defect/GAP against system requirements",
+      "sourceRefs": ["DOEECMS-1874"]
+    },
+    {
+      "title": "A child scoring below the benchmark automatically moves into Rescreen status, and the vendor completes the rescreen",
+      "description": "If a child's screening result comes back \"below cutoff,\" the record automatically moves into a Rescreen Required status. A vendor can pull up a list of just the children needing a rescreen (available roughly 8 weeks later), open the record, and re-enter the screening the same way as the original.",
+      "who": "Vendor Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 25-28)"]
+    },
+    {
+      "title": "Vendor staff receive reminders (portal and email) as the 45-day screening deadline approaches",
+      "description": "The system tracks a 45-day deadline for completing each child's screening after enrollment. Vendor staff should be able to view a list of children whose screening has not been completed within that window, and should also receive an email reminder as the due date approaches. Testing found that neither the portal notification list nor the email reminders were actually being received by vendors.",
+      "who": "Vendor Administrator",
+      "status": "Partially Covered",
+      "statusNote": "The intended notification workflow is documented, but a defect showed neither the portal alert nor the email reminder working",
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 31-32)", "DOEECMS-2196"]
+    },
+    {
+      "title": "Vendor and internal staff filter and export screening records by status (Completed, Drafted, Not Started, Submitted, Rescreens, Not Completed in 45 Days, All)",
+      "description": "Both vendor staff and internal DOE administrators can use a dropdown to switch between pre-built lists of screening records grouped by status (for example, only Submitted screenings, or only ones still Not Started). These lists can be sorted by any column and exported/downloaded for reporting.",
+      "who": "Vendor Administrator / Internal DOE Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 35-37)", "5.A Student Screening_Internal Adm_UAT Guide.pptx.txt (Slides 7-9)"]
+    },
+    {
+      "title": "Internal DOE administrators can only view screening records, not create, edit, or draft them",
+      "description": "Internal DOE administrative staff are meant to have read-only access to student screening records so they can monitor and report on results, without being able to create new screenings or change vendor-submitted answers. Testing found internal admins could still create brand-new screening records (which then errored out) and could still click Draft/Submit buttons on existing records, even though those actions should not be available to their role at all.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "The view-only guide exists, but the restriction itself is not enforced; flagged as an open policy question with DOE plus real defects",
+      "sourceRefs": ["DOEECMS-2048", "DOEECMS-2047", "DOEECMS-1875", "5.A Student Screening_Internal Adm_UAT Guide.pptx.txt (Slide 5)"]
+    },
+    {
+      "title": "Vendor staff cannot edit a screening directly from the list view; editing is only allowed by opening the record",
+      "description": "To prevent bypassing the normal screening workflow, vendor users should not see or be able to use an \"Edit\" shortcut directly from the list of screenings - they should only be able to edit a draft record by clicking into it through its record number. Testing found the Edit option was still visible and clickable from the list view for vendor users.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented as an intended fix (Story), not yet reflected as working, standard behavior",
+      "sourceRefs": ["DOEECMS-1865"]
+    },
+    {
+      "title": "A child's admission/first day of attendance date displays correctly on their screening record",
+      "description": "When a vendor opens a screening record, the child's admission date (their first day of attendance) should be shown at the top of the screen. Testing found this field was displaying blank instead of the correct date.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-2043"]
+    },
+    {
+      "title": "The child's age at the time of screening is calculated and stored correctly",
+      "description": "When entering the date a child was screened, the system should calculate and store the child's age at that time (for example, \"0 months, 11 days\"). Testing found that although the age displayed correctly on-screen for the vendor, the value actually saved in the backend system was an incorrect negative number.",
+      "who": "Vendor Administrator (automatic calculation)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a data-integrity defect",
+      "sourceRefs": ["DOEECMS-1864"]
+    },
+    {
+      "title": "Screening record numbers increment sequentially starting at 1",
+      "description": "Each new screening record created in the system should be given a unique, sequential record number starting at 1 and counting up. Testing found that record numbering incorrectly started with all zeros instead of starting the count at 1.",
+      "who": "System (automatic numbering)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-1909"]
+    },
+    {
+      "title": "Each screening question appears only once on the form",
+      "description": "The screening questionnaire should show each question a single time. Testing found that the question asking which language was used for the screening was mistakenly appearing twice on the same form.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-1855"]
+    },
+    {
+      "title": "A submitted screening's result is visible in the record and in list views",
+      "description": "Once a screening's status is Submitted, the calculated result (the screening outcome) should be visible both when opening the record and in the Result column of the screening list. Testing found that for some submitted records, the Result field was showing blank instead of the actual outcome.",
+      "who": "Vendor Administrator / Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-2260"]
+    },
+    {
+      "title": "A vendor can view the DOE screening policy directly from a screening record",
+      "description": "From within an open screening record, a vendor should be able to click a \"DECE Policy\" button to view the relevant DOE early childhood policy reference page. Testing found that clicking this button did not display the expected policy page.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-1912"]
+    },
+    {
+      "title": "Internal DOE administrators can locate and open the Student Screening area/tab",
+      "description": "An internal DOE administrator should be able to search for and navigate directly into the Student Screening section of the system from the backend. Testing found that, for at least one internal admin, this tab/area could not be located or opened.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; found as a defect",
+      "sourceRefs": ["DOEECMS-2160"]
+    },
+    {
+      "title": "The system supports the different screening tools required for different programs (e.g. ASQ-3 for Universal Pre-K, ASQ:SE-2 for Head Start/Early Head Start)",
+      "description": "Vendors serving different program types need to be able to record results using the correct screening tool for that program - for example, one tool for Pre-K children and a different one used specifically for Head Start and Early Head Start children's social-emotional screening.",
+      "who": "Vendor Administrator",
+      "status": "Covered",
+      "statusNote": null,
+      "sourceRefs": ["5.V Student Screening_Vendor Adm_UAT Guide.pptx.txt (Slides 10-11)"]
+    }
+  ]
+}
