@@ -1,0 +1,263 @@
+{
+  "module": "Contracts & Seats",
+  "moduleSummary": "Covers how DOE formalizes and manages its funding relationship with each CBO/FCCN vendor \u2014 setting up contracts and their yearly periods, defining the funded seat types within them, keeping seat counts and per-child rates accurate day-to-day, and running the annual process where the DOE team plans and publishes next year's seat and cost numbers before the new fiscal year begins.",
+  "existingGuide": "guide-03-contracts-seats.html (steps 1-14)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Create a new vendor contract",
+      "description": "A DOE staff member sets up a new funding contract for a CBO or FCCN vendor, recording the contract's name, dates, dollar amount, and type (e.g., a Birth-to-Five or Head Start type of contract). This establishes the formal funding relationship before any seats can be planned.",
+      "who": "Operations Analyst / Portfolio Team Member",
+      "status": "Covered",
+      "statusNote": "Documented in the user guide as steps 1-3 (find vendor's contracts, start new contract, review saved contract). No open Jira issues surfaced against basic contract creation.",
+      "sourceRefs": [
+        "guide-03-contracts-seats.html steps 1-3"
+      ]
+    },
+    {
+      "title": "Add a contract period (fiscal year) to a contract",
+      "description": "Staff break a vendor's contract down into a specific budget year (a 'contract period'), entering the start date, end date, and total budget for that year, so downstream budgeting and seat planning has a year to attach to.",
+      "who": "Operations Analyst / Portfolio Team Member",
+      "status": "Covered",
+      "statusNote": "Documented in the user guide as steps 4-6.",
+      "sourceRefs": [
+        "guide-03-contracts-seats.html steps 4-6"
+      ]
+    },
+    {
+      "title": "Define a funded seat type on a contract period",
+      "description": "Staff attach a specific type of funded slot (e.g., a Pre-K School Day Year seat) to a contract period, entering how many of that seat type are funded, the cost per child, and the number of days/hours per week the seat covers. The system calculates total funding automatically.",
+      "who": "Operations Analyst / Portfolio Team Member",
+      "status": "Covered",
+      "statusNote": "Documented in the user guide as steps 7-9. Note also automatically records the original (starting) quantity for later comparison.",
+      "sourceRefs": [
+        "guide-03-contracts-seats.html steps 7-9"
+      ]
+    },
+    {
+      "title": "Align new seat types and contract types with FAMIS naming",
+      "description": "When new categories of funded seats (for example, new Infant and Toddler seat categories) or new contract types are introduced, the seat type shown to staff must match the vendor's official contract title/type as recorded in the City's F.A.M.I.S. financial system, so records line up correctly between systems.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Partially Covered",
+      "statusNote": "BRD epic DOEECMS-1680 scope covers this alignment work broadly and several related items closed (DOEECMS-2074 new Infant/Toddler seat types, DOEECMS-2078 align seat types with contract type, DOEECMS-2332 'Contract Type is not matching with FAMIS Contract Title'), but a related bug (DOEECMS-2652, Internal Admin unable to edit/update Seat Type after this alignment work) remains 'Ready for UAT', so re-verification is still pending.",
+      "sourceRefs": [
+        "DOEECMS-1680",
+        "DOEECMS-2074",
+        "DOEECMS-2078",
+        "DOEECMS-2332",
+        "DOEECMS-2652",
+        "BRD D04.1 section 3.1"
+      ]
+    },
+    {
+      "title": "Prevent a seat being set up without a seat type or matching contract",
+      "description": "The system should not allow a funded seat record to be saved if it's missing its seat type or its linked FAMIS contract \u2014 catching incomplete setup before it causes downstream problems.",
+      "who": "Operations Analyst",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2330 ('Record is getting created without Seat Type and FAMIS Contract \u2013 Validation missing') is Closed.",
+      "sourceRefs": [
+        "DOEECMS-2330"
+      ]
+    },
+    {
+      "title": "Match a class's seat type against the contract's funded seat type",
+      "description": "If a classroom's seat type doesn't match what its funding contract actually allows, the system should stop the mismatch and show a clear age/eligibility error instead of silently allowing an incorrect enrollment type.",
+      "who": "Operations Analyst / Vendor Site Admin",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2770 ('Incorrect Age Validation Error Displayed When Class Seat Type Does Not Match Enrollment Seat Type') is Closed.",
+      "sourceRefs": [
+        "DOEECMS-2770"
+      ]
+    },
+    {
+      "title": "Prevent lowering a seat's funded quantity below its active enrollments",
+      "description": "Staff cannot reduce the number of funded seats for a seat type below however many children are already actively enrolled in that seat type \u2014 the system should reject the change with an error rather than silently under-funding kids who are already enrolled.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Partially Covered",
+      "statusNote": "The rule itself is defined in story DOEECMS-2072 (Closed), but two related regression bugs surfaced the rule not being enforced in practice: DOEECMS-2328/2329 (Closed) and a later recurrence DOEECMS-2621 ('Seat Quantity can be set lower than active/occupied enrollments \u2014 validity rule not enforced', Closed). Given repeated regressions, this should be re-verified in any future UAT pass.",
+      "sourceRefs": [
+        "DOEECMS-2072",
+        "DOEECMS-2328",
+        "DOEECMS-2329",
+        "DOEECMS-2621"
+      ]
+    },
+    {
+      "title": "View the full change history of a seat's cost-per-child",
+      "description": "A user with the right access can open a funded seat record and see a chronological list of every past change made to its cost-per-child value \u2014 what it changed from, what it changed to, when, and by whom. No history entry is created if a save doesn't actually change the value.",
+      "who": "Operations Analyst / Operations Director / Portfolio Team Member",
+      "status": "Covered",
+      "statusNote": "Story DOEECMS-2186 is Closed, and DOEECMS-2342 ('History tab should exist for contract seats') is Closed.",
+      "sourceRefs": [
+        "DOEECMS-2186",
+        "DOEECMS-2342",
+        "BRD D04.1 section 3.2.7"
+      ]
+    },
+    {
+      "title": "Notify the site's OA/OD when a seat's funded quantity changes",
+      "description": "Whenever the number of funded seats for a site changes \u2014 whether on the live current-year record or on a draft plan for next year \u2014 the site's assigned Operations Analyst/Director gets a notification prompting them to check whether the cost-per-child should also be updated.",
+      "who": "Operations Analyst / Operations Director",
+      "status": "Partially Covered",
+      "statusNote": "Story DOEECMS-2187 is 'Ready for UAT' (not yet Closed) \u2014 meaning this notification behavior is built but has not completed a full verification pass as of this research.",
+      "sourceRefs": [
+        "DOEECMS-2187",
+        "BRD D04.1 section 3.2.8"
+      ]
+    },
+    {
+      "title": "Edit seat counts and costs while a plan is still in Draft status",
+      "description": "While next year's plan is still in Draft, multiple authorized DOE staff can add, edit, and delete individual seat and contract entries in it, with their changes saved and visible to each other, without touching the live current-year data.",
+      "who": "Portfolio Team Member / OA / OD",
+      "status": "Partially Covered",
+      "statusNote": "The tabular editing screen for this (DOEECMS-2624, a dedicated editable table for managing the vendor site seat data behind a Seat Plan) is 'Ready for UAT'. The user guide's example draft record has no populated child data to demonstrate this end-to-end, so full multi-user collaborative editing has not been visibly confirmed.",
+      "sourceRefs": [
+        "DOEECMS-2624",
+        "guide-03-contracts-seats.html step 14",
+        "BRD D04.1 section 3.2.2 AC1-AC3"
+      ]
+    },
+    {
+      "title": "Prevent editing a Published plan's name, fiscal year, or status",
+      "description": "Once a seat plan has been published and is live, staff should not be able to use the inline edit (pencil) icons to change its name, fiscal year, or status \u2014 those fields should be locked once published.",
+      "who": "Portfolio Team Member",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2784 ('Published Seat Plan's field-level Edit pencil icons still allow editing Name/Fiscal Year/Status') found during regression testing, now Closed.",
+      "sourceRefs": [
+        "DOEECMS-2784"
+      ]
+    },
+    {
+      "title": "Grant Operations Analyst / Director and Portfolio Team access to the Seat Planning app",
+      "description": "Staff in the Operations Analyst, Operations Director, and Portfolio Team Member roles must be able to log in and actually open the Seat Planning app to do their planning work \u2014 not be blocked from it by a permissions gap.",
+      "who": "Operations Analyst / Operations Director / Portfolio Team Member",
+      "status": "Not Yet Covered",
+      "statusNote": "Two access-related bugs are both still 'Ready for UAT' (not confirmed fixed): DOEECMS-2682 ('OA/OD are unable to access the Seat Planning Module') and DOEECMS-2274 ('Provide access to Seat Planning for Portfolio team Permission Set'). Until these clear UAT, some of the roles the BRD names as primary users of this app may still be locked out.",
+      "sourceRefs": [
+        "DOEECMS-2682",
+        "DOEECMS-2274",
+        "BRD D04.1 section 3.2.1 AC1"
+      ]
+    },
+    {
+      "title": "Block editing a class's seat capacity once it has active enrollments",
+      "description": "Once children are actively enrolled in a class, an internal administrator can no longer change that class's seat capacity number \u2014 attempting to save an edit shows a clear error explaining the class can't be changed because it has active enrollments. Classes with only inactive/no enrollments can still be freely edited.",
+      "who": "Internal Administrator",
+      "status": "Covered",
+      "statusNote": "Fully demonstrated in the Phase 1 UAT guide, including the specific error message shown (\"You cannot edit this class as there are Active Enrollments for this class\").",
+      "sourceRefs": [
+        "Phase 1 UAT Guide 3.A Seat Capacity_Internal Adm steps 25-48"
+      ]
+    },
+    {
+      "title": "Block enrollment submission for a class that is already full",
+      "description": "When a vendor administrator tries to submit an enrollment into a class that has no seats left, the system rejects the submission with an error, rather than letting the class go over its funded capacity.",
+      "who": "Vendor Site Administrator",
+      "status": "Covered",
+      "statusNote": "Demonstrated in the Phase 1 UAT guide for vendor administrators (submitting an enrollment for a full-capacity class returns a 'Submit Enrollment-Error').",
+      "sourceRefs": [
+        "Phase 1 UAT Guide 3.V Seat Capacity_Vendor Adm steps 16-22",
+        "Phase 1 UAT Guide 3.A Seat Capacity_Internal Adm slide 24"
+      ]
+    },
+    {
+      "title": "View the Seat Capacity Planning dashboard (capacity vs. occupancy)",
+      "description": "Leadership and internal administrators can open a dashboard that compares how many seats are funded against how many are actually filled, broken down by seat type, school type, and program type, to see utilization at a glance across all vendors and sites.",
+      "who": "Internal Administrator / DOE Leadership",
+      "status": "Partially Covered",
+      "statusNote": "The Phase 1 UAT guide walks through navigating to and viewing this dashboard, but a bug (DOEECMS-2030, 'Capacity Vs Occupancy by Seat Type Column chart/ Report is not Visible') found the actual comparison chart missing for the Internal Admin profile; that bug remains 'Ready for UAT', so the dashboard's core chart is not yet confirmed working.",
+      "sourceRefs": [
+        "DOEECMS-2030",
+        "Phase 1 UAT Guide 3.A Seat Capacity_Internal Adm steps 49-53"
+      ]
+    },
+    {
+      "title": "Automatically calculate 'Seats Occupied' as a read-only, live count",
+      "description": "The number of seats currently filled in a class should be calculated automatically by the system based on active enrollments, and should not be a field staff can manually type a number into.",
+      "who": "Internal Administrator / Vendor Site Administrator",
+      "status": "Partially Covered",
+      "statusNote": "Two related bugs were both 'Ready for UAT' at time of research: DOEECMS-1968 ('Seats Occupied should be read-only and auto calculated') and DOEECMS-1893 ('Vendor users are able to edit the Seat Capacity field from the Vendor Portal'), plus DOEECMS-1892 ('Internal Administrators cannot see the Seats Occupied field on Class records') and DOEECMS-1890 ('Class records allow creation with empty (0) Seat Capacity while Seats Occupied > 0'). None of these were confirmed Closed in the pulled data, indicating the read-only/auto-calculation behavior for seat occupancy still needs verification.",
+      "sourceRefs": [
+        "DOEECMS-1968",
+        "DOEECMS-1893",
+        "DOEECMS-1892",
+        "DOEECMS-1890"
+      ]
+    },
+    {
+      "title": "Load the DOE's existing Vendor Site Mapping file into ECMS",
+      "description": "Before go-live, the spreadsheet DOE currently uses to track which seats are mapped to which vendor sites gets loaded into ECMS, so that vendor site tracking can continue inside the new system going forward instead of in the old file.",
+      "who": "DOE Portfolio Team / System (data migration)",
+      "status": "Partially Covered",
+      "statusNote": "Story DOEECMS-2073 is 'Internal Review' (not yet Closed or UAT-ready), and its related spike DOEECMS-2270 (understanding the existing mapping process/Apex logic) is Closed. This is foundational data-migration work still in progress as of this research.",
+      "sourceRefs": [
+        "DOEECMS-2073",
+        "DOEECMS-2270"
+      ]
+    },
+    {
+      "title": "Preserve original contracted seat quantities and cost-per-child values",
+      "description": "Each funded seat type keeps a permanent, read-only record of what it was originally contracted for \u2014 both the original seat quantity and the original cost-per-child \u2014 separate from current values, so staff always have a fixed historical reference point even as day-to-day numbers change.",
+      "who": "Operations Analyst / Operations Director / Portfolio Team Member",
+      "status": "Partially Covered",
+      "statusNote": "Both original-value fields were built and their creation stories (DOEECMS-2068 seat quantity, DOEECMS-2185 cost-per-child) are Closed, and follow-on lock-down bugs (DOEECMS-2352 blocking edits to original quantity, DOEECMS-2333 fixing original cost-per-child auto-population) are also Closed. Given the repeated bug cycles on this pair of fields, a final confirmation pass is still advisable.",
+      "sourceRefs": [
+        "DOEECMS-2068",
+        "DOEECMS-2185",
+        "DOEECMS-2352",
+        "DOEECMS-2333"
+      ]
+    },
+    {
+      "title": "View seat capacity by site (internal admin and vendor admin)",
+      "description": "Both a DOE internal administrator and a vendor's own site administrator can browse from a vendor account (or their own site login) down through sites to an individual class, and see that class's total seat capacity plus how many of those seats are currently filled by active enrollments. Vendor administrators only ever see their own vendor's/site's numbers, never another vendor's.",
+      "who": "Internal Administrator / Vendor Site Administrator",
+      "status": "Covered",
+      "statusNote": "Fully walked through in the Phase 1 UAT guides for both personas \u2014 internal admin (steps 1-8) and vendor admin (steps 1-5) \u2014 including the requirement that vendors only see their own capacity.",
+      "sourceRefs": [
+        "Phase 1 UAT Guide 3.A Seat Capacity_Internal Adm steps 1-8",
+        "Phase 1 UAT Guide 3.V Seat Capacity_Vendor Adm steps 1-5"
+      ]
+    },
+    {
+      "title": "Daily updates to a seat's funded quantity and cost-per-child",
+      "description": "Authorized staff can go into a contract's seat record on any day of the year and change both the number of funded seats and the cost-per-child dollar amount, with changes saving and reflecting immediately.",
+      "who": "Operations Analyst / Operations Director / Portfolio Team Member",
+      "status": "Partially Covered",
+      "statusNote": "Story DOEECMS-2184 (both AC1 seat quantity edits and AC2 cost-per-child edits) is Closed overall, but bug DOEECMS-2622 found the Operations Analyst persona specifically lacked edit permission on Cost-Per-Child (only Operations Director worked) \u2014 that bug is now Closed/fixed, but confirms the OA-role path needs an explicit re-check in UAT given it was missed once already.",
+      "sourceRefs": [
+        "DOEECMS-2184",
+        "DOEECMS-2622",
+        "BRD D04.1 section 3.2.6"
+      ]
+    },
+    {
+      "title": "Start next year's FY Seat Planning draft and copy forward seat/cost data",
+      "description": "Once a year (starting every December), an authorized DOE staff member opens the Seat Planning app and clicks a button to start planning next year's seats and costs. This creates a new draft copy of the current year's data, tagged with the upcoming fiscal year, a Draft status, and a creation date/owner. Each seat's quantity is copied over exactly, and its cost-per-child is set to whichever is higher: the original contracted rate or the current updated rate.",
+      "who": "Portfolio Team Member",
+      "status": "Partially Covered",
+      "statusNote": "Task DOEECMS-2567 (create the underlying Seat Plan object) and DOEECMS-2183 (create the app) are both 'Ready for UAT'. The user guide confirms one draft (FY2027) exists and is reachable, but has no populated child seat/contract data to demonstrate the copy/comparison logic with, and a related bug (DOEECMS-2748, dataset created without current data) was filed then Rejected rather than confirmed fixed \u2014 so the exact copy-forward and cost-per-child comparison behavior specified in the BRD still needs a clean, evidence-based confirmation.",
+      "sourceRefs": [
+        "DOEECMS-2183",
+        "DOEECMS-2567",
+        "DOEECMS-2748",
+        "guide-03-contracts-seats.html steps 10-11,14",
+        "BRD D04.1 sections 3.2.1-3.2.2"
+      ]
+    },
+    {
+      "title": "Publish the draft plan and notify all roles when it goes live",
+      "description": "Before the new fiscal year starts, an authorized staff member reviews and publishes the finished draft plan. On publish, it overwrites the currently live seat and cost data for the new year, the previous year's dataset is automatically archived for historical reference, and everyone who needs to know \u2014 Enrollment Specialists, Operations Analysts, Operations Directors, and Portfolio Team Members \u2014 receives a notification confirming the new data is now active.",
+      "who": "Portfolio Team Member / Enrollment Specialist / Operations Analyst / Operations Director",
+      "status": "Not Yet Covered",
+      "statusNote": "Stories DOEECMS-2189 (publish) and DOEECMS-2190 (archive/track previous datasets) are both still 'BA Review' status \u2014 requirements are being refined and this has not reached a testable build per the Jira data pulled. The user guide's UAT org shows 0 Finalized and 0 Published plans on record. A related notification bug (DOEECMS-2692) is Closed, but since the parent publish story itself isn't UAT-ready yet, the full publish-and-notify flow cannot be considered verified end-to-end.",
+      "sourceRefs": [
+        "DOEECMS-2189",
+        "DOEECMS-2190",
+        "DOEECMS-2692",
+        "guide-03-contracts-seats.html step 13",
+        "BRD D04.1 sections 3.2.3-3.2.4"
+      ]
+    }
+  ]
+}

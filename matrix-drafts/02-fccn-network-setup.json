@@ -1,0 +1,96 @@
+{
+  "module": "FCCN Network & Provider Setup",
+  "moduleSummary": "Covers how DOE staff bring a new Family Child Care Network (FCCN) into ECMS, connect the individual home-based Family Child Care (FCC) Providers that network oversees, give the network's own staff a working portal login, and manage the shared program calendars that flow down from the network to its providers.",
+  "existingGuide": "guide-02-fccn-network-provider-setup.html (steps 1-10)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Setting up a brand-new Family Child Care Network record",
+      "description": "An operations staff member creates a new record for a Family Child Care Network (FCCN) - an organization that doesn't run a childcare site itself, but oversees a roster of independent, home-based daycare providers. They enter the network's name, its status, its tax ID, and the boroughs it serves.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented end-to-end in the existing user guide, steps 1-3 (opening the account list, choosing the Family Childcare Network type, filling in network details, and saving).",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Creating an individual home-based FCC Provider and linking it to its network",
+      "description": "Staff create a record for one specific home daycare business (an FCC Provider) and connect it to the network that oversees it by selecting that network from a simple dropdown/lookup field. Once saved, the home daycare automatically shows up on the network's list of providers it oversees.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide steps 4-5. The guide notes this connection is a single lookup field with no separate linking step, and confirms the provider's own site record is created alongside it.",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Confirming a provider's affiliation shows correctly on the network side",
+      "description": "After connecting a home daycare provider to its network, staff check the network's record to confirm the provider now appears in its roster, along with whether that connection is currently active and when it started.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide step 6 - viewing the network's Providers tab and Affiliations list to confirm status and start date.",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Adding a network staff member's contact record",
+      "description": "Staff create a contact record for a person who works for the network itself (not for an individual home daycare) - for example an Affiliation Manager who recruits and onboards new home providers, an Education Specialist/Director who coaches providers, or a Family Worker. The contact is tied to the network account.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide steps 7-8, including the specific FCCN staff roles supported.",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Giving a network staff member a working portal login",
+      "description": "Staff grant a network employee access to the online portal, choosing which functions they can perform (such as managing other network users, onboarding providers, or acting as an Education Specialist/Family Worker) and which affiliated home daycare's information they can see.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide step 9, including the network-specific set of permission options and the fact that access is scoped to affiliated providers rather than a network 'site' (since the network has no site of its own).",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Verifying what a network staffer sees when they log into the portal",
+      "description": "Staff preview the portal exactly as the newly set-up network employee would see it, confirming the person's name and network display correctly, their assigned tasks/tiles appear, and the affiliated home daycare's site is visible to them (and not any other provider's).",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Covered",
+      "statusNote": "Documented in guide step 10 using the 'view as user' preview feature.",
+      "sourceRefs": ["guide-02-fccn-network-provider-setup.html"]
+    },
+    {
+      "title": "Re-assigning an existing home daycare provider to a different network",
+      "description": "A home-based provider that was previously overseen by one network moves to a different network (for example, if it switches affiliations), and staff need to update its record so all of its information - including which calendar it follows - correctly follows the new network going forward.",
+      "who": "Operations Analyst / ECMS Admin",
+      "status": "Not Yet Covered",
+      "statusNote": "Not shown as a distinct workflow in the user guide (which only covers first-time creation of the link). A related rule is described in the calendar-management requirements - when a provider changes networks its calendar should automatically switch to the new network's calendar - but there is no walkthrough of the reassignment itself and no dedicated test evidence for it.",
+      "sourceRefs": ["DOEECMS-2406"]
+    },
+    {
+      "title": "Network creates and manages its main shared program calendar",
+      "description": "A network staff member sets up the primary calendar their organization runs on for the year. Once created, every home-based provider affiliated with that network automatically follows this same calendar unless a provider is given its own special version.",
+      "who": "Network Director / Affiliation Manager / FCCN staff (external admin)",
+      "status": "Partially Covered",
+      "statusNote": "Feature has been built, demoed, and marked deployed to UAT per Jira story DOEECMS-2406 (closed, with a recorded demo and sign-off from the business reviewer). However it is not documented anywhere in the current user guide, and there is no independent UAT test-case tracker confirming client-facing sign-off separate from the developer's own testing notes.",
+      "sourceRefs": ["DOEECMS-2406"]
+    },
+    {
+      "title": "Requesting a different calendar for one specific home daycare provider, subject to DOE approval",
+      "description": "When an individual home daycare needs a schedule that's different from its network's standard calendar (for example, different days off), network staff submit a request on the provider's behalf. A DOE reviewer must approve or reject the request before the provider's calendar actually changes, and the provider is notified either way.",
+      "who": "FCCN staff (submitting) / DOE FCCN Support Team (approving)",
+      "status": "Not Yet Covered",
+      "statusNote": "This request-and-approval workflow (distinct from simply creating the network's own default calendar) is defined in detail in DOEECMS-2406's acceptance criteria (submitting an alternative calendar, DOE notification, approval/rejection with reason) but is not reflected in the user guide, and no separate test evidence specific to the approval/rejection path was found.",
+      "sourceRefs": ["DOEECMS-2406"]
+    },
+    {
+      "title": "Sending an invitation link to a prospective home daycare so it can apply to join a network",
+      "description": "Instead of DOE staff manually creating a provider's record, a network can send a prospective home daycare business an email invitation containing a one-time application link. The email clearly explains the link is unique to that business, can't be saved partway through, only works with the sending network, and expires after a few days.",
+      "who": "FCCN staff / prospective FCC Provider",
+      "status": "Partially Covered",
+      "statusNote": "The updated invitation email wording (including the expiration notice and the network's name shown automatically) was tested in the TEST environment and marked deployed to UAT per DOEECMS-2730, but this invitation-based onboarding path is not the one documented in the current user guide (which shows a staff member creating the provider account directly instead), so client-facing confirmation of the full apply-and-onboard flow is still outstanding.",
+      "sourceRefs": ["DOEECMS-2730"]
+    },
+    {
+      "title": "System enforcing a home daycare's maximum number of children based on its license type",
+      "description": "When a home daycare is set up with a larger license type (allowing up to 12 young children with an assistant caregiver present), the system should stop staff from enrolling more children than that license allows and show a clear message when the limit is reached. The same kind of limit applies to the smaller license type (up to 6 children).",
+      "who": "Operations Analyst / Vendor user enrolling children",
+      "status": "Not Yet Covered",
+      "statusNote": "Both license-type capacity rules are still open, unbuilt requirements (DOEECMS-2721 for the larger license type, DOEECMS-2722 for the smaller one). The license type itself is captured during provider setup per the user guide (step 4), but the system does not yet enforce a capacity limit tied to it.",
+      "sourceRefs": ["DOEECMS-2721", "DOEECMS-2722"]
+    }
+  ]
+}

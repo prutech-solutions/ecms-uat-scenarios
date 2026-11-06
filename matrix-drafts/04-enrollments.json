@@ -1,0 +1,575 @@
+{
+  "module": "Enrollments",
+  "moduleSummary": "Enrollments cover the full lifecycle of getting a child officially registered at a CBO site, an FCC home provider, or into summer school — from a parent's placement offer through document upload, DOE review and approval, mid-year changes, transfers, and eventual discharge, across CBO, FCCN, and Summer variants.",
+  "existingGuide": "guide-04-enrollments-cbo.html (steps 1-15), guide-05-enrollments-fccn.html (steps 1-9), guide-11-summer-enrollments.html (steps 1-12)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Parent placement offer creates a Draft enrollment (CBO)",
+      "description": "When a parent accepts a seat offer for their child through the MySchools system, ECMS automatically creates a new Draft enrollment record for a CBO program so program staff can pick up where the parent left off.",
+      "who": "Parent (via MySchools); CBO Site Staff",
+      "status": "Covered",
+      "statusNote": "Documented end-to-end in guide-04, step 1; matches Phase 1 UAT vendor deck slides 9-18 (Create an Enrollment for a New/Existing Student).",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-1",
+        "Phase 1 UAT Vendor Deck"
+      ]
+    },
+    {
+      "title": "CBO staff completes and submits a new enrollment",
+      "description": "A CBO staff member fills in the remaining student, parent/guardian, and program details on a Draft enrollment and submits it to DOE for review, after which it moves into a Submitted queue.",
+      "who": "CBO Site/Network Staff",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html steps 3-4; corroborated by Phase 1 UAT Vendor Deck (Submit an Enrollment section).",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-3",
+        "guide-04-enrollments-cbo.html#step-4",
+        "Phase 1 UAT Vendor Deck"
+      ]
+    },
+    {
+      "title": "DOE Enrollment Specialist reviews and approves an enrollment",
+      "description": "A DOE Enrollment Specialist opens the queue of submitted enrollments, reviews the child and family details, and approves the enrollment, which then becomes Active and officially counts the child as enrolled.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html steps 5-8; Phase 1 UAT Internal Admin Deck slides 11-19 (Approve Submitted Enrollments).",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-5",
+        "guide-04-enrollments-cbo.html#step-7",
+        "Phase 1 UAT Internal Admin Deck"
+      ]
+    },
+    {
+      "title": "Enrollment Specialist requests more information from the vendor",
+      "description": "Instead of approving or rejecting outright, a DOE reviewer can send an enrollment back to the vendor asking for missing or unclear information; the record moves to an Information Requested status until the vendor responds and resubmits.",
+      "who": "DOE Enrollment Specialist; CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "Phase 1 UAT decks document both sides (\"Request Additional Information\" for internal, \"Respond to Information Requested\" for vendor); referenced in guide-04 status-bar lifecycle graphic and BRD D05.2 as a valid pre-approval state.",
+      "sourceRefs": [
+        "Phase 1 UAT Internal Admin Deck",
+        "Phase 1 UAT Vendor Deck slide 47",
+        "DOEECMS-1772"
+      ]
+    },
+    {
+      "title": "Enrollment Specialist rejects an ineligible enrollment",
+      "description": "When a child doesn't qualify for the program, a DOE reviewer can reject the submitted enrollment and record the reason, which the vendor can then view on the record.",
+      "who": "DOE Enrollment Specialist; CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "Phase 1 UAT Internal Admin Deck slides ~31-36 (\"Reject Enrollments\") with reason entry; vendor-side visibility in Vendor Deck (\"View Rejected Enrollment\"). Bug DOEECMS-1954 (\"Vendor Admin unable to see Rejection Comments\") suggests this was not always reliable, but is in Ready for UAT/Closed status.",
+      "sourceRefs": [
+        "Phase 1 UAT Internal Admin Deck",
+        "Phase 1 UAT Vendor Deck slide 54",
+        "DOEECMS-1954"
+      ]
+    },
+    {
+      "title": "Reassigning an enrollment case between Enrollment Specialists",
+      "description": "A DOE Enrollment Specialist can hand off a pending enrollment case to a different reviewer if needed, without losing the review history.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented in Phase 1 UAT Internal Admin Deck (\"Reassign Enrollments\", slides 37-40) but not represented in any current user guide.",
+      "sourceRefs": [
+        "Phase 1 UAT Internal Admin Deck"
+      ]
+    },
+    {
+      "title": "Registration Packet required before submission, with optional documents allowed any time",
+      "description": "Before a vendor can submit a new enrollment, they must upload a Registration Packet document; other supporting documents like proof of birth or residency stay optional both before and after submission, and the system checks only that a file was attached, not what's in it.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 10, matching BRD D05.2 §3.3 (including AC3 on post-submission uploads). Related bug DOEECMS-1951 (\"file uploaded for the 2nd time throws error\") is Ready for UAT, suggesting some rough edges remain on repeat uploads.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-10",
+        "BRD D05.2",
+        "DOEECMS-2225",
+        "DOEECMS-1951"
+      ]
+    },
+    {
+      "title": "Admit Code is calculated automatically, not typed in",
+      "description": "The system automatically figures out and displays an official DOE 'admit code' on every enrollment (new child, returning child, or same-year transfer) based on the child's history, so staff never need to look it up or type it in themselves.",
+      "who": "System (visible to DOE Enrollment Specialist and CBO/FCCN Staff)",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 11 shows real records with the auto-populated code; BRD D05.2 §3.4. Bug DOEECMS-2751 (\"Internal Admin is Unable to View Admit Code\") is Closed and DOEECMS-2696 hides it for portal/Summer users, so visibility rules are still being tuned by role.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-11",
+        "BRD D05.2",
+        "DOEECMS-2226",
+        "DOEECMS-2751"
+      ]
+    },
+    {
+      "title": "Sending the child's admit code and enrollment details to OASIS",
+      "description": "Once the admit code and other enrollment attributes are finalized, the system sends them to the city's OASIS system so DOE's central attendance records stay in sync automatically.",
+      "who": "System",
+      "status": "Not Yet Covered",
+      "statusNote": "DOEECMS-2244 (\"Send Admit Code to OASIS along with other attributes\") remains Open, and DOEECMS-2775 (\"Render Enrollment-Related Error Messages from OASIS into ECMS\") is only Ready for Build — meaning if OASIS rejects the data, staff currently have no visibility into why.",
+      "sourceRefs": [
+        "DOEECMS-2244",
+        "DOEECMS-2775"
+      ]
+    },
+    {
+      "title": "Checking a child's eligibility with ACCIS before submitting an Extended Day enrollment",
+      "description": "For Extended Day program seats, the vendor must run an eligibility check against the city's ACCIS system (using a case number and child number) before they're allowed to submit the enrollment; the enrollment can't be submitted before the eligibility effective date either.",
+      "who": "CBO/FCCN Staff",
+      "status": "Partially Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 12 describes the requirement per BRD D05.2 §3.5, but notes no live UAT record was found showing a populated non-eligibility reason — the negative path is undemonstrated in the sandbox.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-12",
+        "BRD D05.2",
+        "DOEECMS-2250"
+      ]
+    },
+    {
+      "title": "Blocking submission and showing the reason when a child is not eligible",
+      "description": "If ACCIS reports that a child isn't eligible, ECMS stops the enrollment from being submitted or changed, and clearly displays the reason for ineligibility right on the record so staff understand why.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Required by BRD D05.2 §3.6 (DOEECMS-2280), but guide-04 explicitly notes no live record with a populated non-eligibility reason was found; DOEECMS-2394/2634 (checking/hiding eligibility fields) show ongoing build activity.",
+      "sourceRefs": [
+        "BRD D05.2",
+        "DOEECMS-2280",
+        "DOEECMS-2394",
+        "DOEECMS-2634"
+      ]
+    },
+    {
+      "title": "Authorized staff can override an ineligibility result",
+      "description": "In cases where DOE staff have grounds to proceed despite an ACCIS ineligibility finding, an authorized Enrollment Specialist can override the result and let the enrollment move forward, with that override decision recorded on the file.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Specified in BRD D05.2 §3.6 AC4 (DOEECMS-2280); no evidence found in any guide or UAT record of this override control existing in the sandbox.",
+      "sourceRefs": [
+        "BRD D05.2",
+        "DOEECMS-2280"
+      ]
+    },
+    {
+      "title": "Flagging enrollments that failed to sync with ACCIS",
+      "description": "When ACCIS rejects an enrollment record sent from ECMS for data-quality reasons, the record is marked with a distinct status (e.g. \"Pending ACCIS Posting\") and error message so DOE staff can find and fix these cases in one place.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 12 shows a real UAT record (ENROL-0000000732) with a populated ACCIS error message; matches BRD D05.2 §3.7. DOEECMS-2636 (\"Accis Error status to remain in Approved status\") is Closed.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-12",
+        "BRD D05.2",
+        "DOEECMS-2293",
+        "DOEECMS-2636"
+      ]
+    },
+    {
+      "title": "Returning students can be auto-approved without manual review",
+      "description": "If a child is re-enrolling at the same program/site with the same name, birthdate, gender, and address as their last approved enrollment, the system automatically approves the new enrollment on its own, freeing up DOE reviewers to focus on new or changed cases.",
+      "who": "System (visible to CBO/FCCN Staff and DOE Enrollment Specialist)",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 13 with real UAT examples (ENROL-0000000040/41/50); matches BRD D05.2 §3.8-3.9. DOEECMS-2708 (\"remove same program type condition\") and DOEECMS-2448 (auto-approve indicator not checked) show recent rule tuning.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-13",
+        "BRD D05.2",
+        "DOEECMS-2239",
+        "DOEECMS-2240",
+        "DOEECMS-2708"
+      ]
+    },
+    {
+      "title": "A clear on-record indicator shows an enrollment was auto-approved",
+      "description": "Any enrollment approved automatically by the system displays a plain, non-editable indicator so both vendors and DOE staff can immediately tell it wasn't reviewed by a person.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 13 shows the indicator on real records; BRD D05.2 §3.9.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-13",
+        "BRD D05.2",
+        "DOEECMS-2240"
+      ]
+    },
+    {
+      "title": "Vendors can edit an enrollment in any status, and an address change syncs back to OASIS",
+      "description": "A vendor should be able to click Edit on an enrollment no matter its current status (Draft, Submitted, Approved, Active, etc.) to attach documents and update the family's address or caregiver information; if the address changes, that update is meant to also be sent back to the city's OASIS system so both systems agree on where the family lives.",
+      "who": "CBO/FCCN Staff",
+      "status": "Partially Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 14 documents a live gap: the Edit button appears on an Active enrollment per BRD D05.2 §3.10, but clicking it still returns a status-locked error rather than opening the editable fields, so the underlying save restriction hasn't caught up with the button's visibility yet; the OASIS address-sync half of this requirement (AC2) has no confirmation in any guide or UAT record either.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-14",
+        "BRD D05.2",
+        "DOEECMS-2227",
+        "DOEECMS-2520",
+        "DOEECMS-2464"
+      ]
+    },
+    {
+      "title": "Submitting an Enrollment Change Request (Class, Seat Type, or Program Type)",
+      "description": "For a child already Approved or Active, a vendor can submit a formal Change Request to switch the child's class, seat type (e.g. from a full-day to a part-day seat), or program type, entering an effective date; the request routes to a DOE review queue.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-04-enrollments-cbo.html step 15 with three real record-type examples (Seat Type Change, Program Type Change, plus the Discharge variant in guide-10); matches BRD D05.2 §3.11-3.12.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-15",
+        "BRD D05.2",
+        "DOEECMS-2243",
+        "DOEECMS-2281"
+      ]
+    },
+    {
+      "title": "Change Request button is hidden unless the enrollment is Approved or Active",
+      "description": "The Enrollment Change Request option only shows up on enrollments that are already Approved or Active; it's hidden for enrollments still in Draft or Submitted status.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "BRD D05.2 §3.11 AC3; bug DOEECMS-2529 (\"User should not be able to submit Change Request when Enrollment is in Draft or submitted status\") is Closed, confirming the fix landed.",
+      "sourceRefs": [
+        "BRD D05.2",
+        "DOEECMS-2243",
+        "DOEECMS-2529"
+      ]
+    },
+    {
+      "title": "System blocks a Change Request that doesn't actually change anything",
+      "description": "If a vendor submits a Change Request without actually changing the class, seat type, or program type, the system stops the submission and shows a message asking them to review and resubmit with real changes.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "BRD D05.2 §3.11 AC6, verbatim message documented in guide-04-enrollments-cbo.html step 15.",
+      "sourceRefs": [
+        "guide-04-enrollments-cbo.html#step-15",
+        "BRD D05.2",
+        "DOEECMS-2243"
+      ]
+    },
+    {
+      "title": "Class Change is blocked when the destination class is already full",
+      "description": "A vendor cannot request to move a student into a different class through a Change Request if that class has no open seats left.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "Bug DOEECMS-2535 (\"Enrollment Change Request should not happen for Class Change when Class Capacity is full\") is Closed.",
+      "sourceRefs": [
+        "DOEECMS-2535"
+      ]
+    },
+    {
+      "title": "Updated Enrollments list on the student's Contact record",
+      "description": "When DOE staff look at a student's file, the Enrollments list on that record shows the enrollment's status, fiscal year, and seat type right up front, so staff don't have to open every enrollment to see the basics.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "BRD D05.2 §3.13 (DOEECMS-2292); DOEECMS-2779 confirms the enrollment status field was added to the related list.",
+      "sourceRefs": [
+        "BRD D05.2",
+        "DOEECMS-2292",
+        "DOEECMS-2779"
+      ]
+    },
+    {
+      "title": "Viewing a full history of a student's enrollments over time",
+      "description": "DOE staff can pull up a student's master record and see every enrollment the child has ever had, across school years and sites, in one place.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Not Yet Covered",
+      "statusNote": "Phase 1 UAT Internal Admin Deck describes \"View Master Student Record with Past Enrollments\" (slides ~45-54) but this capability is not documented in any current user guide.",
+      "sourceRefs": [
+        "Phase 1 UAT Internal Admin Deck"
+      ]
+    },
+    {
+      "title": "Reviewing enrollment dashboards and exportable reports",
+      "description": "DOE staff can open reporting dashboards that summarize enrollment activity (counts by status, site type, district, etc.), refresh the data, and download it for offline use.",
+      "who": "DOE Internal Staff",
+      "status": "Not Yet Covered",
+      "statusNote": "Phase 1 UAT Internal Admin Deck describes View/Customize Enrollment Dashboards and downloading data (slides ~58-73), but this is not represented in the current enrollment user guides.",
+      "sourceRefs": [
+        "Phase 1 UAT Internal Admin Deck"
+      ]
+    },
+    {
+      "title": "Vendor changes an EDY seat type when eligibility is denied",
+      "description": "If a vendor submitted an enrollment for an Extended Day (EDY) seat but the child turns out not to be eligible, the vendor can edit the same enrollment and switch it to a different seat type, as long as that type has an open, contracted seat available at the site.",
+      "who": "CBO/FCCN Staff",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented in Phase 1 UAT Vendor Deck (\"Change Seat Type\", slides 36-41) as a distinct fallback flow, but not present in the current CBO/FCCN user guides; may now be superseded by the Enrollment Change Request \"Seat Type Change\" flow, but the pre-submission EDY-denial variant specifically is not called out anywhere current.",
+      "sourceRefs": [
+        "Phase 1 UAT Vendor Deck"
+      ]
+    },
+    {
+      "title": "Automatic reminder emails for unsubmitted Draft enrollments",
+      "description": "If a vendor creates a Draft enrollment but doesn't submit it, the system automatically sends them reminder emails until they finally submit it to DOE.",
+      "who": "CBO/FCCN Staff",
+      "status": "Partially Covered",
+      "statusNote": "Described in Phase 1 UAT Vendor Deck (\"View an Unsubmitted Enrollment Notification\"); however, bug DOEECMS-2829 (\"Enrollment link in reminder email opens Salesforce org instead of vendor portal\", Open) and DOEECMS-1953 (\"Vendor is not notified with any emails if there are any student enrollment records with Draft/New status\", Ready for UAT) both indicate this reminder mechanism is not yet reliable.",
+      "sourceRefs": [
+        "Phase 1 UAT Vendor Deck",
+        "DOEECMS-2829",
+        "DOEECMS-1953"
+      ]
+    },
+    {
+      "title": "Requesting deactivation / discharge of an Active enrollment",
+      "description": "A vendor can request that an Active enrollment be deactivated (for example, a child leaving the program), entering a discharge date and reason; the request routes to DOE for final confirmation, after which the enrollment's status changes to Inactive/Discharged.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Phase 1 vendor training material covers this flow; two related refinements (updating the reason shown to staff, and keeping the discharge date in sync when status changes) have since been fixed.",
+      "sourceRefs": [
+        "Phase 1 UAT Vendor Deck",
+        "DOEECMS-2528",
+        "DOEECMS-2532"
+      ]
+    },
+    {
+      "title": "Transferring a student between provider sites",
+      "description": "If a vendor tries to enroll a child who already has an Active enrollment at a different site, the system blocks the new enrollment and explains that the old one must be deactivated first; once the prior site confirms the deactivation, the child can be enrolled at the new site.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Phase 1 UAT Vendor Deck (\"Initiate a Transfer Enrollment\") documents the full flow with the exact blocking error message.",
+      "sourceRefs": [
+        "Phase 1 UAT Vendor Deck"
+      ]
+    },
+    {
+      "title": "2K seats: enforcing the minimum-age (24-month) rule with a Pending Admit Date fallback",
+      "description": "For 2-year-old (2K) seats, a child must be at least 24 months old to be enrolled. If a child will turn 24 months between September 1 and December 31, the CBO can still submit the enrollment now by leaving the First Day of Attendance blank, marking it \"Pending Admit Date\" until the birthday arrives.",
+      "who": "CBO Staff",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2737 and DOEECMS-2738 are both Closed, and guide-04's existing coverage does not mention 2K seats specifically — this is a newer capability layered on top of the base submission flow.",
+      "sourceRefs": [
+        "DOEECMS-2737",
+        "DOEECMS-2738",
+        "DOEECMS-2773"
+      ]
+    },
+    {
+      "title": "Automatically rejecting overdue Pending Admit Date 2K enrollments",
+      "description": "If a 2K enrollment is left with a Pending Admit Date and the vendor doesn't provide the actual First Day of Attendance and resubmit within 30 days of the child's second birthday (or by December 31, whichever comes first), the system automatically rejects that enrollment to enforce the drop policy.",
+      "who": "System",
+      "status": "Not Yet Covered",
+      "statusNote": "DOEECMS-2763 (\"Enforce the Pending Admit Date Drop Policy for 2K Seats\") is still in BA Review, not yet built.",
+      "sourceRefs": [
+        "DOEECMS-2763"
+      ]
+    },
+    {
+      "title": "Blocking attendance for 2K enrollments with a Pending Admit Date",
+      "description": "Until a vendor fills in the actual First Day of Attendance and resubmits a 2K enrollment that's sitting in Pending Admit Date status, the system should not let staff record attendance for that child.",
+      "who": "System; CBO Staff",
+      "status": "Not Yet Covered",
+      "statusNote": "DOEECMS-2761 (\"Restrict Attendance on 2K Enrollments with Pending Admit Dates\") is still in BA Review, not yet built.",
+      "sourceRefs": [
+        "DOEECMS-2761"
+      ]
+    },
+    {
+      "title": "Enrollment submission is blocked during a site closure, even if the First Day of Attendance was before the closure",
+      "description": "When a program site is marked closed, vendors have been unable to submit an enrollment even for a child whose actual first day of attendance happened before the closure started, which shouldn't be blocked.",
+      "who": "CBO/FCCN Staff",
+      "status": "Partially Covered",
+      "statusNote": "DOEECMS-2591 (\"Update Enrollment validation to allow submission during site closure when FDA occurred before closure\") is Ready for UAT — the fix is built but not yet confirmed sign-off; a related regression, DOEECMS-2740, was reopened and then Closed.",
+      "sourceRefs": [
+        "DOEECMS-2591",
+        "DOEECMS-2740",
+        "DOEECMS-2635"
+      ]
+    },
+    {
+      "title": "Class capacity is enforced with a clear, friendly error at submission",
+      "description": "If a vendor tries to submit an enrollment into a class that's already at its seat capacity, the system blocks the submission and shows an easy-to-understand message explaining the class is full, rather than a confusing technical error.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2472 (\"error is not user friendly when class is at capacity\") and DOEECMS-2453 (false-positive \"Class Capacity Full\") are both Closed.",
+      "sourceRefs": [
+        "DOEECMS-2472",
+        "DOEECMS-2453"
+      ]
+    },
+    {
+      "title": "FCCN-specific enrollment ownership and account structure",
+      "description": "For Family Child Care Network (FCCN) enrollments, the enrollment is tied to an individual home-based FCC Provider account (not a CBO site), which in turn is linked to its overseeing FCCN account; day-to-day portal work is typically done by the FCCN's own network staff on the provider's behalf, not the individual home providers themselves.",
+      "who": "FCCN Network Staff (Affiliation Manager / Network Director)",
+      "status": "Covered",
+      "statusNote": "guide-05-enrollments-fccn.html steps 1-4 walk through the Enrollments list, Provider account, and Network account structure with real UAT records.",
+      "sourceRefs": [
+        "guide-05-enrollments-fccn.html#step-1",
+        "guide-05-enrollments-fccn.html#step-3",
+        "guide-05-enrollments-fccn.html#step-4"
+      ]
+    },
+    {
+      "title": "FCCN network staff review and submit enrollments on the Provider's behalf",
+      "description": "An FCCN's own Network Director or Affiliation Manager logs into the portal and completes/submits enrollments for the individual home providers under their network, since the individual home providers generally don't log into ECMS themselves.",
+      "who": "FCCN Network Director / Affiliation Manager",
+      "status": "Covered",
+      "statusNote": "guide-05-enrollments-fccn.html steps 5-7.",
+      "sourceRefs": [
+        "guide-05-enrollments-fccn.html#step-5",
+        "guide-05-enrollments-fccn.html#step-7"
+      ]
+    },
+    {
+      "title": "DOE review and approval of FCCN enrollments",
+      "description": "The same DOE review and approval process used for CBO enrollments applies to FCCN enrollments — a DOE Enrollment Specialist reviews the Submitted record and approves it to make the enrollment Active.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-05-enrollments-fccn.html steps 8-9.",
+      "sourceRefs": [
+        "guide-05-enrollments-fccn.html#step-8",
+        "guide-05-enrollments-fccn.html#step-9"
+      ]
+    },
+    {
+      "title": "FCCN new-user provisioning and portal access issues",
+      "description": "Setting up new FCCN Network Contacts and Site Staff users with the correct portal access and record visibility (household records, related lists, incident cases) so they can actually see and work FCCN enrollments.",
+      "who": "System Administrator; FCCN Network Staff",
+      "status": "Partially Covered",
+      "statusNote": "DOEECMS-2217/2218 (household record visibility, incident case related lists) and DOEECMS-1770/1771/1754 (provisioning errors, permission overwrites) are all listed as Ready for UAT — built but not yet fully confirmed working end to end.",
+      "sourceRefs": [
+        "DOEECMS-2217",
+        "DOEECMS-2218",
+        "DOEECMS-1770",
+        "DOEECMS-1771",
+        "DOEECMS-1754"
+      ]
+    },
+    {
+      "title": "End-of-school-year automatic creation of Draft summer enrollments",
+      "description": "At the end of the regular school year, the system automatically creates a Draft summer enrollment for every eligible Extended Day (and related seat-type) student, copying over their information (except attendance history, approval history, and eligibility results) with the first day of summer school as the new start date.",
+      "who": "System",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 1; matches signed BRD D03.1 §3.2.1 (DOEECMS-2158).",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-1",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2158"
+      ]
+    },
+    {
+      "title": "Auto-created summer enrollment is immediately visible to internal staff and the vendor",
+      "description": "As soon as the system creates a summer enrollment, DOE staff can see it right away on the student's record regardless of its status, and the vendor sees it appear as a Draft in their portal.",
+      "who": "DOE Internal Staff; CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html steps 2-3; BRD D03.1 §3.2.1 AC4-AC5.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-2",
+        "guide-11-summer-enrollments.html#step-3",
+        "BRD D03.1 (Signed)"
+      ]
+    },
+    {
+      "title": "Vendor reviews, edits, and submits the auto-created summer enrollment",
+      "description": "The vendor opens the system-created Draft summer enrollment, confirms or updates the first day of attendance and other permitted details (key student identity fields like name, DOB, and gender stay locked), and submits it.",
+      "who": "CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html steps 4-5; BRD D03.1 §3.2.3 (DOEECMS-2169).",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-4",
+        "guide-11-summer-enrollments.html#step-5",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2169"
+      ]
+    },
+    {
+      "title": "Summer enrollment auto-approves upon vendor submission",
+      "description": "Once the vendor submits a system-created summer enrollment, it's automatically approved right away without needing a DOE reviewer, unless the vendor also changed the family's address.",
+      "who": "System",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 6; BRD D03.1 §3.2.4 (DOEECMS-2164). Bugs DOEECMS-2628/2629 (manually-created or address-changed records being wrongly auto-approved) show this rule needed correction and are Ready for UAT.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-6",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2164",
+        "DOEECMS-2628",
+        "DOEECMS-2629"
+      ]
+    },
+    {
+      "title": "An address change on a summer enrollment routes to manual review instead of auto-approving",
+      "description": "If the vendor updates the family's address while submitting the auto-created summer enrollment, that one exception sends the record to a DOE reviewer instead of approving it automatically, since the address change needs a human check.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 7; BRD D03.1 §3.2.4 exception note. DOEECMS-2629 confirms a related bug (auto-approving despite address change) was found and is Ready for UAT.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-7",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2629"
+      ]
+    },
+    {
+      "title": "No duplicate Student Screening record is created for summer enrollments",
+      "description": "Submitting a summer enrollment does not trigger the creation of a new student screening record the way a regular enrollment does, since the screening was already done for the original school-year enrollment.",
+      "who": "System",
+      "status": "Partially Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 8 and BRD D03.1 §3.2.4 AC3 describe the intended behavior; DOEECMS-2366 (\"Student Screening Record Created for Summer Enrollment (Should Not Be Created)\") is listed as Rejected in Jira, which is ambiguous as to whether the underlying behavior was actually fixed or the bug report itself was disputed.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-8",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2366"
+      ]
+    },
+    {
+      "title": "Late summer enrollment submissions still resolve automatically after summer ends",
+      "description": "Even if a summer enrollment is submitted and approved after the summer session has already ended, the system still automatically finalizes its status correctly rather than leaving it in limbo or requiring a manual override.",
+      "who": "System",
+      "status": "Partially Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 9; BRD D03.1 §3.2.5 (DOEECMS-2165). Bug DOEECMS-2749 (\"Manual Summer Enrollment is Not Auto-Approved When Submitted After the Summer Period Ends\") is Closed, but suggests the late-manual-creation variant of this rule needed a separate fix.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-9",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2165",
+        "DOEECMS-2749"
+      ]
+    },
+    {
+      "title": "Summer enrollment activity appears in the existing reporting dashboard",
+      "description": "DOE staff can view and generate reports on summer school enrollments from the same dashboard used for regular enrollments, including status breakdowns and seat/enrollment ratios, both during and after the summer session.",
+      "who": "DOE Internal Staff",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 10; BRD D03.1 §3.2.6 (DOEECMS-2168).",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-10",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2168"
+      ]
+    },
+    {
+      "title": "Summer enrollments are automatically closed out at the end of summer",
+      "description": "On the last day of the summer school session, active summer enrollments are automatically deactivated/closed by the system, with no manual step required from staff.",
+      "who": "System",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 11; BRD D03.1 §3.1.2/3.1.3.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-11",
+        "BRD D03.1 (Signed)"
+      ]
+    },
+    {
+      "title": "Manually creating a summer enrollment for a late-approved school-year enrollment",
+      "description": "If a regular school-year enrollment gets approved after the automatic summer-rollover date has already passed but summer school hasn't ended yet, the vendor can use a \"Create Summer Enrollment\" button to manually clone it into a summer enrollment instead of waiting for the automation, which won't catch it.",
+      "who": "CBO/FCCN Staff; DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "guide-11-summer-enrollments.html step 12; BRD D03.1 §3.2.7 (DOEECMS-2261/DOEECMS-2661), also covers the discharged-enrollment variant of the same fallback.",
+      "sourceRefs": [
+        "guide-11-summer-enrollments.html#step-12",
+        "BRD D03.1 (Signed)",
+        "DOEECMS-2261"
+      ]
+    },
+    {
+      "title": "Original regular enrollment is correctly closed out once its summer copy exists",
+      "description": "Once a summer enrollment has been created from a school-year enrollment, the original school-year record should reflect that its year is over (not still show as Active) so staff aren't confused about which record is the current one.",
+      "who": "System",
+      "status": "Partially Covered",
+      "statusNote": "DOEECMS-2518 (\"Original Regular Enrollment Is in Active status although it has summer enrollment created by system\") is Closed, and DOEECMS-2626 (\"Submitting Summer Enrollment prompts for deactivation of the Regular school year Enrollment\") is Ready for UAT, suggesting the transition logic has been reworked more than once and the current UAT-confirmed behavior isn't fully settled.",
+      "sourceRefs": [
+        "DOEECMS-2518",
+        "DOEECMS-2626"
+      ]
+    },
+    {
+      "title": "Summer enrollments are correctly separated from regular enrollments in list views and filters",
+      "description": "Staff filtering enrollment list views for \"Summer Enrollments\" should only see genuine summer records, not regular school-year enrollments mixed in, and the fiscal year shown on auto-generated summer records should be accurate.",
+      "who": "DOE Internal Staff; CBO/FCCN Staff",
+      "status": "Covered",
+      "statusNote": "DOEECMS-2415 (\"Regular Enrollments are displaying under Summer Enrollments filter\") and DOEECMS-2517 (\"Incorrect Fiscal Year Displayed for Auto-Generated Summer Enrollment\") are both Closed; DOEECMS-2607 (removing a redundant \"New Enrollments\" filter) is also Closed.",
+      "sourceRefs": [
+        "DOEECMS-2415",
+        "DOEECMS-2517",
+        "DOEECMS-2607"
+      ]
+    }
+  ]
+}
