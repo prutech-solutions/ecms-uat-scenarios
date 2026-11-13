@@ -1,0 +1,128 @@
+{
+  "module": "User Provisioning & Setup",
+  "moduleSummary": "Covers how new people get set up with the right kind of access to ECMS \u2014 both DOE staff getting internal accounts and community-based organization (CBO) or family child care network (FCCN) staff getting vendor portal logins \u2014 and how that access is kept accurate over time.",
+  "existingGuide": "Partial overlap only: guide-01-vendor-site-setup-cbo.html (steps 8-9, CBO vendor portal provisioning)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Confirming a System Administrator's own setup access",
+      "description": "Before making any access changes for other people, a system administrator can check that their own account has the special \"System Administrator\" level of access, since any setup changes they make apply system-wide for every user type.",
+      "who": "System Administrator (DOE)",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented in the Phase 1 System Admin UAT/Training decks as a pre-setup check, but no automated test exists.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (System Adm)", "Phase 1 Training Deck (System Adm)"]
+    },
+    {
+      "title": "Giving a vendor administrator access to specific ECMS functions",
+      "description": "A DOE system administrator can open a vendor contact's record and choose exactly which areas that person can work in \u2014 for example budgeting, invoicing, site management, or vendor management \u2014 by checking boxes for each function, rather than granting all-or-nothing access.",
+      "who": "System Administrator (DOE)",
+      "status": "Partially Covered",
+      "statusNote": "The general \"Provision Contact\" wizard (function selection) is shown in the existing user guide (steps 8-9) for a CBO site scenario, but the System Admin-driven, vendor-administrator-focused version of this flow (from the Contacts list rather than a Site record) is not separately tested.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (System Adm)", "guide-01-vendor-site-setup-cbo.html:step-8"]
+    },
+    {
+      "title": "Choosing which sites a vendor administrator can see and manage",
+      "description": "When granting a vendor administrator access, the person setting it up also picks which specific program sites that administrator is allowed to view and work with, so access can be limited to only the locations relevant to that person.",
+      "who": "System Administrator (DOE)",
+      "status": "Not Yet Covered",
+      "statusNote": "Shown as its own step in both the System Admin and Vendor Admin UAT decks; no coverage found in the test suite or existing guide beyond a single-site example.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (System Adm)", "Phase 1 UAT Visual Script (Vendor Adm)"]
+    },
+    {
+      "title": "A vendor administrator granting access to their own staff",
+      "description": "A CBO or FCCN vendor administrator can find one of their own staff members' contact records and set up that staff member's portal access themselves, choosing which functions (budgeting, invoicing, site management, vendor management) and which sites the staff member can use \u2014 without needing a DOE system administrator to do it for them.",
+      "who": "Vendor Administrator (CBO/FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Full workflow documented across 8 steps in the Phase 1 Vendor Admin UAT deck (from Sites list, into an Account's related Contacts, to the Provision Contact wizard); no dedicated test found.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (Vendor Adm)"]
+    },
+    {
+      "title": "Confirming a vendor administrator's own starting access before provisioning others",
+      "description": "Before a vendor administrator can grant access to their team, they can check that their own account already has the right starting permission level, and can preview the system by temporarily viewing it as if logged in as their own vendor user.",
+      "who": "Vendor Administrator (CBO/FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Described as a pre-setup step in Phase 1 Vendor Admin training/UAT materials; distinct from the DOE-side \"View as User\" scenario since it is self-service for the vendor.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (Vendor Adm)", "Phase 1 Training Deck (Vendor Adm)"]
+    },
+    {
+      "title": "Quickly setting up basic vendor management access for one person",
+      "description": "A simplified, shorter path exists for a vendor administrator to give one staff member just the single \"Vendor Management\" function (rather than the full multi-function, multi-site setup), useful for straightforward cases.",
+      "who": "Vendor Administrator (CBO/FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Distinct 4-step short-form flow shown in the Phase 1 Vendor Admin Training and Reference Manual, separate from the longer 8-step flow in the same deck.",
+      "sourceRefs": ["Phase 1 Training Deck (Vendor Adm)"]
+    },
+    {
+      "title": "Previewing exactly what a newly set-up vendor user will see",
+      "description": "After granting someone portal access, the person who set it up can temporarily view the system exactly as that new user would see it, to confirm the right menus, quick-action buttons, and site information show up before telling the person their account is ready.",
+      "who": "System Administrator (DOE) / Vendor Administrator (CBO/FCCN)",
+      "status": "Partially Covered",
+      "statusNote": "This \"Log in to Experience as User\" preview is documented and included in the existing guide (step 9) for the CBO vendor-site scenario, but not as a standalone repeatable check for other vendor types (e.g., FCCN) or internal DOE accounts.",
+      "sourceRefs": ["Phase 1 UAT Visual Script (Vendor Adm)", "guide-01-vendor-site-setup-cbo.html:step-9"]
+    },
+    {
+      "title": "Setting up a brand-new internal DOE staff account",
+      "description": "When a new DOE employee (such as an Operations Analyst or Operations Director) joins the ECMS team, an administrator manually creates their internal account and assigns the correct job-based access level, work group memberships, and system license so the employee can immediately use the applications and records their role requires.",
+      "who": "System Administrator (DOE)",
+      "status": "Not Yet Covered",
+      "statusNote": "Described in Jira as a manual internal-user setup process (assigning role, license, and job-based access groups); no UAT script, training material section, or automated test specifically walks through creating an internal DOE user end-to-end.",
+      "sourceRefs": ["Jira DOEECMS-1700", "Jira DOEECMS-1701"]
+    },
+    {
+      "title": "Onboarding a new CBO vendor organization from the citywide contract system",
+      "description": "New CBO vendor organizations are not entered into ECMS by hand \u2014 their basic information flows in automatically from the city's contract and vendor management system, and ECMS keeps that organization information up to date on an ongoing schedule.",
+      "who": "System Administrator (DOE) / System (automated)",
+      "status": "Not Yet Covered",
+      "statusNote": "Automated integration described in Jira as an end-to-end onboarding process; not a manual UAT scenario but worth documenting as a client-facing capability with no current test coverage.",
+      "sourceRefs": ["Jira DOEECMS-1701"]
+    },
+    {
+      "title": "Confirming a new vendor employee's background-check clearance before granting access",
+      "description": "A new CBO or FCCN staff member cannot be given portal access until their background/employment clearance has been completed and verified through the city's employee clearance system; ECMS automatically brings in updated clearance information every day so staff records reflect the person's current clearance status.",
+      "who": "Vendor Administrator (CBO/FCCN) / System (automated)",
+      "status": "Not Yet Covered",
+      "statusNote": "Described in Jira as a daily automated data load creating/updating staff records ahead of any access being granted; no test coverage found.",
+      "sourceRefs": ["Jira DOEECMS-1701"]
+    },
+    {
+      "title": "Finishing account setup with the employee's official city username",
+      "description": "Once a new vendor employee's clearance is verified, the administrator receives a notice with the employee's official DOE-assigned username and must add it to that person's record and turn on their ECMS access; skipping this step means the employee will not be able to log in at all.",
+      "who": "System Administrator (DOE) / Vendor Administrator (CBO/FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Documented in Jira as a required manual step, with a known consequence (employee cannot log in) if missed; no scripted test scenario found for this step.",
+      "sourceRefs": ["Jira DOEECMS-1701"]
+    },
+    {
+      "title": "Logging in through single sign-on with a city-issued account",
+      "description": "Vendor and DOE users log into ECMS using their existing city-issued username and password rather than a separate ECMS-only password, with the first successful login automatically creating or updating their portal account behind the scenes.",
+      "who": "Vendor user / Internal DOE user",
+      "status": "Not Yet Covered",
+      "statusNote": "Single sign-on setup was reported as unreliable/inconsistent across test environments in Jira (DOEECMS-1757, blocked), and no test currently verifies first-time automatic account creation on login.",
+      "sourceRefs": ["Jira DOEECMS-1701", "Jira DOEECMS-1757"]
+    },
+    {
+      "title": "Making sure a newly provisioned user can immediately see their reports and homepage",
+      "description": "When someone is newly set up with access, they should be able to see their reporting dashboards and homepage information right away, without running into a permissions error and without an administrator needing to fix it after the fact.",
+      "who": "Any newly provisioned ECMS user",
+      "status": "Not Yet Covered",
+      "statusNote": "Reported as a defect in Jira (DOEECMS-1866) where reporting access was missing after standard setup; fix was in progress (Ready for QA) with no confirming test found.",
+      "sourceRefs": ["Jira DOEECMS-1866"]
+    },
+    {
+      "title": "Making sure granting new access doesn't accidentally remove existing access",
+      "description": "When an administrator adds a new area of access for someone (for example adding budget and invoice access for a person who already handles enrollments), the system should add the new access on top of what they already have, not accidentally take away access they already had.",
+      "who": "System Administrator (DOE) / Vendor Administrator (CBO/FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Reported as a defect in Jira (DOEECMS-1754) where granting vendor-management access removed a user's existing enrollment access; marked Ready for UAT with no confirming test found.",
+      "sourceRefs": ["Jira DOEECMS-1754"]
+    },
+    {
+      "title": "Granting access to a family child care network (FCCN) staff member for a specific site",
+      "description": "An administrator should be able to grant an FCCN staff member access scoped to one particular site, the same way it works for CBO staff, without the setup process failing partway through.",
+      "who": "System Administrator (DOE)",
+      "status": "Not Yet Covered",
+      "statusNote": "Reported as a defect in Jira (DOEECMS-1770, High priority) where the setup process threw an error and could not be completed for FCCN staff; marked Ready for UAT with no confirming test found.",
+      "sourceRefs": ["Jira DOEECMS-1770"]
+    }
+  ]
+}

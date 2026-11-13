@@ -1,0 +1,128 @@
+{
+  "module": "Discharges",
+  "moduleSummary": "Covers how a CBO/FCCN vendor formally ends a currently-enrolled child's placement (aging out, moving away, or a family decision to stop) and how DOE reviews and approves that request so the enrollment reaches its final Discharged status, with attendance records and outside systems kept in sync.",
+  "existingGuide": "guide-10-discharges.html (steps 1-8)",
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Vendor submits a discharge request for an actively enrolled child",
+      "description": "An Enrollment Manager at a CBO/FCCN site opens a currently active enrollment, starts an Enrollment Change Request, chooses 'Discharge Request', confirms the child is no longer attending, enters the discharge date, uploads the parental release letter, selects a reason (e.g. Parent Request), and submits.",
+      "who": "CBO/FCCN Enrollment Manager",
+      "status": "Covered",
+      "statusNote": "Matches guide steps 1-5; confirmed by Jira stories for the request flow.",
+      "sourceRefs": ["DOEECMS-1675", "BRD D06 3.2.1", "guide-10-discharges.html"]
+    },
+    {
+      "title": "Discharge action only available for enrollments in an eligible status",
+      "description": "The 'discharge' option only appears/works for children whose enrollment is currently Submitted, Approved, or Active; it is not offered for enrollments in any other stage of the process.",
+      "who": "CBO/FCCN vendor user",
+      "status": "Covered",
+      "statusNote": "Story delivered; a related bug where an Enrollment Specialist could bypass this restriction was found and fixed.",
+      "sourceRefs": ["DOEECMS-2319", "DOEECMS-2525", "BRD D06 3.2.1"]
+    },
+    {
+      "title": "DOE must finish processing the enrollment itself before a discharge can be completed",
+      "description": "If a child's enrollment hasn't been fully approved/activated yet, DOE staff are blocked from completing a discharge on it and see a message explaining the enrollment must be finished first, so that outside system updates happen in the correct order.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Business rule implemented; verified alongside the related 'ES tries to discharge too early' bug fix.",
+      "sourceRefs": ["DOEECMS-2320", "DOEECMS-2525", "BRD D06 3.2.2"]
+    },
+    {
+      "title": "Discharge request screen shows confirmation question and policy notice before submission",
+      "description": "Before finalizing, the discharge screen asks the vendor to confirm the child is no longer attending, displays a notice that the request must comply with DOE's discharge/chronic-absenteeism policy and that the child will drop off the attendance roster after the effective date, and offers a Cancel option that exits without saving anything.",
+      "who": "CBO/FCCN vendor user",
+      "status": "Covered",
+      "statusNote": "Delivered per story, but this confirmation text and policy notice went missing in a later release and had to be re-added; worth a regression check.",
+      "sourceRefs": ["DOEECMS-2336", "DOEECMS-2717", "BRD D06 3.2.3"]
+    },
+    {
+      "title": "Parental Letter of Release is required for a manual discharge request but not for automatic end-of-year discharges",
+      "description": "When a vendor manually requests a discharge, the system won't let the request go through until a signed parental release letter has been uploaded, and shows a clear error if it's missing. Discharges the system generates automatically at the end of the school year or summer session don't require this letter.",
+      "who": "CBO/FCCN vendor user",
+      "status": "Partially Covered",
+      "statusNote": "Manual-request requirement and error messaging are built and match the BRD. The automatic end-of-year/summer discharge process itself is tracked under the separate Summer Enrollments epic and wasn't verified as part of this module's research.",
+      "sourceRefs": ["DOEECMS-2321", "DOEECMS-1676", "BRD D06 3.2.4"]
+    },
+    {
+      "title": "Discharge date is checked against school calendar and child eligibility rules",
+      "description": "The system won't accept a discharge date that falls on or after the last day of the regular school year, that is before the child's first day of attendance or first day of school, or (for children in infant seats) that falls after the child's first birthday - each attempt shows an explanit error message.",
+      "who": "CBO/FCCN vendor user",
+      "status": "Partially Covered",
+      "statusNote": "The regular school-year end-date and first-day/infant-birthday checks are confirmed working. A companion bug allowing discharge on or after the last day of summer school was still open awaiting UAT verification as of this research.",
+      "sourceRefs": ["DOEECMS-2322", "DOEECMS-2521", "DOEECMS-2658", "BRD D06 3.2.5"]
+    },
+    {
+      "title": "Submitting a discharge automatically updates the child's attendance for the rest of the month",
+      "description": "Once a discharge request is submitted, the system creates attendance entries marked 'Discharged' for the remaining school days of that month (and blocks any new attendance entries in later months), without duplicating records if the process runs more than once, and without changing any attendance from before the discharge date.",
+      "who": "System (triggered by CBO/FCCN or DOE action)",
+      "status": "Covered",
+      "statusNote": "Delivered per stories; regression testing later found this auto-generation temporarily stopped working after another change and it had to be re-fixed, so it's worth spot-checking again.",
+      "sourceRefs": ["DOEECMS-2335", "DOEECMS-2523", "DOEECMS-2524", "DOEECMS-2724", "BRD D06 3.2.6"]
+    },
+    {
+      "title": "If attendance was already logged after the discharge date, staff are warned and can confirm the change",
+      "description": "When a discharge request is submitted and the child already has attendance recorded for dates after the discharge date, the system pops up a warning explaining those days will be switched to 'Discharged' status, and only makes the change if the user confirms.",
+      "who": "CBO/FCCN vendor user",
+      "status": "Covered",
+      "statusNote": "Matches BRD acceptance criteria for this scenario.",
+      "sourceRefs": ["DOEECMS-2335", "BRD D06 3.2.6"]
+    },
+    {
+      "title": "DOE staff can manually change an enrollment's status straight to Discharged (outside the request wizard), with a mandatory discharge date",
+      "description": "A DOE Enrollment Specialist can directly set a child's enrollment status to Discharged from the enrollment record itself; doing so requires entering a discharge date (the system won't allow saving without one) and triggers the same rest-of-month attendance updates as a normal discharge request.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Both the mandatory date requirement and the resulting attendance updates were delivered and verified.",
+      "sourceRefs": ["DOEECMS-2338", "DOEECMS-2541", "BRD D06 3.2.8"]
+    },
+    {
+      "title": "DOE Enrollment Specialist can correct any field on a submitted discharge request",
+      "description": "Once a discharge request has been submitted, a DOE Enrollment Specialist reviewing it can edit any of its details (date, reason, comments, etc.) to keep the record accurate, while other internal users only get read-only access to the same request.",
+      "who": "DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Matches BRD acceptance criteria.",
+      "sourceRefs": ["DOEECMS-2337", "BRD D06 3.2.7"]
+    },
+    {
+      "title": "Discharge-related labels and screens consistently use the word 'Discharge' rather than the older 'Deactivate/Deactivation' term",
+      "description": "Every screen a vendor or DOE user sees when ending a child's enrollment - buttons, section headers, banners - uses the term 'Discharge', not the earlier 'Deactivate/Deactivation' wording left over from Phase 1.",
+      "who": "CBO/FCCN vendor user / DOE Enrollment Specialist",
+      "status": "Covered",
+      "statusNote": "Renaming was completed, but slipped back in on at least one internal record-detail section header in a later release and had to be corrected again - worth confirming no leftover 'Deactivation' text remains anywhere.",
+      "sourceRefs": ["DOEECMS-2327", "DOEECMS-2427", "DOEECMS-2468", "DOEECMS-2718"]
+    },
+    {
+      "title": "The 'Discharge Requested' banner/status indicator on an enrollment accurately reflects whether a request is actually in progress",
+      "description": "When a discharge request is rejected or deleted, the enrollment's 'Discharge Requested' warning banner should disappear right away so vendor staff aren't blocked from submitting a new, valid request or confused by a stale warning on an unrelated later change (like a seat-type change).",
+      "who": "CBO/FCCN vendor user",
+      "status": "Not Yet Covered",
+      "statusNote": "Multiple related indicator bugs were still open or awaiting UAT verification at the time of this research: the banner staying up after a request is deleted, a rejected request leaving a stale 'discharge requested' flag that later surfaces on unrelated approvals, and the duplicate-submission block fix not yet confirmed in the UAT environment.",
+      "sourceRefs": ["DOEECMS-2726", "DOEECMS-2646", "DOEECMS-2610"]
+    },
+    {
+      "title": "Only DOE staff (not the vendor who submitted it) can approve or reject a discharge/change request",
+      "description": "A vendor who submits a discharge or other enrollment change request cannot approve or reject their own request and cannot see it disappear from view - it must route to and remain visible for a DOE Enrollment Specialist to review and decide on.",
+      "who": "DOE Enrollment Specialist / CBO/FCCN vendor user",
+      "status": "Covered",
+      "statusNote": "Several related permission and visibility bugs (vendor approve/reject access, ES unable to see or open the request) were found and fixed.",
+      "sourceRefs": ["DOEECMS-2469", "DOEECMS-2444", "DOEECMS-2435", "DOEECMS-2428"]
+    },
+    {
+      "title": "A completed discharge keeps the child's record in sync with the DOE's citywide systems (OASIS and ACCIS)",
+      "description": "Once a discharge is approved, the child should stop showing as actively enrolled in OASIS (the DOE's master student registration system) and, for subsidy-eligible seats, in ACCIS, so those outside systems don't keep counting the child as currently placed.",
+      "who": "System (background integration)",
+      "status": "Not Yet Covered",
+      "statusNote": "Described in the BRD's scope and the user guide's 'downstream sync' note, but no dedicated test evidence (Jira story/bug) verifying the actual OASIS/ACCIS sync behavior was found during this research.",
+      "sourceRefs": ["BRD D06 1.1", "guide-10-discharges.html"]
+    },
+    {
+      "title": "A family that re-enrolls after a discharge gets a brand-new enrollment record rather than reopening the old one",
+      "description": "If a previously discharged child's family later re-enrolls them at a site, the system creates a fresh enrollment application from scratch instead of reactivating or reusing the discharged record.",
+      "who": "CBO/FCCN Enrollment Manager",
+      "status": "Not Yet Covered",
+      "statusNote": "Stated in the existing user guide's closing note, but no corresponding Jira story, bug, or BRD acceptance criteria was found confirming this behavior has been built or tested.",
+      "sourceRefs": ["guide-10-discharges.html"]
+    }
+  ]
+}

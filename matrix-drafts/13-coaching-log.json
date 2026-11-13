@@ -1,0 +1,160 @@
+{
+  "module": "Coaching Log",
+  "moduleSummary": "The Coaching Log module lets DOE instructional coaches, leadership coaches, and social workers (and their FCCN network equivalents) document site visits, track follow-up improvement goals, and share those write-ups with providers, while DOE leadership assigns coaches to sites and monitors visit schedules.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Setting up a staff member to use Coaching Logs",
+      "description": "Before a coach can use the module, a DOE administrator gives that person's user profile the right coaching permissions (for example, Instructional Coordinator, Leadership Coach, or Social Worker access), so the correct type of coaching log form becomes available to them.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 5-7"]
+    },
+    {
+      "title": "Setting up a vendor (FCCN) coach to use Coaching Logs",
+      "description": "A DOE administrator finds a network coordinator's (FCCN) contact record, provisions it for portal access, and grants the 'FCCN Coaching Logs' permission so that person can log in to the vendor portal and create coaching log entries for home providers in their network.",
+      "who": "Internal DOE Administrator / FCCN Coach",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.V Coaching Log_Vendor Adm, Slides 5-8"]
+    },
+    {
+      "title": "Creating a new coaching log after a site visit",
+      "description": "After visiting a site, a coach (Instructional Coordinator, Leadership Coach, or Social Worker) opens the Coaching Log area, starts a new entry, picks the log template that matches their role, and records details about the visit such as who attended, what was discussed, strategies used, and insights gained. The entry can be saved as a draft if it isn't finished yet.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 8-12", "DOEECMS-2049", "DOEECMS-1910"]
+    },
+    {
+      "title": "Different coaching log forms for different coach roles",
+      "description": "The questions and layout on a coaching log form change depending on the type of coach filling it out — for example, a Social Worker's log asks different questions than an Instructional Coordinator's or a Monitoring Specialist's log — so each role sees a form tailored to their kind of visit.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker / Monitoring Specialist / Education Specialist (FCCN)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slide 9 (FNC-L-001-011)", "DOEECMS-2056", "DOEECMS-2036"]
+    },
+    {
+      "title": "Vendor administrator submitting a coaching log for a home provider",
+      "description": "A network coordinator (FCCN coach) logged into the vendor portal creates a new coaching log entry documenting a visit to one of the home-based child care providers in their network, filling in the visit details and saving the entry.",
+      "who": "Vendor Administrator (FCCN Coach)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.V Coaching Log_Vendor Adm, Slides 11-14", "DOEECMS-1948"]
+    },
+    {
+      "title": "Reviewing the quality tool ('Fidelity Tool') within a coaching log",
+      "description": "While editing a coaching log entry, a coach can open the built-in quality/fidelity assessment tool and step through its four sections of guided questions and criteria that align with the program's quality framework, in addition to any general notes they add.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 14-15 (HRL-L-002)", "DOEECMS-1906"]
+    },
+    {
+      "title": "Marking a coaching log as complete",
+      "description": "A coach finishes editing a draft coaching log and changes its status from Draft to Complete once all required information has been entered, so it is clear the visit write-up is finalized rather than still in progress.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slide 16 (FNC-L-001-018)", "DOEECMS-2019", "DOEECMS-1904", "DOEECMS-2020"]
+    },
+    {
+      "title": "Emailing a coaching log entry to another staff member",
+      "description": "A coach opens a coaching log entry, starts a new email directly from within it, and can pull in specific details from the log (like the visit date or notes) into the body of the email before sending it to a colleague for review.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 18-22 (FNC-L-001-002)", "DOEECMS-2037"]
+    },
+    {
+      "title": "Adding an improvement goal to a coaching log",
+      "description": "After documenting a site visit, a coach adds one or more follow-up goals to the log describing what the site or provider should improve on, and the site the goal is for is automatically filled in based on the coaching log it came from.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 25-28 (FNC-L-001-003, FNC-L-001-007)", "DOEECMS-1905", "DOEECMS-2038"]
+    },
+    {
+      "title": "Updating and completing a coaching goal",
+      "description": "A coach revisits a goal that was created from a previous coaching log, edits its details as progress is made, and marks it complete once the site or provider has finished the action items associated with that goal.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 30-31 (FNC-L-001-009)"]
+    },
+    {
+      "title": "Viewing all improvement goals recorded for a site",
+      "description": "From a site's own record, staff can see a running list of every goal ever set for that site across all coaching visits — both goals still in progress and ones already completed — with their start and expected end dates, so the site's overall improvement history is visible in one place.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 33-35 (HRL-L-004)"]
+    },
+    {
+      "title": "Browsing and searching past coaching logs",
+      "description": "Coaches and DOE staff can look through lists of previously submitted coaching logs (organized by draft status, most recently viewed, submitted, or by vendor) and search for a specific past log, with visibility into every log regardless of which coach originally wrote it up.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 36-39 (FNC-L-001-010, FNC-L-001-013, FNC-L-001-015, FNC-L-001-016)", "DOEECMS-1374", "DOEECMS-1403"]
+    },
+    {
+      "title": "Viewing all prior coaching logs written for a specific site",
+      "description": "From a site's record, staff can open the list of every coaching log ever created for that site, see the status and dates for each one, and click into any individual log to review its full details, or hover over the log's name for a quick preview.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 41-43"]
+    },
+    {
+      "title": "Setting and viewing how often a site should be visited",
+      "description": "A site's record shows how frequently it is expected to be visited by a coach (for example, monthly, weekly, or quarterly), so DOE staff can see at a glance what visit schedule applies to that site.",
+      "who": "Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 46-47 (FNC-L-001-017)", "DOEECMS-1454"]
+    },
+    {
+      "title": "Assigning coaches to sites",
+      "description": "A leadership-level staff member assigns specific Instructional Coordinators, Leadership Coaches, or Social Workers to specific sites — choosing the staff member, the site, and their role/designation — similar to how caseloads are built elsewhere in the system, so each coach knows which sites they're responsible for.",
+      "who": "Leadership Coach / Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 52-57 (FNC-L-001-012)"]
+    },
+    {
+      "title": "Viewing which sites a coach is assigned to",
+      "description": "A coach can search a report to see the full list of sites they personally have been assigned to visit, along with their role at each of those sites.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slides 49-50 (FNC-L-001-001)", "DOEECMS-1593"]
+    },
+    {
+      "title": "Receiving a reminder notification for an upcoming required site visit",
+      "description": "A coach gets a notification (shown as a red number on the bell icon) reminding them to schedule a visit to a site when the time since their last coaching log for that site is approaching the required visit frequency for that site.",
+      "who": "Instructional Coordinator / Leadership Coach / Social Worker",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["Phase 1 UAT Guide: 10.A Coaching Log_Internal Adm, Slide 59 (FNC-L-001-019)", "DOEECMS-1614"]
+    },
+    {
+      "title": "Keeping vendor/provider and network fields consistent on a coaching log",
+      "description": "When filling out a coaching log, the provider being coached and the network it belongs to must be two different, correctly-filtered organizations — the system prevents a coach from accidentally selecting the same organization in both the provider and network fields, and shows only the appropriate type of organization in the provider field rather than networks or households.",
+      "who": "FCCN Coach / Internal DOE Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2116", "DOEECMS-1590", "DOEECMS-1483", "DOEECMS-1915", "DOEECMS-2161"]
+    },
+    {
+      "title": "Attaching supporting documents and notes to a vendor coaching log",
+      "description": "A network coach viewing a coaching log in the vendor portal can upload supporting files (like observation checklists or photos) and add written notes to the log, and later see those notes and attachments when reviewing the log again.",
+      "who": "Vendor Administrator (FCCN Coach)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1486", "DOEECMS-1487"]
+    }
+  ]
+}

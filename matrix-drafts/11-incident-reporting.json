@@ -1,0 +1,152 @@
+{
+  "module": "Incident Reporting",
+  "moduleSummary": "Incident Reporting lets vendor staff, internal DOE administrators, and even outside emails log a concern about a childcare site (health/safety, program quality, staffing, etc.), have it automatically scored for severity and routed to the right internal review team, and tracked through to resolution. A 'Report Incident' quick-action tile already appears on the vendor portal home screen in existing screenshots, but that is only a visual anchor point — the underlying submission, categorization, routing, and resolution workflow has no dedicated coverage in the existing User Guide.",
+  "existingGuide": null,
+  "existingUatTracker": null,
+  "scenarios": [
+    {
+      "title": "Vendor staff member reports a new incident from the portal",
+      "description": "A vendor (childcare provider) user logs into the vendor portal and clicks the 'Report Incident' button on the home screen (or finds it under the 'More' menu). They fill out a short form describing the concern — giving it a subject, choosing a category and specific concern, and entering the date it happened — then submit it. A confirmation message appears showing the new incident's case number, and the incident is automatically sent to an internal DOE reviewer.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide; a 'Report Incident' tile is visible in an existing vendor-portal screenshot but the submission workflow itself is not documented",
+      "sourceRefs": ["DOEECMS-1939", "DOEECMS-2059", "DOEECMS-2061"]
+    },
+    {
+      "title": "Vendor user views their own submitted incident and its urgency level",
+      "description": "After submitting an incident, the vendor user can click the case number to open it and review what they entered. They can see an auto-assigned urgency/escalation level shown at the top of the record, along with details of the concern. Vendor users can only see incidents they or their site reported — not the full history of all incidents across the network.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2156", "DOEECMS-2162"]
+    },
+    {
+      "title": "Internal DOE administrator reviews all incidents submitted across sites",
+      "description": "An internal DOE staff member opens the Incident Cases area of ECMS and filters to see all currently open incidents. They can click into any incident to review the concern description, the category and urgency level assigned, and the most recent activity on the case, and follow links to related records like the site or student involved.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2070", "DOEECMS-2067"]
+    },
+    {
+      "title": "Internal administrator manually creates an incident to escalate a site concern",
+      "description": "An internal DOE staff member can also start a brand-new incident themselves — for example after a phone call or site visit — rather than waiting for a vendor to submit one. They choose whether it is a general incident or one specific to a family childcare network site, then fill in the site, subject, category, and related details before saving.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2155", "DOEECMS-2112", "DOEECMS-2129", "DOEECMS-2066"]
+    },
+    {
+      "title": "Incident automatically assigned a severity/escalation level based on category and concern",
+      "description": "When someone selects a category (like Building & Facility Safety, Instructional Quality, or Program Administration) and a specific concern, the system automatically calculates and displays an escalation level from 1 (most urgent) to 4 (least urgent) so reviewers know how quickly it needs attention. This matches a defined reference list of dozens of possible concerns and their standard severity ratings.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2156", "DOEECMS-2157"]
+    },
+    {
+      "title": "An incident cannot be backdated to a future date",
+      "description": "When entering the date the incident occurred, the system should stop a user from selecting a date in the future and show a clear, easy-to-understand message about the expected date format if the entry isn't valid.",
+      "who": "Internal Administrator / Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1979", "DOEECMS-2028", "DOEECMS-2012"]
+    },
+    {
+      "title": "Internal administrator edits an incident's details and its severity updates automatically",
+      "description": "An internal reviewer can reopen a submitted incident and click into individual fields to correct or add information, such as the category, type, or concern description. If they change the category/type/concern combination, the escalation level updates automatically to reflect the new severity, and the reviewer saves the changes.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1959", "DOEECMS-2084"]
+    },
+    {
+      "title": "Team lead reassigns an incident to the right internal review queue or team member",
+      "description": "A team lead opens an incident and changes who owns it — either handing it off to a different review queue (like a Major Facility Team) or to a specific internal staff member — and can choose to send that person an email notification so they know a case now needs their attention.",
+      "who": "Internal Administrator (Team Lead)",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1957", "DOEECMS-1958"]
+    },
+    {
+      "title": "Reviewer receives an email alert when an incident is transferred to them",
+      "description": "When a case is handed off to a new reviewer, that person automatically receives an email with a subject like 'Incident Case transferred to you' and a link straight to the incident, so they can quickly find and begin working the case.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2014"]
+    },
+    {
+      "title": "System administrator sets up the review queues that incidents get routed into",
+      "description": "A system administrator can view, add, edit, or delete the named review queues (such as different team groupings) that incidents can be assigned to, including which staff members belong to each queue, so that incidents are always routed to a team that is actively monitoring for them.",
+      "who": "System Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1938"]
+    },
+    {
+      "title": "A concerned party can also report an incident by sending an email",
+      "description": "Instead of logging into the system, someone can simply send an email describing the incident (with a clear subject line and full details in the body) to a dedicated ECMS mailbox. The email is automatically converted into a new incident case and routed to an internal intake team for review.",
+      "who": "Internal Administrator / External reporter",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Internal administrator changes an incident's status as it moves toward resolution",
+      "description": "An internal reviewer works an incident through its lifecycle — for example moving it from new/open to in-progress to resolved/closed — using a visual status tracker at the top of the record, updating it as work is completed.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1959"]
+    },
+    {
+      "title": "Internal administrator adds notes and reviews the notes/activity history on an incident",
+      "description": "A reviewer can add follow-up notes to an incident case as they investigate or take action, and later scroll through those notes and any related emails or attachments to see the full history of what has been done on the case.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1981"]
+    },
+    {
+      "title": "Internal administrator views a dashboard summarizing all open incidents",
+      "description": "A reviewer or manager opens a consolidated Incident Dashboard to see at-a-glance charts summarizing open incidents by review queue, by owner, by category, and by site, and can click into any chart to see the full underlying list of incidents behind that count.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": []
+    },
+    {
+      "title": "Incident case numbers generate correctly and increment as expected",
+      "description": "Each new incident is automatically given a unique case number so it can be tracked and referenced. That number should be clear and easy to read in the confirmation message shown to internal users, and each new case's number should increase in sequence rather than showing as a confusing string of zeros.",
+      "who": "Internal Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1919", "DOEECMS-1958"]
+    },
+    {
+      "title": "Only appropriate users can access the Report Incident and Incident Cases screens",
+      "description": "The Report Incident option and the full Incident Cases list should be visible to the right groups of users — for example, ordinary (non-admin) users should not be able to reach an admin-only Report Incident screen, while internal administrators need reliable access to the Incident Cases area to do their review work.",
+      "who": "Internal Administrator / Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2025", "DOEECMS-1940", "DOEECMS-1956", "DOEECMS-1937"]
+    },
+    {
+      "title": "Vendor user searches for and selects the correct site while reporting an incident",
+      "description": "When a vendor user (including family childcare network staff) is filling out a new incident, they can search for and select the specific site the incident relates to. The list of sites they see should only include sites they are actually associated with, so they cannot accidentally pick an unrelated location.",
+      "who": "Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-1990", "DOEECMS-2011", "DOEECMS-2129", "DOEECMS-2066"]
+    },
+    {
+      "title": "User adds a new student record directly from the incident report screen",
+      "description": "While filling out an incident that involves a specific child, a user can use an 'Add Student' option to create a new student record on the fly if the child isn't already listed in the system, without having to leave the incident form.",
+      "who": "Internal Administrator / Vendor Administrator",
+      "status": "Not Yet Covered",
+      "statusNote": "Not covered by any existing guide",
+      "sourceRefs": ["DOEECMS-2013"]
+    }
+  ]
+}
